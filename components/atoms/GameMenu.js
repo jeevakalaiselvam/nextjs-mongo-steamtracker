@@ -10,6 +10,7 @@ import {
 } from "../../store/actions/steam.actions";
 import Button from "./Button";
 import { useRouter } from "next/router";
+import { ICON_ADD, ICON_GAMES, getIcon } from "../../helper/iconHelper";
 
 export default function GameMenu() {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ export default function GameMenu() {
     <Container>
       <Link>
         <Button
+          icon={getIcon(ICON_GAMES)}
           fontSize={"1.25rem"}
           title="My Games"
           onClick={() => {
@@ -34,6 +36,7 @@ export default function GameMenu() {
       {router.pathname == "/games" && (
         <Link>
           <Button
+            icon={getIcon(ICON_ADD)}
             fontSize={"1.25rem"}
             title="Add Game"
             onClick={() => {
@@ -45,6 +48,7 @@ export default function GameMenu() {
       {router.pathname?.includes("/games/") && (
         <Link>
           <Button
+            icon={getIcon(ICON_ADD)}
             fontSize={"1.25rem"}
             title="Add Achievement"
             onClick={() => {

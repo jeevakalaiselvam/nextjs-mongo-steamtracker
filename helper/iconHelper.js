@@ -4,6 +4,8 @@ import {
   HiCheck,
   HiX,
   HiPencilAlt,
+  HiCollection,
+  HiPlusCircle,
   HiStop,
 } from "react-icons/hi";
 import { HiTrophy } from "react-icons/hi2";
@@ -35,6 +37,8 @@ export const ICON_PLAYSTATION = "ICON_PLAYSTATION";
 export const ICON_XBOX = "ICON_XBOX";
 export const ICON_EPIC = "ICON_EPIC";
 export const ICON_ORIGIN = "ICON_ORIGIN";
+export const ICON_GAMES = "ICON_GAMES";
+export const ICON_ADD = "ICON_ADD";
 
 export const getIcon = (key) => {
   switch (key) {
@@ -66,6 +70,10 @@ export const getIcon = (key) => {
       return <FaXbox />;
     case ICON_ORIGIN:
       return <SiOrigin />;
+    case ICON_GAMES:
+      return <HiCollection />;
+    case ICON_ADD:
+      return <HiPlusCircle />;
     default:
   }
 };

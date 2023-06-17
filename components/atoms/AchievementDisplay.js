@@ -114,7 +114,8 @@ export default function AchievementDisplay({
           {getIcon(ICON_EDIT)}
         </Edit>
 
-        <Completed
+        <CompletedOrNot
+          achieved={achieved}
           show={mouseEnter}
           onClick={() => {
             completeAchievement();
@@ -122,7 +123,7 @@ export default function AchievementDisplay({
         >
           {!achieved && getIcon(ICON_CHECK)}
           {achieved && getIcon(ICON_CROSS)}
-        </Completed>
+        </CompletedOrNot>
 
         <Trophy color={getColor(type)}>{getIcon(ICON_TROPHY)}</Trophy>
 
@@ -242,7 +243,7 @@ const Edit = styled.div`
   }
 `;
 
-const Completed = styled.div`
+const CompletedOrNot = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -257,7 +258,7 @@ const Completed = styled.div`
   font-size: 1.25rem;
   transition: 0.25s all;
   &:hover {
-    background: ${(props) => COLOR_SUCCESS};
+    background: ${(props) => (!props.achieved ? COLOR_SUCCESS : COLOR_DANGER)};
     opacity: 1;
   }
 `;

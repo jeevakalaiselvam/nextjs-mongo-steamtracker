@@ -2,6 +2,39 @@ import React from "react";
 import styled from "styled-components";
 import { COLOR_BUTTON_PRIMARY } from "../../helper/colorHelper";
 
+export default function Button({
+  title,
+  onClick,
+  width,
+  margin,
+  fontSize,
+  icon,
+}) {
+  return (
+    <Container
+      onClick={onClick}
+      width={width}
+      margin={margin}
+      fontSize={fontSize}
+    >
+      <Icon>{icon}</Icon>
+      <Title>{title}</Title>
+    </Container>
+  );
+}
+
+const Icon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Title = styled.div`
+  display: flex;
+  width: 80%;
+  align-items: center;
+  justify-content: center;
+`;
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -16,16 +49,3 @@ const Container = styled.div`
     background-color: ${(props) => COLOR_BUTTON_PRIMARY};
   }
 `;
-
-export default function Button({ title, onClick, width, margin, fontSize }) {
-  return (
-    <Container
-      onClick={onClick}
-      width={width}
-      margin={margin}
-      fontSize={fontSize}
-    >
-      {title}
-    </Container>
-  );
-}
