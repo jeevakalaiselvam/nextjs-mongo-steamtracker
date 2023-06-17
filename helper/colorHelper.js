@@ -10,9 +10,9 @@ import {
 } from "./constantHelper";
 
 export const COLOR_PLATINUM = "#277FFE";
-export const COLOR_GOLD = "#FCE72A";
+export const COLOR_GOLD = "#F2BE0A";
 export const COLOR_SILVER = "#FEFEFE";
-export const COLOR_COPPER = "#F08A41";
+export const COLOR_COPPER = "#D16B55";
 export const COLOR_DANGER = "#EC4134";
 export const COLOR_SUCCESS = "#5CB85C";
 export const COLOR_BUTTON_PRIMARY = "#277FFE";

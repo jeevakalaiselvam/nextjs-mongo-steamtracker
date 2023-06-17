@@ -12,13 +12,18 @@ export const getTrophyCount = (achievements) => {
         switch (achievement?.type) {
           case PLATINUM:
             platinum++;
+            break;
           case GOLD:
             gold++;
+            break;
           case SILVER:
             silver++;
+            break;
           case COPPER:
             copper++;
+            break;
           default:
+            break;
         }
       }
     });
