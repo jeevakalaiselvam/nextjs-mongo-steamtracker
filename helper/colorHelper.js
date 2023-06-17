@@ -1,13 +1,14 @@
-export const COLOR_PLATINUM = "#2298F8";
+export const COLOR_PLATINUM = "#277FFE";
 export const COLOR_GOLD = "#FCE72A";
 export const COLOR_SILVER = "#FEFEFE";
 export const COLOR_COPPER = "#F08A41";
 export const COLOR_DANGER = "#EC4134";
-export const COLOR_BUTTON_PRIMARY = "#3D69CB";
+export const COLOR_BUTTON_PRIMARY = "#277FFE";
+export const COLOR_GREY = "#333333";
 
-export const PLATINUM = "platinum";
-export const GOLD = "gold";
-export const COPPER = "copper";
+export const PLATINUM = "PLATINUM";
+export const GOLD = "GOLD";
+export const COPPER = "COPPER";
 
 export const getColor = (trophyType) => {
   switch (trophyType) {

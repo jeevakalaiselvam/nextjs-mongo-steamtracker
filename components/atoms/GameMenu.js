@@ -1,9 +1,11 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
   actionShowAchievementDeleteSelection,
+  actionShowCreateBulkAchievements,
   actionShowCreateNewAchievement,
+  actionShowCreateNewAchievementCard,
   actionShowCreateNewGame,
 } from "../../store/actions/steam.actions";
 import Button from "./Button";
@@ -12,6 +14,11 @@ import { useRouter } from "next/router";
 export default function GameMenu() {
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const steam = useSelector((state) => state.steam);
+  const { settings } = steam;
+  const { toggle } = steam;
+  const { createNewAchievementModal, createNewAchievementCard } = toggle;
 
   return (
     <Container>
@@ -23,22 +30,35 @@ export default function GameMenu() {
           }}
         />
       </Link>
-      <Link>
+      {console.log(router.pathname)}
+      {router.pathname == "/games" && (
+        <Link>
+          <Button
+            title="Add Game"
+            onClick={() => {
+              dispatch(actionShowCreateNewGame(true));
+            }}
+          />
+        </Link>
+      )}
+      {router.pathname?.includes("/games/") && (
+        <Link>
+          <Button
+            title="Add Achievement"
+            onClick={() => {
+              dispatch(actionShowCreateNewAchievement(true));
+            }}
+          />
+        </Link>
+      )}
+      {/* <Link>
         <Button
-          title="New Game"
+          title="Bulk Achievements"
           onClick={() => {
-            dispatch(actionShowCreateNewGame(true));
+            dispatch(actionShowCreateBulkAchievements(true));
           }}
         />
-      </Link>
-      <Link>
-        <Button
-          title="New Achievement"
-          onClick={() => {
-            dispatch(actionShowCreateNewAchievement(true));
-          }}
-        />
-      </Link>
+      </Link> */}
       <Link>
         <Button
           title="Delete Achievements"

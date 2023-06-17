@@ -59,7 +59,7 @@ const Trophy = styled.div`
   justify-content: center;
   flex-direction: column;
   padding: 1rem;
-  margin-right: 1rem;
+  margin-right: 0.5rem;
   color: ${(props) => props.color};
 `;
 

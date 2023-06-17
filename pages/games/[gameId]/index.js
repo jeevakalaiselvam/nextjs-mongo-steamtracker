@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   actionForceRefresh,
   actionForceRefreshAchievement,
+  actionShowCreateBulkAchievements,
   actionShowCreateNewAchievement,
   actionShowCreateNewGame,
 } from "../../../store/actions/steam.actions";
@@ -19,19 +20,27 @@ import Button from "../../../components/atoms/Button";
 import CreateNewAchievement from "../../../components/organisms/CreateNewAchievement";
 import { useRouter } from "next/router";
 import AchievementDisplay from "../../../components/atoms/AchievementDisplay";
+import { ICON_CLOSE, getIcon } from "../../../helper/iconHelper";
+import { COLOR_DANGER } from "../../../helper/colorHelper";
 
 export default function GamesPage() {
   const [achievementsLoading, setAchievementsLoading] = useState(false);
   const [achievements, setAchievements] = useState([]);
+  const [editModeActive, setEditModeActive] = useState(false);
+  const [achievementToEdit, setAchievementToEdit] = useState({});
+
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   const steam = useSelector((state) => state.steam);
   const { settings } = steam;
   const { forceRefreshAchievement } = settings;
-  const dispatch = useDispatch();
-  const router = useRouter();
-
   const { toggle } = steam;
   const { createNewAchievementModal } = toggle;
+
+  const finalizeGenerate = () => {
+    setShowGenerate(false);
+  };
 
   useEffect(() => {
     if (router.query.gameId) {
@@ -49,13 +58,27 @@ export default function GamesPage() {
     }
   }, [forceRefreshAchievement, router.query.gameId]);
 
-  useEffect(() => {
-    console.log(achievements);
-  }, [achievements]);
+  const updateAchievementToEdit = (achievement) => {
+    setAchievementToEdit(achievement);
+  };
 
   return (
     <Container image={BACKGROUND_IMAGE}>
       <Overlay>
+        {createNewAchievementModal && !achievementsLoading && (
+          <CreateModal>
+            <CreateNewAchievement />
+          </CreateModal>
+        )}
+        {editModeActive && !achievementsLoading && (
+          <CreateModal>
+            <CreateNewAchievement
+              achievementToEdit={achievementToEdit}
+              isEditMode={true}
+              setEditModeActive={setEditModeActive}
+            />
+          </CreateModal>
+        )}
         <SidebarContainer>
           <Profile />
           <Trophies />
@@ -88,12 +111,11 @@ export default function GamesPage() {
                     <AchievementDisplay
                       achievement={achievement}
                       key={achievement._id}
+                      setEditModeActive={setEditModeActive}
+                      updateAchievementToEdit={updateAchievementToEdit}
                     />
                   );
                 })}
-              {createNewAchievementModal && !achievementsLoading && (
-                <CreateNewAchievement />
-              )}
             </InnerContainer>
           }
         </MainContainer>
@@ -101,6 +123,36 @@ export default function GamesPage() {
     </Container>
   );
 }
+
+const CreateModal = styled.div`
+  width: 600px;
+  height: 400px;
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  z-index: 100;
+  background: ${`url(${BACKGROUND_IMAGE})`};
+`;
+
+const CreateAchievementCard = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  width: 350px;
+  height: 120px;
+  margin: 0.5rem;
+  border-radius: 2px;
+
+  &:hover {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+`;
+
 const NoGames = styled.div`
   display: flex;
   align-items: center;
@@ -135,7 +187,7 @@ const SidebarContainer = styled.div`
   min-height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
-  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.75rem;
   display: flex;
   align-items: center;
   justify-content: flex-start;

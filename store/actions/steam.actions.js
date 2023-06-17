@@ -3,7 +3,9 @@ import {
   FORCE_REFRESH_ACHIEVEMENT,
   FORCE_REFRESH_GAMES,
   SHOW_ACHIEVEMENT_DELETE_SELECTION,
+  SHOW_CREATE_BULK_ACHIEVEMENTS,
   SHOW_CREATE_NEW_ACHIEVEMENT,
+  SHOW_CREATE_NEW_ACHIEVEMENT_CARD,
   SHOW_CREATE_NEW_GAME,
 } from "../types/steam.types";
 
@@ -17,6 +19,20 @@ export const actionShowCreateNewGame = (toggle) => {
 export const actionShowCreateNewAchievement = (toggle) => {
   return {
     type: SHOW_CREATE_NEW_ACHIEVEMENT,
+    payload: toggle,
+  };
+};
+
+export const actionShowCreateNewAchievementCard = (toggle) => {
+  return {
+    type: SHOW_CREATE_NEW_ACHIEVEMENT_CARD,
+    payload: toggle,
+  };
+};
+
+export const actionShowCreateBulkAchievements = (toggle) => {
+  return {
+    type: SHOW_CREATE_BULK_ACHIEVEMENTS,
     payload: toggle,
   };
 };

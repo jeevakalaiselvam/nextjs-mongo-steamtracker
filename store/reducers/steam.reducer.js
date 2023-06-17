@@ -2,7 +2,9 @@ import {
   FORCE_REFRESH_ACHIEVEMENT,
   FORCE_REFRESH_GAMES,
   SHOW_ACHIEVEMENT_DELETE_SELECTION,
+  SHOW_CREATE_BULK_ACHIEVEMENTS,
   SHOW_CREATE_NEW_ACHIEVEMENT,
+  SHOW_CREATE_NEW_ACHIEVEMENT_CARD,
   SHOW_CREATE_NEW_GAME,
 } from "../types/steam.types";
 
@@ -10,6 +12,8 @@ const INITIAL_STATE = {
   toggle: {
     createNewGameModal: false,
     createNewAchievementModal: false,
+    createNewAchievementCard: false,
+    createNewBulkAchievementModal: false,
     deleteAchievementSelection: false,
   },
   settings: {
@@ -36,6 +40,23 @@ const reducer = (state = INITIAL_STATE, action) => {
         toggle: {
           ...state.toggle,
           createNewAchievementModal: payload,
+        },
+      };
+    case SHOW_CREATE_NEW_ACHIEVEMENT_CARD:
+      return {
+        ...state,
+        toggle: {
+          ...state.toggle,
+          createNewAchievementCard: payload,
+        },
+      };
+
+    case SHOW_CREATE_BULK_ACHIEVEMENTS:
+      return {
+        ...state,
+        toggle: {
+          ...state.toggle,
+          createNewBulkAchievementModal: payload,
         },
       };
 

@@ -17,18 +17,24 @@ import {
   COLOR_DANGER,
   getColor,
 } from "../../helper/colorHelper";
+import CreateNewAchievement from "../organisms/CreateNewAchievement";
 
-export default function AchievementDisplay({ achievement }) {
+export default function AchievementDisplay({
+  achievement,
+  setEditModeActive,
+  updateAchievementToEdit,
+}) {
   const { image, id, name, description, gameId, type } = achievement;
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const [editModeActive, setEditModeActive] = useState(false);
   const [mouseEnter, setMouseEnter] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
   const [updatedName, setUpdatedName] = useState(name);
   const [updatedImage, setUpdatedImage] = useState(image);
+  const [updatedDescription, setUpdatedDescription] = useState(description);
+  const [updatedType, setUpdatedType] = useState(type);
   const [loading, setLoading] = useState(false);
 
   const confirmDelete = () => {
@@ -38,20 +44,6 @@ export default function AchievementDisplay({ achievement }) {
       .then((response) => {
         dispatch(actionForceRefreshAchievement(true));
         router.push(`/games/${gameId}`);
-      });
-  };
-
-  const updateAchievement = () => {
-    setLoading(true);
-    axios
-      .post("/api/updateAchievement", {
-        game: { name: updatedName, image: updatedImage, id: _id },
-      })
-      .then((response) => {
-        setLoading(false);
-        setEditModeActive(false);
-        dispatch(actionForceRefreshAchievement(true));
-        router.push("/games");
       });
   };
 
@@ -93,27 +85,32 @@ export default function AchievementDisplay({ achievement }) {
             {getIcon(ICON_DELETE)}
           </Delete>
         }
-        {false && (
-          <DeleteCheck>
-            <input
-              type="checkbox"
-              checked={true}
-              onChange={(e) => {
-                const checked = e.target.value;
-                console.log(checked);
-              }}
-            />
-          </DeleteCheck>
-        )}
-        <Trophy color={getColor(type)}>{getIcon(ICON_TROPHY)}</Trophy>
-        <AchievementIcon>
-          {image && <Icon image={image}></Icon>}
-          {!image && <IconPlaceholder>{getIcon(ICON_TROPHY)}</IconPlaceholder>}
-        </AchievementIcon>
-        <AchievementDetails>
-          <Title>{name}</Title>
-          <Description>{description}</Description>
-        </AchievementDetails>
+        {
+          <Edit
+            show={mouseEnter}
+            onClick={() => {
+              setEditModeActive(true);
+              updateAchievementToEdit(achievement);
+            }}
+          >
+            {getIcon(ICON_EDIT)}
+          </Edit>
+        }
+        {<Trophy color={getColor(type)}>{getIcon(ICON_TROPHY)}</Trophy>}
+        {
+          <AchievementIcon>
+            {image && <Icon image={image}></Icon>}
+            {!image && (
+              <IconPlaceholder>{getIcon(ICON_TROPHY)}</IconPlaceholder>
+            )}
+          </AchievementIcon>
+        }
+        {
+          <AchievementDetails>
+            <Title>{name}</Title>
+            <Description>{description}</Description>
+          </AchievementDetails>
+        }
       </Overlay>
     </Container>
   );
@@ -132,17 +129,6 @@ const Trophy = styled.div`
   color: ${(props) => props.color};
 `;
 
-const DeleteCheck = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin-top: 0.5rem;
-  margin-right: 1rem;
-`;
-
 const Delete = styled.div`
   display: flex;
   align-items: center;
@@ -150,7 +136,7 @@ const Delete = styled.div`
   position: absolute;
   bottom: 0;
   left: ${(props) => (props.show ? "0px" : "-100px")};
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem 0.5rem;
   font-size: 1rem;
   background: ${(props) => COLOR_DANGER};
   opacity: 0.5;
@@ -159,6 +145,26 @@ const Delete = styled.div`
   transition: 0.25s all;
   &:hover {
     background: ${(props) => COLOR_DANGER};
+    opacity: 1;
+  }
+`;
+
+const Edit = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  left: ${(props) => (props.show ? "25px" : "-100px")};
+  padding: 0.5rem 0.5rem;
+  font-size: 1rem;
+  background: ${(props) => COLOR_BUTTON_PRIMARY};
+  opacity: 0.5;
+  overflow: hidden;
+  font-size: 1.25rem;
+  transition: 0.25s all;
+  &:hover {
+    background: ${(props) => COLOR_BUTTON_PRIMARY};
     opacity: 1;
   }
 `;
@@ -173,14 +179,14 @@ const Title = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  height: 30px;
+  height: 20px;
 `;
 
 const Description = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  height: 30px;
+  height: 40px;
   overflow: scroll;
   opacity: 0.5;
 `;
@@ -227,14 +233,17 @@ const Overlay = styled.div`
   background: rgba(0, 0, 0, 0.5);
   position: relative;
   overflow: hidden;
-  width: 300px;
+  width: 350px;
+  height: 90px;
+  border-radius: 2px;
 `;
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 1rem;
+  margin: 0.5rem;
+  font-size: 1.225rem;
 
   &:hover {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);

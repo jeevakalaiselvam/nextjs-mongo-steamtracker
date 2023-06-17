@@ -7,9 +7,10 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 0.5rem 1rem;
+  padding: 0.25rem 1rem;
   width: ${(props) => props.width ?? "100%"};
   margin: ${(props) => props.margin ?? ""};
+  font-size: 1.1rem;
 
   &:hover {
     background-color: ${(props) => COLOR_BUTTON_PRIMARY};
