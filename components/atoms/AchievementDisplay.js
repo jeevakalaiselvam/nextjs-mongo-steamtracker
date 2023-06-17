@@ -67,7 +67,7 @@ export default function AchievementDisplay({
   };
 
   return (
-    <Container achieved={achieved}>
+    <Container>
       <Overlay
         onMouseEnter={() => setMouseEnter(true)}
         onMouseLeave={() => setMouseEnter(false)}
@@ -125,14 +125,16 @@ export default function AchievementDisplay({
           {achieved && getIcon(ICON_CROSS)}
         </CompletedOrNot>
 
-        <Trophy color={getColor(type)}>{getIcon(ICON_TROPHY)}</Trophy>
+        <Trophy achieved={achieved} color={getColor(type)}>
+          {getIcon(ICON_TROPHY)}
+        </Trophy>
 
-        <AchievementIcon>
+        <AchievementIcon achieved={achieved}>
           {image && <Icon image={image}></Icon>}
           {false && <Percentage>{percentage} %</Percentage>}
         </AchievementIcon>
 
-        <AchievementDetails>
+        <AchievementDetails achieved={achieved}>
           <Title>{name}</Title>
           <Description>{description}</Description>
           <Categories>
@@ -163,7 +165,6 @@ const Container = styled.div`
   justify-content: center;
   margin: 0.5rem;
   font-size: 1.225rem;
-  opacity: ${(props) => (props.achieved ? "0.25" : "1")};
 
   &:hover {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -201,6 +202,7 @@ const Trophy = styled.div`
   margin-bottom: 1rem;
   margin-right: 1rem;
   color: ${(props) => props.color};
+  opacity: ${(props) => (props.achieved ? "0.25" : "1")};
 `;
 
 const Delete = styled.div`
@@ -268,6 +270,7 @@ const AchievementIcon = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  opacity: ${(props) => (props.achieved ? "0.25" : "1")};
 `;
 
 const Title = styled.div`
@@ -303,25 +306,12 @@ const Icon = styled.div`
   margin: 1rem;
 `;
 
-const IconPlaceholder = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-self: flex-start;
-  width: 50px;
-  height: 50px;
-  font-size: 3rem;
-  background: ${(props) => `url(${props.image})`};
-  background-size: cover;
-  margin: 1rem;
-  opacity: 0.25;
-`;
-
 const AchievementDetails = styled.div`
   display: flex;
   align-items: flex-start;
   flex: 1;
   justify-content: center;
+  opacity: ${(props) => (props.achieved ? "0.25" : "1")};
   flex-direction: column;
   margin: 1rem 0;
 `;

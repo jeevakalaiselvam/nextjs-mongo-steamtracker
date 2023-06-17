@@ -267,10 +267,28 @@ export default function GameDisplay({ game }) {
         <PlatformIcon color={getColorForPlatform(platform)}>
           {getIcon(getIconForPlatform(platform))}
         </PlatformIcon>
+        <TrophyCount>
+          {
+            (game?.achievements ?? [])?.filter(
+              (achievement) => achievement.achieved
+            ).length
+          }{" "}
+          / {(game?.achievements ?? []).length}
+        </TrophyCount>
       </Overlay>
     </Container>
   );
 }
+
+const TrophyCount = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin-left: 1rem;
+  margin-bottom: 0.6rem;
+  font-size: 1.5rem;
+  color: ${(props) => props.color};
+`;
 
 const PlatformIcon = styled.div`
   position: absolute;
