@@ -1,0 +1,71 @@
+import {
+  FORCE_REFRESH_ACHIEVEMENT,
+  FORCE_REFRESH_GAMES,
+  SHOW_ACHIEVEMENT_DELETE_SELECTION,
+  SHOW_CREATE_NEW_ACHIEVEMENT,
+  SHOW_CREATE_NEW_GAME,
+} from "../types/steam.types";
+
+const INITIAL_STATE = {
+  toggle: {
+    createNewGameModal: false,
+    createNewAchievementModal: false,
+    deleteAchievementSelection: false,
+  },
+  settings: {
+    forceRefreshGames: false,
+    forceRefreshAchievement: false,
+  },
+};
+
+const reducer = (state = INITIAL_STATE, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case SHOW_CREATE_NEW_GAME:
+      return {
+        ...state,
+        toggle: {
+          ...state.toggle,
+          createNewGameModal: payload,
+        },
+      };
+    case SHOW_CREATE_NEW_ACHIEVEMENT:
+      return {
+        ...state,
+        toggle: {
+          ...state.toggle,
+          createNewAchievementModal: payload,
+        },
+      };
+
+    case SHOW_ACHIEVEMENT_DELETE_SELECTION:
+      return {
+        ...state,
+        toggle: {
+          ...state.toggle,
+          deleteAchievementSelection: payload,
+        },
+      };
+    case FORCE_REFRESH_GAMES:
+      return {
+        ...state,
+        settings: {
+          ...state.toggle,
+          forceRefreshGames: payload,
+        },
+      };
+    case FORCE_REFRESH_ACHIEVEMENT:
+      return {
+        ...state,
+        settings: {
+          ...state.toggle,
+          forceRefreshAchievement: payload,
+        },
+      };
+    default:
+      return state;
+  }
+};
+
+export default reducer;
