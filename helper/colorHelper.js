@@ -1,8 +1,20 @@
+import {
+  BLIZZARD,
+  EPIC,
+  GOG,
+  ORIGIN,
+  PLAYSTATION,
+  STEAM,
+  UPLAY,
+  XBOX,
+} from "./constantHelper";
+
 export const COLOR_PLATINUM = "#277FFE";
 export const COLOR_GOLD = "#FCE72A";
 export const COLOR_SILVER = "#FEFEFE";
 export const COLOR_COPPER = "#F08A41";
 export const COLOR_DANGER = "#EC4134";
+export const COLOR_SUCCESS = "#5CB85C";
 export const COLOR_BUTTON_PRIMARY = "#277FFE";
 export const COLOR_GREY = "#555555";
 
@@ -32,3 +44,25 @@ export const COLOR_PLAYSTATION = "#006CCA";
 export const COLOR_XBOX = "#0F770F";
 export const COLOR_MICROSOFT = "#494A4E";
 export const COLOR_ORIGIN = "#ED692C";
+
+export const getColorForPlatform = (platform) => {
+  switch (platform) {
+    case PLAYSTATION:
+      return COLOR_PLAYSTATION;
+    case XBOX:
+      return COLOR_XBOX;
+    case GOG:
+      return COLOR_GOG;
+    case EPIC:
+      return COLOR_EPIC;
+    case STEAM:
+      return COLOR_STEAM;
+    case UPLAY:
+      return COLOR_UPLAY;
+    case BLIZZARD:
+      return COLOR_BLIZZARD;
+    case ORIGIN:
+      return COLOR_ORIGIN;
+    default:
+  }
+};

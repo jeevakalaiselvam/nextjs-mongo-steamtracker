@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import {
+  ICON_CHECK,
+  ICON_CROSS,
   ICON_DELETE,
   ICON_EDIT,
   ICON_TROPHY,
@@ -15,6 +17,7 @@ import { actionForceRefreshAchievement } from "../../store/actions/steam.actions
 import {
   COLOR_BUTTON_PRIMARY,
   COLOR_DANGER,
+  COLOR_SUCCESS,
   getColor,
 } from "../../helper/colorHelper";
 import CreateNewAchievement from "../organisms/CreateNewAchievement";
@@ -24,8 +27,17 @@ export default function AchievementDisplay({
   setEditModeActive,
   updateAchievementToEdit,
 }) {
-  const { image, id, name, description, gameId, type, percentage, categories } =
-    achievement;
+  const {
+    image,
+    id,
+    name,
+    description,
+    gameId,
+    type,
+    percentage,
+    categories,
+    achieved,
+  } = achievement;
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -42,8 +54,20 @@ export default function AchievementDisplay({
       });
   };
 
+  const completeAchievement = () => {
+    dispatch(actionForceRefreshAchievement(false));
+    axios
+      .post(`/api/completeAchievement?gameId=${gameId}&achievementId=${id}`, {
+        achieved: achieved ? false : true,
+      })
+      .then((response) => {
+        dispatch(actionForceRefreshAchievement(true));
+        router.push(`/games/${gameId}`);
+      });
+  };
+
   return (
-    <Container>
+    <Container achieved={achieved}>
       <Overlay
         onMouseEnter={() => setMouseEnter(true)}
         onMouseLeave={() => setMouseEnter(false)}
@@ -90,6 +114,16 @@ export default function AchievementDisplay({
           {getIcon(ICON_EDIT)}
         </Edit>
 
+        <Completed
+          show={mouseEnter}
+          onClick={() => {
+            completeAchievement();
+          }}
+        >
+          {!achieved && getIcon(ICON_CHECK)}
+          {achieved && getIcon(ICON_CROSS)}
+        </Completed>
+
         <Trophy color={getColor(type)}>{getIcon(ICON_TROPHY)}</Trophy>
 
         <AchievementIcon>
@@ -128,6 +162,7 @@ const Container = styled.div`
   justify-content: center;
   margin: 0.5rem;
   font-size: 1.225rem;
+  opacity: ${(props) => (props.achieved ? "0.25" : "1")};
 
   &:hover {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -139,9 +174,10 @@ const Category = styled.div`
   align-items: center;
   padding: 0.25rem 0.75rem;
   background-color: ${(props) =>
-    props.selected ? COLOR_BUTTON_PRIMARY : `rgba(0,0,0,0.25)`};
+    props.selected ? COLOR_BUTTON_PRIMARY : `rgba(0,0,0,0.5)`};
   justify-content: flex-start;
   margin-right: 0.5rem;
+  opacity: 0.5;
 `;
 
 const Categories = styled.div`
@@ -202,6 +238,26 @@ const Edit = styled.div`
   transition: 0.25s all;
   &:hover {
     background: ${(props) => COLOR_BUTTON_PRIMARY};
+    opacity: 1;
+  }
+`;
+
+const Completed = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  padding: 0.5rem 0.5rem;
+  font-size: 1rem;
+  background: rgba(0, 0, 0, 0.25);
+  left: ${(props) => (props.show ? "0px" : "-100px")};
+  opacity: 0.5;
+  overflow: hidden;
+  font-size: 1.25rem;
+  transition: 0.25s all;
+  &:hover {
+    background: ${(props) => COLOR_SUCCESS};
     opacity: 1;
   }
 `;

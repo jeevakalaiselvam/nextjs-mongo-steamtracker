@@ -22,10 +22,12 @@ import { useRouter } from "next/router";
 import AchievementDisplay from "../../../components/atoms/AchievementDisplay";
 import { ICON_CLOSE, getIcon } from "../../../helper/iconHelper";
 import { COLOR_DANGER } from "../../../helper/colorHelper";
+import GameInfo from "../../../components/molecules/GameInfo";
 
 export default function GamesPage() {
   const [achievementsLoading, setAchievementsLoading] = useState(false);
   const [achievements, setAchievements] = useState([]);
+  const [gameDetails, setGameDetails] = useState([]);
   const [editModeActive, setEditModeActive] = useState(false);
   const [achievementToEdit, setAchievementToEdit] = useState({});
 
@@ -47,7 +49,7 @@ export default function GamesPage() {
       axios
         .get(`/api/${router.query.gameId}/achievements`)
         .then((response) => {
-          console.log(response);
+          setGameDetails(response.data.game ?? {});
           setAchievements(response.data.game.achievements ?? []);
           actionForceRefreshAchievement(false);
         })
@@ -82,6 +84,7 @@ export default function GamesPage() {
         <SidebarContainer>
           <Profile />
           <Trophies />
+          <GameInfo gameDetails={gameDetails} />
           <GameMenu />
         </SidebarContainer>
         <MainContainer>
@@ -106,16 +109,18 @@ export default function GamesPage() {
                 )}
               {!achievementsLoading &&
                 achievements.length != 0 &&
-                achievements.map((achievement, index) => {
-                  return (
-                    <AchievementDisplay
-                      achievement={achievement}
-                      key={achievement._id}
-                      setEditModeActive={setEditModeActive}
-                      updateAchievementToEdit={updateAchievementToEdit}
-                    />
-                  );
-                })}
+                achievements
+                  .sort((ach1, ach2) => ach2.percentage - ach1.percentage)
+                  .map((achievement, index) => {
+                    return (
+                      <AchievementDisplay
+                        achievement={achievement}
+                        key={achievement._id}
+                        setEditModeActive={setEditModeActive}
+                        updateAchievementToEdit={updateAchievementToEdit}
+                      />
+                    );
+                  })}
             </InnerContainer>
           }
         </MainContainer>
@@ -125,8 +130,8 @@ export default function GamesPage() {
 }
 
 const CreateModal = styled.div`
-  width: 600px;
-  height: 400px;
+  width: 700px;
+  height: 300px;
   position: absolute;
   left: 50%;
   top: 30%;
@@ -180,13 +185,15 @@ const SidebarContainer = styled.div`
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
+  z-index: 101;
 `;
 
 const MainContainer = styled.div`
   min-width: 100vw;
-  padding: 1rem 1rem 1rem 8vw;
-  min-height: 100%;
+  padding: 1rem 1rem 1rem 2vw;
+  max-height: 100vh;
   display: flex;
+  overflow: scroll;
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;

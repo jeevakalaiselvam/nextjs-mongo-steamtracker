@@ -22,6 +22,7 @@ import {
 } from "../../helper/colorHelper";
 import {
   CATEGORY_STORY,
+  COLLECTIBLE,
   EASY,
   GRIND,
   HARD,
@@ -56,7 +57,6 @@ export default function CreateNewAchievement({
   const dispatch = useDispatch();
 
   const updateAchievement = () => {
-    console.log("UPDATING");
     dispatch(actionForceRefreshAchievement(false));
     setLoading(true);
     axios
@@ -198,6 +198,12 @@ export default function CreateNewAchievement({
               onClick={() => addOrRemoveCategory(MISSABLE)}
             >
               {MISSABLE}
+            </Category>
+            <Category
+              selected={categories.includes(COLLECTIBLE)}
+              onClick={() => addOrRemoveCategory(COLLECTIBLE)}
+            >
+              {COLLECTIBLE}
             </Category>
             <Category
               selected={categories.includes(GRIND)}

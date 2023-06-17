@@ -8,28 +8,28 @@ import {
   COLOR_SILVER,
 } from "../../helper/colorHelper";
 
-export default function Trophies() {
+export default function Trophies({ platinum, gold, silver, copper }) {
   return (
     <Container>
       <TrophiesContainer>
         <Trophy color={COLOR_PLATINUM}>
           <Icon>{getIcon(ICON_TROPHY)}</Icon>
-          <Count>0</Count>
+          <Count>{platinum ?? 0}</Count>
         </Trophy>
 
         <Trophy color={COLOR_GOLD}>
           <Icon>{getIcon(ICON_TROPHY)}</Icon>
-          <Count>0</Count>
+          <Count>{gold ?? 0}</Count>
         </Trophy>
 
         <Trophy color={COLOR_SILVER}>
           <Icon>{getIcon(ICON_TROPHY)}</Icon>
-          <Count>0</Count>
+          <Count>{silver ?? 0}</Count>
         </Trophy>
 
         <Trophy color={COLOR_COPPER}>
           <Icon>{getIcon(ICON_TROPHY)}</Icon>
-          <Count>0</Count>
+          <Count>{copper ?? 0}</Count>
         </Trophy>
       </TrophiesContainer>
     </Container>

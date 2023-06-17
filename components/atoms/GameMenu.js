@@ -31,7 +31,6 @@ export default function GameMenu() {
           }}
         />
       </Link>
-      {console.log(router.pathname)}
       {router.pathname == "/games" && (
         <Link>
           <Button

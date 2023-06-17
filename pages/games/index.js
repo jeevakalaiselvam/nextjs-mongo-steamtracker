@@ -112,6 +112,7 @@ const SidebarContainer = styled.div`
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
+  z-index: 101;
 `;
 
 const MainContainer = styled.div`

@@ -19,6 +19,7 @@ import {
   COLOR_STEAM,
   COLOR_UPLAY,
   COLOR_XBOX,
+  getColorForPlatform,
 } from "../../helper/colorHelper";
 import {
   ICON_BLIZZARD,
@@ -33,6 +34,7 @@ import {
   ICON_UPLAY,
   ICON_XBOX,
   getIcon,
+  getIconForPlatform,
 } from "../../helper/iconHelper";
 import {
   BLIZZARD,
@@ -262,10 +264,23 @@ export default function GameDisplay({ game }) {
         >
           {getIcon(ICON_DELETE)}
         </Delete>
+        <PlatformIcon color={getColorForPlatform(platform)}>
+          {getIcon(getIconForPlatform(platform))}
+        </PlatformIcon>
       </Overlay>
     </Container>
   );
 }
+
+const PlatformIcon = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-right: 1rem;
+  margin-bottom: 0.6rem;
+  font-size: 1.5rem;
+  color: ${(props) => props.color};
+`;
 
 const Confirm = styled.div`
   position: absolute;
