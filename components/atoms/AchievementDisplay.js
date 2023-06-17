@@ -24,18 +24,13 @@ export default function AchievementDisplay({
   setEditModeActive,
   updateAchievementToEdit,
 }) {
-  const { image, id, name, description, gameId, type } = achievement;
+  const { image, id, name, description, gameId, type, percentage, categories } =
+    achievement;
   const router = useRouter();
   const dispatch = useDispatch();
 
   const [mouseEnter, setMouseEnter] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-
-  const [updatedName, setUpdatedName] = useState(name);
-  const [updatedImage, setUpdatedImage] = useState(image);
-  const [updatedDescription, setUpdatedDescription] = useState(description);
-  const [updatedType, setUpdatedType] = useState(type);
-  const [loading, setLoading] = useState(false);
 
   const confirmDelete = () => {
     dispatch(actionForceRefreshAchievement(false));
@@ -75,46 +70,88 @@ export default function AchievementDisplay({
             </No>
           </Confirm>
         )}
-        {
-          <Delete
-            show={mouseEnter}
-            onClick={() => {
-              setShowConfirm(true);
-            }}
-          >
-            {getIcon(ICON_DELETE)}
-          </Delete>
-        }
-        {
-          <Edit
-            show={mouseEnter}
-            onClick={() => {
-              setEditModeActive(true);
-              updateAchievementToEdit(achievement);
-            }}
-          >
-            {getIcon(ICON_EDIT)}
-          </Edit>
-        }
-        {<Trophy color={getColor(type)}>{getIcon(ICON_TROPHY)}</Trophy>}
-        {
-          <AchievementIcon>
-            {image && <Icon image={image}></Icon>}
-            {!image && (
-              <IconPlaceholder>{getIcon(ICON_TROPHY)}</IconPlaceholder>
-            )}
-          </AchievementIcon>
-        }
-        {
-          <AchievementDetails>
-            <Title>{name}</Title>
-            <Description>{description}</Description>
-          </AchievementDetails>
-        }
+
+        <Delete
+          show={mouseEnter}
+          onClick={() => {
+            setShowConfirm(true);
+          }}
+        >
+          {getIcon(ICON_DELETE)}
+        </Delete>
+
+        <Edit
+          show={mouseEnter}
+          onClick={() => {
+            setEditModeActive(true);
+            updateAchievementToEdit(achievement);
+          }}
+        >
+          {getIcon(ICON_EDIT)}
+        </Edit>
+
+        <Trophy color={getColor(type)}>{getIcon(ICON_TROPHY)}</Trophy>
+
+        <AchievementIcon>
+          {image && <Icon image={image}></Icon>}
+          {false && <Percentage>{percentage} %</Percentage>}
+        </AchievementIcon>
+
+        <AchievementDetails>
+          <Title>{name}</Title>
+          <Description>{description}</Description>
+          <Categories>
+            {categories.map((category) => {
+              return <Category>{category}</Category>;
+            })}
+          </Categories>
+        </AchievementDetails>
       </Overlay>
     </Container>
   );
 }
+
+const Overlay = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+  width: 350px;
+  border-radius: 2px;
+`;
+
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem;
+  font-size: 1.225rem;
+
+  &:hover {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+`;
+
+const Category = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  background-color: ${(props) =>
+    props.selected ? COLOR_BUTTON_PRIMARY : `rgba(0,0,0,0.25)`};
+  justify-content: flex-start;
+  margin-right: 0.5rem;
+`;
+
+const Categories = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 3rem;
+  font-size: 1rem;
+  color: ${(props) => props.color};
+`;
 
 const Trophy = styled.div`
   font-size: 1.5rem;
@@ -134,11 +171,11 @@ const Delete = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  bottom: 0;
-  left: ${(props) => (props.show ? "0px" : "-100px")};
+  top: 0;
+  right: ${(props) => (props.show ? "0px" : "-100px")};
   padding: 0.5rem 0.5rem;
   font-size: 1rem;
-  background: ${(props) => COLOR_DANGER};
+  background: rgba(0, 0, 0, 0.25);
   opacity: 0.5;
   overflow: hidden;
   font-size: 1.25rem;
@@ -154,11 +191,11 @@ const Edit = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  bottom: 0;
-  left: ${(props) => (props.show ? "25px" : "-100px")};
+  top: 0;
+  right: ${(props) => (props.show ? "25px" : "-100px")};
   padding: 0.5rem 0.5rem;
   font-size: 1rem;
-  background: ${(props) => COLOR_BUTTON_PRIMARY};
+  background: rgba(0, 0, 0, 0.25);
   opacity: 0.5;
   overflow: hidden;
   font-size: 1.25rem;
@@ -172,6 +209,7 @@ const Edit = styled.div`
 const AchievementIcon = styled.div`
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
 `;
 
@@ -180,6 +218,11 @@ const Title = styled.div`
   align-items: flex-start;
   justify-content: center;
   height: 20px;
+`;
+const Percentage = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Description = styled.div`
@@ -224,30 +267,6 @@ const AchievementDetails = styled.div`
   justify-content: center;
   flex-direction: column;
   margin: 1rem 0;
-`;
-
-const Overlay = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
-  position: relative;
-  overflow: hidden;
-  width: 350px;
-  height: 90px;
-  border-radius: 2px;
-`;
-
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0.5rem;
-  font-size: 1.225rem;
-
-  &:hover {
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
 `;
 
 const Confirm = styled.div`

@@ -11,6 +11,8 @@ export default async function handler(req, res) {
       let gameId = req.query.gameId;
       let name = req.body.game.name;
       let description = req.body.game.description;
+      let categories = req.body.game.categories;
+      let percentage = req.body.game.percentage;
       let image = req.body.game.image;
       let type = req.body.game.type;
       let query = { _id: new mongodb.ObjectID(gameId) };
@@ -23,6 +25,8 @@ export default async function handler(req, res) {
             description,
             image,
             type,
+            categories,
+            percentage,
           };
           return updatedAchievement;
         } else {

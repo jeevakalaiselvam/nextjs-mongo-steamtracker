@@ -24,7 +24,8 @@ export default function GameMenu() {
     <Container>
       <Link>
         <Button
-          title="All Games"
+          fontSize={"1.25rem"}
+          title="My Games"
           onClick={() => {
             router.push("/games");
           }}
@@ -34,6 +35,7 @@ export default function GameMenu() {
       {router.pathname == "/games" && (
         <Link>
           <Button
+            fontSize={"1.25rem"}
             title="Add Game"
             onClick={() => {
               dispatch(actionShowCreateNewGame(true));
@@ -44,6 +46,7 @@ export default function GameMenu() {
       {router.pathname?.includes("/games/") && (
         <Link>
           <Button
+            fontSize={"1.25rem"}
             title="Add Achievement"
             onClick={() => {
               dispatch(actionShowCreateNewAchievement(true));
@@ -51,22 +54,6 @@ export default function GameMenu() {
           />
         </Link>
       )}
-      {/* <Link>
-        <Button
-          title="Bulk Achievements"
-          onClick={() => {
-            dispatch(actionShowCreateBulkAchievements(true));
-          }}
-        />
-      </Link> */}
-      <Link>
-        <Button
-          title="Delete Achievements"
-          onClick={() => {
-            dispatch(actionShowAchievementDeleteSelection(true));
-          }}
-        />
-      </Link>
     </Container>
   );
 }

@@ -11,3 +11,13 @@ export const PLATINUM = "PLATINUM";
 export const GOLD = "GOLD";
 export const SILVER = "SILVER";
 export const COPPER = "COPPER";
+
+export const PLAYSTATION = "PLAYSTATION";
+export const XBOX = "XBOX";
+export const STEAM = "STEAM";
+export const UPLAY = "UPLAY";
+export const GOG = "GOG";
+export const EPIC = "EPIC";
+export const BLIZZARD = "BLIZZARD";
+export const MICROSOFT = "MICROSOFT";
+export const ORIGIN = "ORIGIN";

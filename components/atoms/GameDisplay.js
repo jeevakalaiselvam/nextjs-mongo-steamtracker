@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { ICON_DELETE, ICON_EDIT, getIcon } from "../../helper/iconHelper";
 import { useState } from "react";
 import Button from "./Button";
 import axios from "axios";
@@ -8,10 +7,46 @@ import { useRouter } from "next/router";
 import CreateNewGame from "../organisms/CreateNewGame";
 import { useDispatch } from "react-redux";
 import { actionForceRefreshGames } from "../../store/actions/steam.actions";
-import { COLOR_BUTTON_PRIMARY } from "../../helper/colorHelper";
+import {
+  COLOR_BLIZZARD,
+  COLOR_BUTTON_PRIMARY,
+  COLOR_EPIC,
+  COLOR_GOG,
+  COLOR_GREY,
+  COLOR_ORIGIN,
+  COLOR_PLATINUM,
+  COLOR_PLAYSTATION,
+  COLOR_STEAM,
+  COLOR_UPLAY,
+  COLOR_XBOX,
+} from "../../helper/colorHelper";
+import {
+  ICON_BLIZZARD,
+  ICON_EPIC,
+  ICON_GOG,
+  ICON_ORIGIN,
+  ICON_PLAYSTATION,
+  ICON_STEAM,
+  ICON_TROPHY,
+  ICON_EDIT,
+  ICON_DELETE,
+  ICON_UPLAY,
+  ICON_XBOX,
+  getIcon,
+} from "../../helper/iconHelper";
+import {
+  BLIZZARD,
+  EPIC,
+  GOG,
+  ORIGIN,
+  PLAYSTATION,
+  STEAM,
+  UPLAY,
+  XBOX,
+} from "../../helper/constantHelper";
 
 export default function GameDisplay({ game }) {
-  const { image, _id, name } = game;
+  const { image, _id, name, platform } = game;
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -21,6 +56,7 @@ export default function GameDisplay({ game }) {
 
   const [updatedName, setUpdatedName] = useState(name);
   const [updatedImage, setUpdatedImage] = useState(image);
+  const [updatedPlatform, setUpdatedPlatform] = useState(platform);
   const [loading, setLoading] = useState(false);
 
   const confirmDelete = () => {
@@ -34,7 +70,12 @@ export default function GameDisplay({ game }) {
     setLoading(true);
     axios
       .post("/api/updateGame", {
-        game: { name: updatedName, image: updatedImage, id: _id },
+        game: {
+          name: updatedName,
+          image: updatedImage,
+          id: _id,
+          platform: updatedPlatform,
+        },
       })
       .then((response) => {
         setLoading(false);
@@ -54,28 +95,121 @@ export default function GameDisplay({ game }) {
           <EditMode>
             <EditContainer image={image}>
               <EditOverlay>
-                <NameInput>
+                <Input>
                   <Label>Name:</Label>
                   <input
                     type="text"
                     value={updatedName}
                     onChange={(e) => setUpdatedName(e.target.value)}
                   />
-                </NameInput>
-                <ImageInput>
+                </Input>
+                <Input>
                   <Label>Image:</Label>
                   <input
                     type="text"
                     value={updatedImage}
                     onChange={(e) => setUpdatedImage(e.target.value)}
                   />
-                </ImageInput>
+                </Input>
+                <Input>
+                  <Label>Platform:</Label>
+                  <PlatformSelection>
+                    <Platform
+                      hoverColor={COLOR_STEAM}
+                      color={
+                        updatedPlatform == STEAM ? COLOR_STEAM : COLOR_GREY
+                      }
+                      selected={updatedPlatform == STEAM}
+                      onClick={() => setUpdatedPlatform(STEAM)}
+                    >
+                      {getIcon(ICON_STEAM)}
+                    </Platform>
+                    <Platform
+                      hoverColor={COLOR_UPLAY}
+                      color={
+                        updatedPlatform == UPLAY ? COLOR_UPLAY : COLOR_GREY
+                      }
+                      selected={updatedPlatform == UPLAY}
+                      onClick={() => setUpdatedPlatform(UPLAY)}
+                    >
+                      {getIcon(ICON_UPLAY)}
+                    </Platform>
+                    <Platform
+                      hoverColor={COLOR_EPIC}
+                      color={updatedPlatform == EPIC ? COLOR_EPIC : COLOR_GREY}
+                      selected={updatedPlatform == EPIC}
+                      onClick={() => setUpdatedPlatform(EPIC)}
+                    >
+                      {getIcon(ICON_EPIC)}
+                    </Platform>
+                    <Platform
+                      fontSize={"1.5rem"}
+                      hoverColor={COLOR_GOG}
+                      color={updatedPlatform == GOG ? COLOR_GOG : COLOR_GREY}
+                      selected={updatedPlatform == GOG}
+                      onClick={() => setUpdatedPlatform(GOG)}
+                    >
+                      {getIcon(ICON_GOG)}
+                    </Platform>
+                    <Platform
+                      hoverColor={COLOR_PLAYSTATION}
+                      color={
+                        updatedPlatform == PLAYSTATION
+                          ? COLOR_PLAYSTATION
+                          : COLOR_GREY
+                      }
+                      selected={updatedPlatform == PLAYSTATION}
+                      onClick={() => setUpdatedPlatform(PLAYSTATION)}
+                    >
+                      {getIcon(ICON_PLAYSTATION)}
+                    </Platform>
+                    <Platform
+                      hoverColor={COLOR_XBOX}
+                      color={updatedPlatform == XBOX ? COLOR_XBOX : COLOR_GREY}
+                      selected={updatedPlatform == XBOX}
+                      onClick={() => setUpdatedPlatform(XBOX)}
+                    >
+                      {getIcon(ICON_XBOX)}
+                    </Platform>
+                    <Platform
+                      hoverColor={COLOR_BLIZZARD}
+                      fontSize={"2rem"}
+                      color={
+                        updatedPlatform == BLIZZARD
+                          ? COLOR_BLIZZARD
+                          : COLOR_GREY
+                      }
+                      selected={updatedPlatform == BLIZZARD}
+                      onClick={() => setUpdatedPlatform(BLIZZARD)}
+                    >
+                      {getIcon(ICON_BLIZZARD)}
+                    </Platform>
+                    <Platform
+                      fontSize={"1.5rem"}
+                      hoverColor={COLOR_ORIGIN}
+                      color={
+                        updatedPlatform == ORIGIN ? COLOR_ORIGIN : COLOR_GREY
+                      }
+                      selected={updatedPlatform == ORIGIN}
+                      onClick={() => setUpdatedPlatform(ORIGIN)}
+                    >
+                      {getIcon(ICON_ORIGIN)}
+                    </Platform>
+                  </PlatformSelection>
+                </Input>
                 <SaveContainer>
                   <Button
                     width={"auto"}
                     title={"SAVE"}
                     onClick={() => {
                       updateGame();
+                    }}
+                  />
+                  <Button
+                    width={"auto"}
+                    title={"CLOSE"}
+                    onClick={() => {
+                      setEditModeActive(false);
                     }}
                   />
                 </SaveContainer>
@@ -165,8 +299,8 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 378px;
-  height: 177px;
+  width: 380px;
+  height: 140px;
   background: ${(props) => `url(${props.image})`};
   background-repeat: no-repeat;
   background-size: cover;
@@ -181,8 +315,8 @@ const Overlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 380px;
-  height: 177px;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.5);
   position: relative;
   overflow: hidden;
@@ -194,6 +328,7 @@ const Name = styled.div`
   bottom: 0;
   left: 0;
   display: flex;
+  font-size: 1.25rem;
   align-items: center;
   justify-content: center;
   padding: 1rem;
@@ -206,7 +341,7 @@ const Edit = styled.div`
   top: 0;
   left: ${(props) => (props.show ? "0" : "-100px")};
   display: flex;
-  font-size: 2rem;
+  font-size: 1.5rem;
   padding: 1rem;
   align-items: center;
   justify-content: center;
@@ -224,7 +359,7 @@ const Delete = styled.div`
   top: 0;
   right: ${(props) => (props.show ? "0" : "-100px")};
   display: flex;
-  font-size: 2rem;
+  font-size: 1.5rem;
   padding: 1rem;
   align-items: center;
   justify-content: center;
@@ -249,6 +384,7 @@ const EditMode = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
+  height: 100%;
   z-index: 100;
   display: flex;
   align-items: center;
@@ -259,6 +395,8 @@ const EditMode = styled.div`
 const EditContainer = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
+  height: 100%;
   justify-content: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -268,14 +406,38 @@ const EditContainer = styled.div`
   }
 `;
 
+const PlatformSelection = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-start;
+`;
+
+const Platform = styled.div`
+  display: flex;
+  font-size: ${(props) => props.fontSize ?? "1.5rem"};
+  align-items: center;
+  margin-right: 0.25rem;
+  padding: 0.25rem 1rem;
+  justify-content: flex-start;
+  color: ${(props) => props.color};
+
+  &:hover {
+    color: ${(props) => props.hoverColor};
+  }
+`;
+
 const EditOverlay = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
+  height: 100%;
   justify-content: flex-start;
-  width: 380px;
   background: rgba(0, 0, 0, 0.5);
   position: relative;
   flex-direction: column;
+  font-size: 1rem;
 `;
 
 const Label = styled.div`
@@ -283,11 +445,11 @@ const Label = styled.div`
   align-items: center;
   margin-right: 1rem;
   width: 50px;
-  justify-content: center;
+  justify-content: flex-start;
   color: ${(props) => COLOR_BUTTON_PRIMARY};
 `;
 
-const ImageInput = styled.div`
+const Input = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -300,21 +462,6 @@ const ImageInput = styled.div`
     background: rgba(0, 0, 0, 0.5);
     outline: none;
     border: none;
-  }
-`;
-
-const NameInput = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem 1rem;
-
-  & > input {
-    width: 100%;
-    padding: 0.75rem;
-    background: rgba(0, 0, 0, 0.5);
-    outline: none;
-    border: none;
+    cursor: text;
   }
 `;

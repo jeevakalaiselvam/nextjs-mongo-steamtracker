@@ -138,21 +138,6 @@ const CreateModal = styled.div`
   background: ${`url(${BACKGROUND_IMAGE})`};
 `;
 
-const CreateAchievementCard = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
-  width: 350px;
-  height: 120px;
-  margin: 0.5rem;
-  border-radius: 2px;
-
-  &:hover {
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
-`;
-
 const NoGames = styled.div`
   display: flex;
   align-items: center;
@@ -183,11 +168,14 @@ const Overlay = styled.div`
 `;
 
 const SidebarContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
   min-width: 8vw;
-  min-height: 100vh;
+  margin-left: 0.5rem;
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
-  padding: 0.5rem 0.5rem 0.5rem 0.75rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -195,8 +183,8 @@ const SidebarContainer = styled.div`
 `;
 
 const MainContainer = styled.div`
-  min-width: 92vw;
-  padding: 1rem;
+  min-width: 100vw;
+  padding: 1rem 1rem 1rem 8vw;
   min-height: 100%;
   display: flex;
   align-items: flex-start;
