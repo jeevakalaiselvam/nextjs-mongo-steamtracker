@@ -9,6 +9,9 @@ import MobileGameDisplay from "../../../components/mobile/MobileGameDisplay";
 import { getLoader } from "../../../helper/constantHelper";
 import TrophiesMobileGames from "../../../components/molecules/TrophiesMobileGames";
 import { useSelector } from "react-redux";
+import Profile from "../../../components/molecules/Profile";
+import Trophies from "../../../components/molecules/Trophies";
+import GameMenu from "../../../components/atoms/GameMenu";
 
 const Container = styled.div`
   display: flex;
@@ -77,7 +80,7 @@ const OptionContainer = styled.div`
   top: 8vh;
   right: 0;
   width: 30vw;
-  right: ${(props) => (props.open ? "-30vw" : "0vw")};
+  right: ${(props) => (!props.open ? "-30vw" : "0vw")};
   padding: 0.5rem;
   background-color: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(20px);
@@ -155,7 +158,9 @@ export default function Games() {
         )}
         <OptionContainer open={optionOpen}>OPTIONS</OptionContainer>
         <LeftSidebarContainer open={leftSidebarOpen}>
-          LEFT SIDE BAR
+          <Profile games={games} />
+          <Trophies games={games} title={"COLLECTION"} />
+          <GameMenu mobile={true} />
         </LeftSidebarContainer>
       </Overlay>
     </Container>

@@ -28,14 +28,26 @@ export default function GamesPage() {
   const { toggle } = steam;
   const { createNewGameModal } = toggle;
 
+  function detectmob() {
+    if (window.innerWidth <= 800 || window.innerHeight <= 600) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   useEffect(() => {
-    dispatch(actionShowCreateNewGame(false));
-    setGamesLoading(true);
-    axios.get("/api/games").then((response) => {
-      setGames(response.data.games);
-      setGamesLoading(false);
-    });
-    dispatch(actionForceRefreshGames(false));
+    if (detectmob()) {
+      top.location.href = "/mobile/games";
+    } else {
+      dispatch(actionShowCreateNewGame(false));
+      setGamesLoading(true);
+      axios.get("/api/games").then((response) => {
+        setGames(response.data.games);
+        setGamesLoading(false);
+      });
+      dispatch(actionForceRefreshGames(false));
+    }
   }, [forceRefreshGames, dispatch]);
 
   return (

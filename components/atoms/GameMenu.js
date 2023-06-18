@@ -21,7 +21,7 @@ import axios from "axios";
 import { FETCH_ALL_GAMES } from "../../helper/urlHelper";
 import { themeIds } from "../../helper/constantHelper";
 
-export default function GameMenu() {
+export default function GameMenu({ mobile }) {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -34,12 +34,14 @@ export default function GameMenu() {
     dispatch(actionChangeTheme(newThemeId));
   };
 
+  const fontSize = mobile ? "1.5rem" : "1.25rem";
+
   return (
     <Container>
       <Link>
         <Button
           icon={getIcon(ICON_GAMES)}
-          fontSize={"1.25rem"}
+          fontSize={fontSize}
           title="My Games"
           onClick={() => {
             router.push("/games");
@@ -50,7 +52,7 @@ export default function GameMenu() {
         <Link>
           <Button
             icon={getIcon(ICON_ADD)}
-            fontSize={"1.25rem"}
+            fontSize={fontSize}
             title="Add Game"
             onClick={() => {
               dispatch(actionShowCreateNewGame(true));
@@ -62,7 +64,7 @@ export default function GameMenu() {
         <Link>
           <Button
             icon={getIcon(ICON_ADD)}
-            fontSize={"1.25rem"}
+            fontSize={fontSize}
             title="Add Achievement"
             onClick={() => {
               dispatch(actionShowCreateNewAchievement(true));
@@ -73,10 +75,20 @@ export default function GameMenu() {
       <Link>
         <Button
           icon={getIcon(ICON_THEME)}
-          fontSize={"1.25rem"}
+          fontSize={fontSize}
           title="Change Theme"
           onClick={() => {
             changeTheme();
+          }}
+        />
+      </Link>
+      <Link>
+        <Button
+          icon={getIcon(ICON_THEME)}
+          fontSize={fontSize}
+          title="Mobile View"
+          onClick={() => {
+            router.push("/mobile/games");
           }}
         />
       </Link>

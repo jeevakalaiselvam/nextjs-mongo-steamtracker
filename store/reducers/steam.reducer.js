@@ -8,7 +8,7 @@ import {
   SHOW_CREATE_NEW_ACHIEVEMENT,
   SHOW_CREATE_NEW_ACHIEVEMENT_CARD,
   SHOW_CREATE_NEW_GAME,
-} from '../types/steam.types';
+} from "../types/steam.types";
 
 const INITIAL_STATE = {
   toggle: {
