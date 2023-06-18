@@ -10,6 +10,7 @@ export default async function handler(req, res) {
       let achievementId = req.query.achievementId;
       let gameId = req.query.gameId;
       let achieved = req.body.achieved;
+      let unlockTime = req.body.unlockTime;
       let query = { _id: new mongodb.ObjectID(gameId) };
       let game = await db.collection("games").findOne(query);
       let updatedAchievements = game.achievements.map((achievement) => {
@@ -17,6 +18,7 @@ export default async function handler(req, res) {
           let updatedAchievement = {
             ...achievement,
             achieved: achieved,
+            unlockTime: unlockTime,
           };
           return updatedAchievement;
         } else {

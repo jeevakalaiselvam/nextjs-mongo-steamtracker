@@ -1,6 +1,7 @@
 import {
   FORCE_REFRESH_ACHIEVEMENT,
   FORCE_REFRESH_GAMES,
+  KEEP_ADDING_ACHIEVEMENT,
   SHOW_ACHIEVEMENT_DELETE_SELECTION,
   SHOW_CREATE_BULK_ACHIEVEMENTS,
   SHOW_CREATE_NEW_ACHIEVEMENT,
@@ -15,6 +16,7 @@ const INITIAL_STATE = {
     createNewAchievementCard: false,
     createNewBulkAchievementModal: false,
     deleteAchievementSelection: false,
+    keepAddingAchievements: false,
   },
   settings: {
     forceRefreshGames: false,
@@ -26,6 +28,14 @@ const reducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case KEEP_ADDING_ACHIEVEMENT:
+      return {
+        ...state,
+        toggle: {
+          ...state.toggle,
+          keepAddingAchievements: payload,
+        },
+      };
     case SHOW_CREATE_NEW_GAME:
       return {
         ...state,

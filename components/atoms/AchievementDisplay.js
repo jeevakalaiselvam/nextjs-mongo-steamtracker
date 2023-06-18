@@ -20,12 +20,13 @@ import {
   COLOR_SUCCESS,
   getColor,
 } from "../../helper/colorHelper";
-import CreateNewAchievement from "../organisms/CreateNewAchievement";
+import moment from "moment";
 
 export default function AchievementDisplay({
   achievement,
   setEditModeActive,
   updateAchievementToEdit,
+  gameDetails,
 }) {
   const {
     image,
@@ -54,11 +55,12 @@ export default function AchievementDisplay({
       });
   };
 
-  const completeAchievement = () => {
+  const completeAchievement = (shouldCompleteOrNot) => {
     dispatch(actionForceRefreshAchievement(false));
     axios
       .post(`/api/completeAchievement?gameId=${gameId}&achievementId=${id}`, {
-        achieved: achieved ? false : true,
+        achieved: shouldCompleteOrNot,
+        unlockTime: shouldCompleteOrNot ? moment.now() : "",
       })
       .then((response) => {
         dispatch(actionForceRefreshAchievement(true));
@@ -118,7 +120,7 @@ export default function AchievementDisplay({
           achieved={achieved}
           show={mouseEnter}
           onClick={() => {
-            completeAchievement();
+            completeAchievement(!achieved);
           }}
         >
           {!achieved && getIcon(ICON_CHECK)}
@@ -135,7 +137,17 @@ export default function AchievementDisplay({
         </AchievementIcon>
 
         <AchievementDetails achieved={achieved}>
-          <Title>{name}</Title>
+          <Title
+            onClick={() => {
+              if (window !== "undefined") {
+                const searchQuery = `${name} achievement ${gameDetails?.name} `;
+                window.open(`https://www.google.com/search?q=${searchQuery}`);
+                // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+              }
+            }}
+          >
+            {name}
+          </Title>
           <Description>{description}</Description>
           <Categories>
             {categories.map((category) => {
@@ -164,7 +176,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   margin: 0.5rem;
-  font-size: 1.225rem;
+  font-size: 1.3rem;
 
   &:hover {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);

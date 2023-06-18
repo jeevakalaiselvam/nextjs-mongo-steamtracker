@@ -213,7 +213,6 @@ const Container = styled.div`
   justify-content: center;
   width: 380px;
   height: 140px;
-  background: ${(props) => `url(${props.image})`};
   background-repeat: no-repeat;
   background-size: contain;
   margin: 1rem;
@@ -233,6 +232,7 @@ const Overlay = styled.div`
   height: 100%;
   position: relative;
   flex-direction: column;
+  backdrop-filter: blur(20px);
 `;
 
 const Label = styled.div`

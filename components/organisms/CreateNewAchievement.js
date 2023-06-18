@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import {
   actionForceRefreshAchievement,
+  actionKeepAddingAchievements,
   actionShowCreateNewAchievement,
 } from "../../store/actions/steam.actions";
 import {
@@ -33,6 +34,7 @@ import {
   STORY,
 } from "../../helper/constantHelper";
 import { ICON_TROPHY, getIcon } from "../../helper/iconHelper";
+import { useEffect } from "react";
 
 export default function CreateNewAchievement({
   achievementToEdit,
@@ -48,9 +50,9 @@ export default function CreateNewAchievement({
     achievementToEdit?.percentage ?? ""
   );
   const [categories, setCategories] = useState(
-    achievementToEdit?.categories ?? []
+    achievementToEdit?.categories ?? [STORY]
   );
-  const [type, setType] = useState(achievementToEdit?.type ?? "");
+  const [type, setType] = useState(achievementToEdit?.type ?? COPPER);
 
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -101,6 +103,7 @@ export default function CreateNewAchievement({
         setLoading(false);
         dispatch(actionShowCreateNewAchievement(false));
         dispatch(actionForceRefreshAchievement(true));
+        dispatch(actionKeepAddingAchievements(true));
       });
   };
 
@@ -253,6 +256,7 @@ export default function CreateNewAchievement({
               setEditModeActive(false);
             } else {
               dispatch(actionShowCreateNewAchievement(false));
+              dispatch(actionKeepAddingAchievements(false));
             }
           }}
         />
@@ -334,6 +338,7 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
+  font-size: 1.3rem;
   backdrop-filter: blur(20px);
   background-color: rgba(0, 0, 0, 0.75);
 `;

@@ -2,12 +2,20 @@ import axios from "axios";
 import {
   FORCE_REFRESH_ACHIEVEMENT,
   FORCE_REFRESH_GAMES,
+  KEEP_ADDING_ACHIEVEMENT,
   SHOW_ACHIEVEMENT_DELETE_SELECTION,
   SHOW_CREATE_BULK_ACHIEVEMENTS,
   SHOW_CREATE_NEW_ACHIEVEMENT,
   SHOW_CREATE_NEW_ACHIEVEMENT_CARD,
   SHOW_CREATE_NEW_GAME,
 } from "../types/steam.types";
+
+export const actionKeepAddingAchievements = (toggle) => {
+  return {
+    type: KEEP_ADDING_ACHIEVEMENT,
+    payload: toggle,
+  };
+};
 
 export const actionShowCreateNewGame = (toggle) => {
   return {

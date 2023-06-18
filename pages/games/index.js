@@ -100,11 +100,8 @@ const Overlay = styled.div`
 `;
 
 const SidebarContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-width: 8vw;
-  margin-left: 0.5rem;
+  min-width: 200px;
+  min-height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
@@ -116,9 +113,9 @@ const SidebarContainer = styled.div`
 `;
 
 const MainContainer = styled.div`
-  min-width: 100vw;
+  flex: 1;
   min-height: 100vh;
-  padding: 1rem 1rem 1rem 9vw;
+  padding: 1rem 1rem 1rem 1rem;
   display: flex;
   align-items: flex-start;
   justify-content: center;

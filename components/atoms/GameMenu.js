@@ -19,7 +19,6 @@ export default function GameMenu() {
   const steam = useSelector((state) => state.steam);
   const { settings } = steam;
   const { toggle } = steam;
-  const { createNewAchievementModal, createNewAchievementCard } = toggle;
 
   return (
     <Container>

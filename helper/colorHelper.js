@@ -9,10 +9,10 @@ import {
   XBOX,
 } from "./constantHelper";
 
-export const COLOR_PLATINUM = "#277FFE";
-export const COLOR_GOLD = "#F2BE0A";
-export const COLOR_SILVER = "#FEFEFE";
-export const COLOR_COPPER = "#D16B55";
+export const COLOR_PLATINUM = "#667FB2";
+export const COLOR_GOLD = "#CD9A46";
+export const COLOR_SILVER = "#D6D6D6";
+export const COLOR_COPPER = "#BF6A3A";
 export const COLOR_DANGER = "#EC4134";
 export const COLOR_SUCCESS = "#5CB85C";
 export const COLOR_BUTTON_PRIMARY = "#277FFE";

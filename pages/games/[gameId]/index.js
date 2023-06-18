@@ -38,7 +38,7 @@ export default function GamesPage() {
   const { settings } = steam;
   const { forceRefreshAchievement } = settings;
   const { toggle } = steam;
-  const { createNewAchievementModal } = toggle;
+  const { createNewAchievementModal, keepAddingAchievements } = toggle;
 
   const finalizeGenerate = () => {
     setShowGenerate(false);
@@ -69,7 +69,9 @@ export default function GamesPage() {
       <Overlay>
         {createNewAchievementModal && !achievementsLoading && (
           <CreateModal>
-            <CreateNewAchievement />
+            <CreateNewAchievement
+              keepAddingAchievements={keepAddingAchievements}
+            />
           </CreateModal>
         )}
         {editModeActive && !achievementsLoading && (
@@ -97,16 +99,7 @@ export default function GamesPage() {
             <InnerContainer>
               {!createNewAchievementModal &&
                 !achievementsLoading &&
-                achievements.length == 0 && (
-                  <NoGames>
-                    <Button
-                      title={"Add New Achievement"}
-                      onClick={() => {
-                        dispatch(actionShowCreateNewAchievement(true));
-                      }}
-                    />
-                  </NoGames>
-                )}
+                achievements.length == 0 && <NoGames>No Achievements</NoGames>}
               {!achievementsLoading &&
                 achievements.length != 0 &&
                 achievements
@@ -114,6 +107,7 @@ export default function GamesPage() {
                   .map((achievement, index) => {
                     return (
                       <AchievementDisplay
+                        gameDetails={gameDetails}
                         achievement={achievement}
                         key={achievement._id}
                         setEditModeActive={setEditModeActive}
@@ -173,23 +167,20 @@ const Overlay = styled.div`
 `;
 
 const SidebarContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-width: 8vw;
-  margin-left: 0.5rem;
+  min-width: 200px;
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
-  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  padding: 1rem 1rem 1rem 1rem;
   display: flex;
   align-items: center;
+  min-height: 100vh;
   justify-content: flex-start;
   flex-direction: column;
   z-index: 101;
 `;
 
 const MainContainer = styled.div`
-  min-width: 100vw;
+  flex: 1;
   padding: 1rem 1rem 1rem 2vw;
   max-height: 100vh;
   display: flex;
