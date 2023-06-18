@@ -1,16 +1,38 @@
 import React from "react";
 import styled from "styled-components";
-import { ICON_TROPHY, getIcon } from "../../helper/iconHelper";
 import {
+  ICON_BACK,
+  ICON_CLOSE,
+  ICON_GAMES,
+  ICON_MENU,
+  ICON_OPTIONS,
+  ICON_TROPHY,
+  getIcon,
+} from "../../helper/iconHelper";
+import {
+  COLOR_BUTTON_PRIMARY,
   COLOR_COPPER,
   COLOR_GOLD,
   COLOR_PLATINUM,
   COLOR_SILVER,
 } from "../../helper/colorHelper";
+import { useRouter } from "next/router";
 
-export default function Trophies({ trophies }) {
+export default function TrophiesMobileGame({
+  trophies,
+  optionToggle,
+  optionOpen,
+}) {
+  const router = useRouter();
   return (
     <Container>
+      <MenuIcon
+        onClick={() => {
+          router.push("/mobile/games");
+        }}
+      >
+        {getIcon(ICON_BACK)}
+      </MenuIcon>
       <TrophiesContainer>
         <Trophy color={COLOR_PLATINUM}>
           <Icon>{getIcon(ICON_TROPHY)}</Icon>
@@ -32,6 +54,13 @@ export default function Trophies({ trophies }) {
           <Count>{trophies?.copper ?? 0}</Count>
         </Trophy>
       </TrophiesContainer>
+      <OptionIcon
+        onClick={() => {
+          optionToggle(!optionOpen);
+        }}
+      >
+        {getIcon(ICON_OPTIONS)}
+      </OptionIcon>
     </Container>
   );
 }
@@ -41,15 +70,37 @@ const Container = styled.div`
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
+  height: 100%;
   backdrop-filter: blur(10px);
   margin-top: 0.25rem;
+`;
+const MenuIcon = styled.div`
+  display: flex;
+  font-size: 2.8rem;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+`;
+
+const OptionIcon = styled.div`
+  display: flex;
+  font-size: 2rem;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+
+  &:hover {
+    color: ${COLOR_BUTTON_PRIMARY};
+  }
 `;
 
 const TrophiesContainer = styled.div`
   display: flex;
-  width: 100%;
+  flex: 1;
   align-items: center;
+  transform: translateY(3px);
   justify-content: center;
 `;
 
@@ -57,7 +108,6 @@ const Trophy = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
   padding: 1rem;
   margin-right: 0.5rem;
   color: ${(props) => props.color};
@@ -68,11 +118,14 @@ const Icon = styled.div`
   align-items: center;
   margin-bottom: 1rem;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 2.25rem;
 `;
 
 const Count = styled.div`
   display: flex;
+  transform: translateY(-5px);
+  margin-left: 0.5rem;
   align-items: center;
+  font-size: 1.5rem;
   justify-content: center;
 `;

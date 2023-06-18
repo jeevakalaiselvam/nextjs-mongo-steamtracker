@@ -6,7 +6,7 @@ import { getTrophyCount } from "../../helper/gameHelper";
 
 export default function GameInfo({ gameDetails }) {
   const { platinum, silver, gold, copper } = getTrophyCount(
-    gameDetails.achievements
+    gameDetails?.achievements ?? []
   );
 
   return (

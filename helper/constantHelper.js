@@ -1,3 +1,5 @@
+import { MoonLoader } from "react-spinners";
+
 export const STORY = "STORY";
 export const GRIND = "GRIND";
 export const EASY = "EASY";
@@ -21,3 +23,7 @@ export const EPIC = "EPIC";
 export const BLIZZARD = "BLIZZARD";
 export const MICROSOFT = "MICROSOFT";
 export const ORIGIN = "ORIGIN";
+
+export const getLoader = () => {
+  return <MoonLoader />;
+};

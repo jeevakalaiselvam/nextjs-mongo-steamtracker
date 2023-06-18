@@ -1,4 +1,5 @@
 import Document from "next/document";
+// eslint-disable-next-line @next/next/no-head-import-in-document
 import Head from "next/head";
 import { ServerStyleSheet } from "styled-components";
 
@@ -20,6 +21,7 @@ export default class MyDocument extends Document {
         styles: (
           <>
             <Head>
+              <meta name="theme-color" content="#fff" />
               <title>My page title</title>
               <meta
                 name="viewport"

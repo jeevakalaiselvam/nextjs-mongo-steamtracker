@@ -16,7 +16,7 @@ export default function Home() {
 
   useEffect(() => {
     router.push("/games");
-  });
+  }, [router]);
 
   return <Container>GAMES</Container>;
 }

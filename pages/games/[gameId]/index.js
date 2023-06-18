@@ -2,32 +2,27 @@ import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { HashLoader } from "react-spinners";
 import styled from "styled-components";
 import { BACKGROUND_IMAGE } from "../../../helper/urlHelper";
 import Profile from "../../../components/molecules/Profile";
 import Trophies from "../../../components/molecules/Trophies";
 import GameMenu from "../../../components/atoms/GameMenu";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  actionForceRefresh,
-  actionForceRefreshAchievement,
-  actionShowCreateBulkAchievements,
-  actionShowCreateNewAchievement,
-  actionShowCreateNewGame,
-} from "../../../store/actions/steam.actions";
-import Button from "../../../components/atoms/Button";
+import { actionForceRefreshAchievement } from "../../../store/actions/steam.actions";
 import CreateNewAchievement from "../../../components/organisms/CreateNewAchievement";
 import { useRouter } from "next/router";
 import AchievementDisplay from "../../../components/atoms/AchievementDisplay";
-import { ICON_CLOSE, getIcon } from "../../../helper/iconHelper";
-import { COLOR_DANGER } from "../../../helper/colorHelper";
 import GameInfo from "../../../components/molecules/GameInfo";
+import { getLoader } from "../../../helper/constantHelper";
+import {
+  calculateAllTrophyCountForGames,
+  getTrophyCount,
+} from "../../../helper/gameHelper";
 
 export default function GamesPage() {
   const [achievementsLoading, setAchievementsLoading] = useState(false);
   const [achievements, setAchievements] = useState([]);
-  const [gameDetails, setGameDetails] = useState([]);
+  const [game, setGame] = useState([]);
   const [editModeActive, setEditModeActive] = useState(false);
   const [achievementToEdit, setAchievementToEdit] = useState({});
 
@@ -49,7 +44,7 @@ export default function GamesPage() {
       axios
         .get(`/api/${router.query.gameId}/achievements`)
         .then((response) => {
-          setGameDetails(response.data.game ?? {});
+          setGame(response.data.game ?? {});
           setAchievements(response.data.game.achievements ?? []);
           actionForceRefreshAchievement(false);
         })
@@ -63,6 +58,8 @@ export default function GamesPage() {
   const updateAchievementToEdit = (achievement) => {
     setAchievementToEdit(achievement);
   };
+
+  const trophies = getTrophyCount(game);
 
   return (
     <Container image={BACKGROUND_IMAGE}>
@@ -85,15 +82,13 @@ export default function GamesPage() {
         )}
         <SidebarContainer>
           <Profile />
-          <Trophies />
-          <GameInfo gameDetails={gameDetails} />
+          <Trophies trophies={trophies} />
+          <GameInfo game={game} />
           <GameMenu />
         </SidebarContainer>
         <MainContainer>
           {achievementsLoading && (
-            <LoaderContainer>
-              <HashLoader />
-            </LoaderContainer>
+            <LoaderContainer>{getLoader()}</LoaderContainer>
           )}
           {
             <InnerContainer>
@@ -107,7 +102,7 @@ export default function GamesPage() {
                   .map((achievement, index) => {
                     return (
                       <AchievementDisplay
-                        gameDetails={gameDetails}
+                        game={game}
                         achievement={achievement}
                         key={achievement._id}
                         setEditModeActive={setEditModeActive}

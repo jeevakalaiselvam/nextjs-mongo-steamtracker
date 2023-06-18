@@ -26,7 +26,7 @@ export default function AchievementDisplay({
   achievement,
   setEditModeActive,
   updateAchievementToEdit,
-  gameDetails,
+  game,
 }) {
   const {
     image,
@@ -140,7 +140,7 @@ export default function AchievementDisplay({
           <Title
             onClick={() => {
               if (window !== "undefined") {
-                const searchQuery = `${name} achievement ${gameDetails?.name} `;
+                const searchQuery = `${name} achievement ${game?.name} `;
                 window.open(`https://www.google.com/search?q=${searchQuery}`);
                 // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
               }
@@ -150,8 +150,8 @@ export default function AchievementDisplay({
           </Title>
           <Description>{description}</Description>
           <Categories>
-            {categories.map((category) => {
-              return <Category>{category}</Category>;
+            {categories.map((category, index) => {
+              return <Category key={index}>{category}</Category>;
             })}
           </Categories>
         </AchievementDetails>
@@ -191,7 +191,7 @@ const Category = styled.div`
     props.selected ? COLOR_BUTTON_PRIMARY : `rgba(0,0,0,0.5)`};
   justify-content: flex-start;
   margin-right: 0.5rem;
-  opacity: 0.5;
+  color: #888888;
 `;
 
 const Categories = styled.div`

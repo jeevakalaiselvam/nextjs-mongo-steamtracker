@@ -2,7 +2,6 @@ import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { HashLoader } from "react-spinners";
 import styled from "styled-components";
 import GameDisplay from "../../components/atoms/GameDisplay";
 import { BACKGROUND_IMAGE } from "../../helper/urlHelper";
@@ -16,6 +15,7 @@ import {
   actionShowCreateNewGame,
 } from "../../store/actions/steam.actions";
 import Button from "../../components/atoms/Button";
+import { getLoader } from "../../helper/constantHelper";
 
 export default function GamesPage() {
   const [gamesLoading, setGamesLoading] = useState(false);
@@ -36,7 +36,7 @@ export default function GamesPage() {
       setGamesLoading(false);
     });
     dispatch(actionForceRefreshGames(false));
-  }, [forceRefreshGames]);
+  }, [forceRefreshGames, dispatch]);
 
   return (
     <Container image={BACKGROUND_IMAGE}>
@@ -47,7 +47,7 @@ export default function GamesPage() {
           <GameMenu />
         </SidebarContainer>
         <MainContainer>
-          {gamesLoading && <HashLoader />}
+          {gamesLoading && getLoader()}
           {!createNewGameModal && !gamesLoading && games.length == 0 && (
             <NoGames>
               <Button

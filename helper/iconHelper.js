@@ -7,6 +7,10 @@ import {
   HiCollection,
   HiPlusCircle,
   HiStop,
+  HiMenu,
+  HiRewind,
+  HiOutlineArrowSmLeft,
+  HiDotsVertical,
 } from "react-icons/hi";
 import { HiTrophy } from "react-icons/hi2";
 import { FaSteam, FaPlaystation, FaXbox } from "react-icons/fa";
@@ -39,6 +43,9 @@ export const ICON_EPIC = "ICON_EPIC";
 export const ICON_ORIGIN = "ICON_ORIGIN";
 export const ICON_GAMES = "ICON_GAMES";
 export const ICON_ADD = "ICON_ADD";
+export const ICON_MENU = "ICON_MENU";
+export const ICON_BACK = "ICON_BACK";
+export const ICON_OPTIONS = "ICON_OPTIONS";
 
 export const getIcon = (key) => {
   switch (key) {
@@ -74,6 +81,12 @@ export const getIcon = (key) => {
       return <HiCollection />;
     case ICON_ADD:
       return <HiPlusCircle />;
+    case ICON_MENU:
+      return <HiMenu />;
+    case ICON_BACK:
+      return <HiOutlineArrowSmLeft />;
+    case ICON_OPTIONS:
+      return <HiDotsVertical />;
     default:
   }
 };
