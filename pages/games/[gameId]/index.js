@@ -82,7 +82,7 @@ export default function GamesPage() {
           </CreateModal>
         )}
         <SidebarContainer>
-          <Profile />
+          <Profile games={games} />
           <Trophies games={games} title={"COLLECTION"} />
           <GameInfo game={game} />
           <GameMenu />
@@ -165,7 +165,8 @@ const Overlay = styled.div`
 const SidebarContainer = styled.div`
   min-width: 200px;
   backdrop-filter: blur(10px);
-  padding: 1rem 1rem 1rem 1rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   min-height: 100vh;

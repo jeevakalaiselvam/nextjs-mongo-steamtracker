@@ -83,6 +83,8 @@ const getPointForTrophyType = (type) => {
   }
 };
 
+const EACH_LEVEL_XP = 500;
+
 export const calculateLevel = (games) => {
   let totalPoints = 0;
 
@@ -101,48 +103,67 @@ export const calculateLevel = (games) => {
     });
   }
 
-  let level_1_99 = 0;
-  let level_99_199 = 0;
-  let level_199_200 = 0;
-  let level_299_300 = 0;
-  let level_399_400 = 0;
-  let level_499_500 = 0;
-  let level_599_600 = 0;
-  let level_699_700 = 0;
-  let level_799_800 = 0;
-  let level_899_900 = 0;
-  let level_999_1000 = 0;
-
   let remainingPoints = totalPoints;
-
-  if (remainingPoints >= 60) {
-    let levelsIn1_99 = remainingPoints / 60;
-    level_1_99 = levelsIn1_99 >= 99 ? 99 : levelsIn1_99;
-    if (levelsIn1_99 >= 99) {
-      remainingPoints = remainingPoints - 99 * 60;
+  let beforeBreakingPoints = 0;
+  let breakPoint = 0;
+  let currentLevel = 0;
+  while (remainingPoints > 0) {
+    if (currentLevel < 100) {
+      currentLevel++;
+      beforeBreakingPoints = remainingPoints;
+      breakPoint = 60;
+      remainingPoints = remainingPoints - 60;
+    } else if (currentLevel >= 100 && currentLevel < 199) {
+      currentLevel++;
+      beforeBreakingPoints = remainingPoints;
+      breakPoint = 90;
+      remainingPoints = remainingPoints - 90;
+    } else if (currentLevel >= 200 && currentLevel < 299) {
+      currentLevel++;
+      beforeBreakingPoints = remainingPoints;
+      breakPoint = 150;
+      remainingPoints = remainingPoints - 150;
+    } else if (currentLevel >= 300 && currentLevel < 399) {
+      currentLevel++;
+      beforeBreakingPoints = remainingPoints;
+      breakPoint = 300;
+      remainingPoints = remainingPoints - 300;
+    } else if (currentLevel >= 400 && currentLevel < 499) {
+      currentLevel++;
+      beforeBreakingPoints = remainingPoints;
+      breakPoint = 450;
+      remainingPoints = remainingPoints - 450;
+    } else if (currentLevel >= 500 && currentLevel < 599) {
+      currentLevel++;
+      beforeBreakingPoints = remainingPoints;
+      breakPoint = 600;
+      remainingPoints = remainingPoints - 600;
+    } else if (currentLevel >= 600 && currentLevel < 699) {
+      currentLevel++;
+      beforeBreakingPoints = remainingPoints;
+      breakPoint = 900;
+      remainingPoints = remainingPoints - 900;
+    } else if (currentLevel >= 700 && currentLevel < 799) {
+      currentLevel++;
+      beforeBreakingPoints = remainingPoints;
+      breakPoint = 1350;
+      remainingPoints = remainingPoints - 1350;
+    } else if (currentLevel >= 800 && currentLevel < 899) {
+      currentLevel++;
+      beforeBreakingPoints = remainingPoints;
+      breakPoint = 1800;
+      remainingPoints = remainingPoints - 1800;
+    } else if (currentLevel >= 900 && currentLevel < 999) {
+      currentLevel++;
+      beforeBreakingPoints = remainingPoints;
+      breakPoint = 2700;
+      remainingPoints = remainingPoints - 2700;
     }
   }
 
-  if (remainingPoints >= 90) {
-    let levelsIn1_99 = remainingPoints / 90;
-    level_99_199 = levelsIn1_99 >= 99 ? 99 : levelsIn1_99;
-    if (levelsIn1_99 >= 99) {
-      remainingPoints = remainingPoints - 99 * 90;
-    }
-  }
-
-  let finalLevel =
-    level_1_99 +
-    level_99_199 +
-    level_199_200 +
-    level_299_300 +
-    level_399_400 +
-    level_499_500 +
-    level_599_600 +
-    level_699_700 +
-    level_799_800 +
-    level_899_900 +
-    level_999_1000;
-
-  return finalLevel;
+  return {
+    currentLevel: currentLevel - 1,
+    totalPoints,
+    toNext: breakPoint - beforeBreakingPoints,
+  };
 };
