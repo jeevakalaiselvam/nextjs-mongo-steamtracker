@@ -1,14 +1,16 @@
-import axios from 'axios';
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import styled from 'styled-components';
-import { HEADER_IMAGE } from '../../../../helper/urlHelper';
-import { getTrophyCount } from '../../../../helper/gameHelper';
-import { useRouter } from 'next/router';
-import MobileAchievementDisplay from '../../../../components/mobile/MobileAchievementDisplay';
-import { getLoader } from '../../../../helper/constantHelper';
-import TrophiesMobileGame from '../../../../components/molecules/TrophiesMobileGame';
+import axios from "axios";
+import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import styled from "styled-components";
+import { BACKGROUND_IMAGE, HEADER_IMAGE } from "../../../../helper/urlHelper";
+import { getTrophyCount } from "../../../../helper/gameHelper";
+import { useRouter } from "next/router";
+import MobileAchievementDisplay from "../../../../components/mobile/MobileAchievementDisplay";
+import { getLoader } from "../../../../helper/constantHelper";
+import TrophiesMobileGame from "../../../../components/molecules/TrophiesMobileGame";
+import { useDispatch, useSelector } from "react-redux";
+import { actionForceRefreshAchievement } from "../../../../store/actions/steam.actions";
 
 const Container = styled.div`
   display: flex;
@@ -26,7 +28,7 @@ const Overlay = styled.div`
   justify-content: center;
   min-width: 100vw;
   min-height: 100vh;
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(50px);
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
@@ -73,7 +75,7 @@ const OptionContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: ${(props) => (props.open ? '8vh' : '-8vh')};
+  top: ${(props) => (props.open ? "8vh" : "-8vh")};
   right: 0;
   width: 80%;
   padding: 0.5rem;
@@ -93,6 +95,8 @@ export default function Game() {
   const [game, setGame] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const dispatch = useDispatch();
+
   const trophies = getTrophyCount(game?.achievements ?? []);
 
   const steam = useSelector((state) => state.steam);
@@ -102,25 +106,25 @@ export default function Game() {
 
   useEffect(() => {
     if (router.query.gameId) {
-      setLoading(true);
       axios
         .get(`/api/${router.query.gameId}/achievements`)
         .then((response) => {
           setGame(response.data.game ?? {});
-          setLoading(false);
+          dispatch(actionForceRefreshAchievement(false));
         })
         .catch((error) => {
           setGame([]);
+          dispatch(actionForceRefreshAchievement(false));
         });
     }
-  }, [router.query.gameId]);
+  }, [router.query.gameId, forceRefreshAchievement, dispatch]);
 
   const optionToggle = (toggle) => {
     setOptionOpen(toggle);
   };
 
   return (
-    <Container image={HEADER_IMAGE(themeId ?? '130130')}>
+    <Container image={HEADER_IMAGE(themeId ?? "130130")}>
       <Overlay>
         {loading && <LoadingContainer>{getLoader()}</LoadingContainer>}
         {!loading && (

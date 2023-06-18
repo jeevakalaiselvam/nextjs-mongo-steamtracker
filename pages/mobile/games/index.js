@@ -1,14 +1,14 @@
-import axios from 'axios';
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import styled from 'styled-components';
-import { HEADER_IMAGE } from '../../../helper/urlHelper';
-import { calculateAllTrophyCountForGames } from '../../../helper/gameHelper';
-import MobileGameDisplay from '../../../components/mobile/MobileGameDisplay';
-import { getLoader } from '../../../helper/constantHelper';
-import TrophiesMobileGames from '../../../components/molecules/TrophiesMobileGames';
-import { useSelector } from 'react-redux';
+import axios from "axios";
+import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import styled from "styled-components";
+import { HEADER_IMAGE } from "../../../helper/urlHelper";
+import { calculateAllTrophyCountForGames } from "../../../helper/gameHelper";
+import MobileGameDisplay from "../../../components/mobile/MobileGameDisplay";
+import { getLoader } from "../../../helper/constantHelper";
+import TrophiesMobileGames from "../../../components/molecules/TrophiesMobileGames";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   display: flex;
@@ -27,6 +27,7 @@ const Overlay = styled.div`
   min-width: 100vw;
   min-height: 100vh;
   backdrop-filter: blur(20px);
+  overflow: hidden;
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
@@ -73,9 +74,29 @@ const OptionContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: ${(props) => (props.open ? '8vh' : '-8vh')};
+  top: 8vh;
   right: 0;
-  width: 80%;
+  width: 30vw;
+  right: ${(props) => (props.open ? "-30vw" : "0vw")};
+  padding: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(20px);
+  transition: 0.5s all;
+`;
+
+const LeftSidebarContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.5rem;
+  flex-direction: column;
+  position: absolute;
+  top: 8vh;
+  transition: 0.5s all;
+  left: ${(props) => (props.open ? "0" : "-60vw")};
+  width: 60vw;
+  z-index: 100;
+  height: 100%;
   padding: 0.5rem;
   background-color: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(20px);
@@ -85,6 +106,7 @@ export default function Games() {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(false);
   const [optionOpen, setOptionOpen] = useState(false);
+  const [leftSidebarOpen, setLeftSidebarOpen] = useState(false);
 
   const steam = useSelector((state) => state.steam);
   const { settings } = steam;
@@ -93,7 +115,7 @@ export default function Games() {
 
   useEffect(() => {
     setLoading(true);
-    axios.get('/api/games').then((response) => {
+    axios.get("/api/games").then((response) => {
       setGames(response.data.games);
       setLoading(false);
     });
@@ -103,10 +125,14 @@ export default function Games() {
     setOptionOpen(toggle);
   };
 
+  const leftSidebarToggle = (toggle) => {
+    setLeftSidebarOpen(toggle);
+  };
+
   const trophies = calculateAllTrophyCountForGames(games);
 
   return (
-    <Container image={HEADER_IMAGE(themeId ?? '130130')}>
+    <Container image={HEADER_IMAGE(themeId ?? "130130")}>
       <Overlay>
         {loading && <LoadingContainer>{getLoader()}</LoadingContainer>}
         {!loading && (
@@ -116,6 +142,8 @@ export default function Games() {
                 trophies={trophies}
                 optionToggle={optionToggle}
                 optionOpen={optionOpen}
+                leftSidebarToggle={leftSidebarToggle}
+                leftSidebarOpen={leftSidebarOpen}
               />
             </Header>
             <Content>
@@ -125,7 +153,10 @@ export default function Games() {
             </Content>
           </GamesContainer>
         )}
-        {<OptionContainer open={optionOpen}>OPTIONS</OptionContainer>}
+        <OptionContainer open={optionOpen}>OPTIONS</OptionContainer>
+        <LeftSidebarContainer open={leftSidebarOpen}>
+          LEFT SIDE BAR
+        </LeftSidebarContainer>
       </Overlay>
     </Container>
   );

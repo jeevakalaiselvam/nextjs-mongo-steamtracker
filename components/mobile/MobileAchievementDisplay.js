@@ -1,9 +1,22 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { ICON_TROPHY, getIcon } from "../../helper/iconHelper";
-import { getColor } from "../../helper/colorHelper";
+import {
+  ICON_CHECK,
+  ICON_CROSS,
+  ICON_TROPHY,
+  getIcon,
+} from "../../helper/iconHelper";
+import {
+  COLOR_DANGER,
+  COLOR_SUCCESS,
+  getColor,
+} from "../../helper/colorHelper";
+import { useSwipeable } from "react-swipeable";
+import { actionForceRefreshAchievement } from "../../store/actions/steam.actions";
+import axios from "axios";
+import moment from "moment";
 
 export default function MobileAchievementDisplay({ game, achievement }) {
   const {
@@ -20,8 +33,44 @@ export default function MobileAchievementDisplay({ game, achievement }) {
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const [longPressed, setLongPressed] = useState(false);
+
+  const completeAchievement = (shouldCompleteOrNot) => {
+    dispatch(actionForceRefreshAchievement(false));
+    axios
+      .post(`/api/completeAchievement?gameId=${gameId}&achievementId=${id}`, {
+        achieved: shouldCompleteOrNot,
+        unlockTime: shouldCompleteOrNot ? moment.now() : "",
+      })
+      .then((response) => {
+        dispatch(actionForceRefreshAchievement(true));
+        router.push(`/mobile/games/${gameId}`);
+      });
+  };
+
+  const config = {
+    delta: 100, // min distance(px) before a swipe starts. *See Notes*
+    preventScrollOnSwipe: false, // prevents scroll during swipe (*See Details*)
+    trackTouch: true, // track touch input
+    trackMouse: false, // track mouse input
+    rotationAngle: 0, // set a rotation angle
+    swipeDuration: Infinity, // allowable duration of a swipe (ms). *See Notes*
+    touchEventOptions: { passive: true }, // options for touch listeners (*See Details*)
+  };
+
+  const handlers = useSwipeable({
+    onSwipedLeft: (eventData) => {
+      console.log(eventData);
+      completeAchievement(false);
+    },
+    onSwipedRight: (eventData) => {
+      completeAchievement(true);
+    },
+    ...config,
+  });
+
   return (
-    <Container achieved={achieved}>
+    <Container achieved={achieved} {...handlers}>
       <IconContainer>
         <Icon image={image} />
       </IconContainer>
@@ -45,9 +94,42 @@ export default function MobileAchievementDisplay({ game, achievement }) {
         </Categories>
       </DetailContainer>
       <Trophy color={getColor(type)}>{getIcon(ICON_TROPHY)}</Trophy>
+
+      {false && (
+        <CompletedOrNot
+          achieved={achieved}
+          show={longPressed}
+          onClick={() => {
+            completeAchievement(!achieved);
+          }}
+        >
+          {!achieved && getIcon(ICON_CHECK)}
+          {achieved && getIcon(ICON_CROSS)}
+        </CompletedOrNot>
+      )}
     </Container>
   );
 }
+
+const CompletedOrNot = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  padding: 0.5rem 0.5rem;
+  font-size: 2rem;
+  background: rgba(0, 0, 0, 0.25);
+  right: ${(props) => (props.show ? "0px" : "-100px")};
+  opacity: 0.5;
+  overflow: hidden;
+  font-size: 1.25rem;
+  transition: 0.25s all;
+  &:hover {
+    background: ${(props) => (!props.achieved ? COLOR_SUCCESS : COLOR_DANGER)};
+    opacity: 1;
+  }
+`;
 
 const Categories = styled.div`
   display: flex;
@@ -77,6 +159,7 @@ const Container = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   margin-bottom: 0.5rem;
   opacity: ${(props) => (props.achieved ? "0.25" : "1")};
+  position: relative;
 `;
 
 const IconContainer = styled.div`

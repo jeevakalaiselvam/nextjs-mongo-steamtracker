@@ -22,11 +22,20 @@ export default function TrophiesMobileGames({
   trophies,
   optionToggle,
   optionOpen,
+  leftSidebarToggle,
+  leftSidebarOpen,
 }) {
   const router = useRouter();
   return (
     <Container>
-      <MenuIcon onClick={() => {}}>{getIcon(ICON_MENU)}</MenuIcon>
+      <MenuIcon
+        onClick={() => {
+          leftSidebarToggle(!leftSidebarOpen);
+        }}
+      >
+        {!leftSidebarOpen && getIcon(ICON_MENU)}
+        {leftSidebarOpen && getIcon(ICON_BACK)}
+      </MenuIcon>
       <TrophiesContainer>
         <Trophy color={COLOR_PLATINUM}>
           <Icon>{getIcon(ICON_TROPHY)}</Icon>

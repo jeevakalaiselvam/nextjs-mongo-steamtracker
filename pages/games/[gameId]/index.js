@@ -1,23 +1,23 @@
-import axios from 'axios';
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import styled from 'styled-components';
-import { BACKGROUND_IMAGE, HEADER_IMAGE } from '../../../helper/urlHelper';
-import Profile from '../../../components/molecules/Profile';
-import Trophies from '../../../components/molecules/Trophies';
-import GameMenu from '../../../components/atoms/GameMenu';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionForceRefreshAchievement } from '../../../store/actions/steam.actions';
-import CreateNewAchievement from '../../../components/organisms/CreateNewAchievement';
-import { useRouter } from 'next/router';
-import AchievementDisplay from '../../../components/atoms/AchievementDisplay';
-import GameInfo from '../../../components/molecules/GameInfo';
-import { getLoader } from '../../../helper/constantHelper';
+import axios from "axios";
+import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import styled from "styled-components";
+import { BACKGROUND_IMAGE, HEADER_IMAGE } from "../../../helper/urlHelper";
+import Profile from "../../../components/molecules/Profile";
+import Trophies from "../../../components/molecules/Trophies";
+import GameMenu from "../../../components/atoms/GameMenu";
+import { useDispatch, useSelector } from "react-redux";
+import { actionForceRefreshAchievement } from "../../../store/actions/steam.actions";
+import CreateNewAchievement from "../../../components/organisms/CreateNewAchievement";
+import { useRouter } from "next/router";
+import AchievementDisplay from "../../../components/atoms/AchievementDisplay";
+import GameInfo from "../../../components/molecules/GameInfo";
+import { getLoader } from "../../../helper/constantHelper";
 import {
   calculateAllTrophyCountForGames,
   getTrophyCount,
-} from '../../../helper/gameHelper';
+} from "../../../helper/gameHelper";
 
 export default function GamesPage() {
   const [achievementsLoading, setAchievementsLoading] = useState(false);
@@ -46,14 +46,14 @@ export default function GamesPage() {
         .then((response) => {
           setGame(response.data.game ?? {});
           setAchievements(response.data.game.achievements ?? []);
-          actionForceRefreshAchievement(false);
+          dispatch(actionForceRefreshAchievement(false));
         })
         .catch((error) => {
           setAchievements([]);
-          actionForceRefreshAchievement(false);
+          dispatch(actionForceRefreshAchievement(false));
         });
     }
-  }, [forceRefreshAchievement, router.query.gameId]);
+  }, [forceRefreshAchievement, router.query.gameId, dispatch]);
 
   const updateAchievementToEdit = (achievement) => {
     setAchievementToEdit(achievement);
@@ -62,7 +62,7 @@ export default function GamesPage() {
   const trophies = getTrophyCount(game);
 
   return (
-    <Container image={HEADER_IMAGE(themeId ?? '130130')}>
+    <Container image={HEADER_IMAGE(themeId ?? "130130")}>
       <Overlay>
         {createNewAchievementModal && !achievementsLoading && (
           <CreateModal>
@@ -157,7 +157,7 @@ const Overlay = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(50px);
   position: relative;
 `;
 
@@ -177,11 +177,13 @@ const SidebarContainer = styled.div`
 const MainContainer = styled.div`
   flex: 1;
   padding: 1rem 1rem 1rem 2vw;
-  max-height: 100vh;
+  min-height: 100vh;
   display: flex;
   overflow: scroll;
   align-items: flex-start;
-  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  justify-content: flex-start;
   flex-direction: column;
 `;
 
