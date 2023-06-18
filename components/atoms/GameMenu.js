@@ -1,16 +1,25 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 import {
+  actionChangeTheme,
   actionShowAchievementDeleteSelection,
   actionShowCreateBulkAchievements,
   actionShowCreateNewAchievement,
   actionShowCreateNewAchievementCard,
   actionShowCreateNewGame,
-} from "../../store/actions/steam.actions";
-import Button from "./Button";
-import { useRouter } from "next/router";
-import { ICON_ADD, ICON_GAMES, getIcon } from "../../helper/iconHelper";
+} from '../../store/actions/steam.actions';
+import Button from './Button';
+import { useRouter } from 'next/router';
+import {
+  ICON_ADD,
+  ICON_GAMES,
+  ICON_THEME,
+  getIcon,
+} from '../../helper/iconHelper';
+import axios from 'axios';
+import { FETCH_ALL_GAMES } from '../../helper/urlHelper';
+import { themeIds } from '../../helper/constantHelper';
 
 export default function GameMenu() {
   const dispatch = useDispatch();
@@ -20,23 +29,38 @@ export default function GameMenu() {
   const { settings } = steam;
   const { toggle } = steam;
 
+  const changeTheme = () => {
+    let newThemeId = themeIds[Math.floor(Math.random() * themeIds.length)];
+    dispatch(actionChangeTheme(newThemeId));
+  };
+
   return (
     <Container>
       <Link>
         <Button
-          icon={getIcon(ICON_GAMES)}
-          fontSize={"1.25rem"}
-          title="My Games"
+          icon={getIcon(ICON_THEME)}
+          fontSize={'1.25rem'}
+          title="Change Theme"
           onClick={() => {
-            router.push("/games");
+            changeTheme();
           }}
         />
       </Link>
-      {router.pathname == "/games" && (
+      <Link>
+        <Button
+          icon={getIcon(ICON_GAMES)}
+          fontSize={'1.25rem'}
+          title="My Games"
+          onClick={() => {
+            router.push('/games');
+          }}
+        />
+      </Link>
+      {router.pathname == '/games' && (
         <Link>
           <Button
             icon={getIcon(ICON_ADD)}
-            fontSize={"1.25rem"}
+            fontSize={'1.25rem'}
             title="Add Game"
             onClick={() => {
               dispatch(actionShowCreateNewGame(true));
@@ -44,11 +68,11 @@ export default function GameMenu() {
           />
         </Link>
       )}
-      {router.pathname?.includes("/games/") && (
+      {router.pathname?.includes('/games/') && (
         <Link>
           <Button
             icon={getIcon(ICON_ADD)}
-            fontSize={"1.25rem"}
+            fontSize={'1.25rem'}
             title="Add Achievement"
             onClick={() => {
               dispatch(actionShowCreateNewAchievement(true));

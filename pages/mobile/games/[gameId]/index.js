@@ -1,14 +1,14 @@
-import axios from "axios";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import styled from "styled-components";
-import { BACKGROUND_IMAGE } from "../../../../helper/urlHelper";
-import { getTrophyCount } from "../../../../helper/gameHelper";
-import { useRouter } from "next/router";
-import MobileAchievementDisplay from "../../../../components/mobile/MobileAchievementDisplay";
-import { getLoader } from "../../../../helper/constantHelper";
-import TrophiesMobileGame from "../../../../components/molecules/TrophiesMobileGame";
+import axios from 'axios';
+import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import styled from 'styled-components';
+import { HEADER_IMAGE } from '../../../../helper/urlHelper';
+import { getTrophyCount } from '../../../../helper/gameHelper';
+import { useRouter } from 'next/router';
+import MobileAchievementDisplay from '../../../../components/mobile/MobileAchievementDisplay';
+import { getLoader } from '../../../../helper/constantHelper';
+import TrophiesMobileGame from '../../../../components/molecules/TrophiesMobileGame';
 
 const Container = styled.div`
   display: flex;
@@ -73,7 +73,7 @@ const OptionContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: ${(props) => (props.open ? "8vh" : "-8vh")};
+  top: ${(props) => (props.open ? '8vh' : '-8vh')};
   right: 0;
   width: 80%;
   padding: 0.5rem;
@@ -95,6 +95,11 @@ export default function Game() {
 
   const trophies = getTrophyCount(game?.achievements ?? []);
 
+  const steam = useSelector((state) => state.steam);
+  const { settings } = steam;
+  const { forceRefreshAchievement, themeId } = settings;
+  const { toggle } = steam;
+
   useEffect(() => {
     if (router.query.gameId) {
       setLoading(true);
@@ -115,7 +120,7 @@ export default function Game() {
   };
 
   return (
-    <Container image={BACKGROUND_IMAGE}>
+    <Container image={HEADER_IMAGE(themeId ?? '130130')}>
       <Overlay>
         {loading && <LoadingContainer>{getLoader()}</LoadingContainer>}
         {!loading && (

@@ -1,23 +1,23 @@
-import axios from "axios";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import styled from "styled-components";
-import { BACKGROUND_IMAGE } from "../../../helper/urlHelper";
-import Profile from "../../../components/molecules/Profile";
-import Trophies from "../../../components/molecules/Trophies";
-import GameMenu from "../../../components/atoms/GameMenu";
-import { useDispatch, useSelector } from "react-redux";
-import { actionForceRefreshAchievement } from "../../../store/actions/steam.actions";
-import CreateNewAchievement from "../../../components/organisms/CreateNewAchievement";
-import { useRouter } from "next/router";
-import AchievementDisplay from "../../../components/atoms/AchievementDisplay";
-import GameInfo from "../../../components/molecules/GameInfo";
-import { getLoader } from "../../../helper/constantHelper";
+import axios from 'axios';
+import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import styled from 'styled-components';
+import { BACKGROUND_IMAGE, HEADER_IMAGE } from '../../../helper/urlHelper';
+import Profile from '../../../components/molecules/Profile';
+import Trophies from '../../../components/molecules/Trophies';
+import GameMenu from '../../../components/atoms/GameMenu';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionForceRefreshAchievement } from '../../../store/actions/steam.actions';
+import CreateNewAchievement from '../../../components/organisms/CreateNewAchievement';
+import { useRouter } from 'next/router';
+import AchievementDisplay from '../../../components/atoms/AchievementDisplay';
+import GameInfo from '../../../components/molecules/GameInfo';
+import { getLoader } from '../../../helper/constantHelper';
 import {
   calculateAllTrophyCountForGames,
   getTrophyCount,
-} from "../../../helper/gameHelper";
+} from '../../../helper/gameHelper';
 
 export default function GamesPage() {
   const [achievementsLoading, setAchievementsLoading] = useState(false);
@@ -31,7 +31,7 @@ export default function GamesPage() {
 
   const steam = useSelector((state) => state.steam);
   const { settings } = steam;
-  const { forceRefreshAchievement } = settings;
+  const { forceRefreshAchievement, themeId } = settings;
   const { toggle } = steam;
   const { createNewAchievementModal, keepAddingAchievements } = toggle;
 
@@ -62,7 +62,7 @@ export default function GamesPage() {
   const trophies = getTrophyCount(game);
 
   return (
-    <Container image={BACKGROUND_IMAGE}>
+    <Container image={HEADER_IMAGE(themeId ?? '130130')}>
       <Overlay>
         {createNewAchievementModal && !achievementsLoading && (
           <CreateModal>

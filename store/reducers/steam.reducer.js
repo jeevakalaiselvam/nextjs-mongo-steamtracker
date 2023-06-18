@@ -1,4 +1,5 @@
 import {
+  CHANGE_THEME,
   FORCE_REFRESH_ACHIEVEMENT,
   FORCE_REFRESH_GAMES,
   KEEP_ADDING_ACHIEVEMENT,
@@ -7,7 +8,7 @@ import {
   SHOW_CREATE_NEW_ACHIEVEMENT,
   SHOW_CREATE_NEW_ACHIEVEMENT_CARD,
   SHOW_CREATE_NEW_GAME,
-} from "../types/steam.types";
+} from '../types/steam.types';
 
 const INITIAL_STATE = {
   toggle: {
@@ -21,6 +22,7 @@ const INITIAL_STATE = {
   settings: {
     forceRefreshGames: false,
     forceRefreshAchievement: false,
+    themeId: 130130,
   },
 };
 
@@ -28,6 +30,14 @@ const reducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case CHANGE_THEME:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          themeId: payload,
+        },
+      };
     case KEEP_ADDING_ACHIEVEMENT:
       return {
         ...state,
@@ -82,7 +92,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         settings: {
-          ...state.toggle,
+          ...state.settings,
           forceRefreshGames: payload,
         },
       };
@@ -90,7 +100,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         settings: {
-          ...state.toggle,
+          ...state.settings,
           forceRefreshAchievement: payload,
         },
       };

@@ -1,13 +1,14 @@
-import axios from "axios";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import styled from "styled-components";
-import { BACKGROUND_IMAGE } from "../../../helper/urlHelper";
-import { calculateAllTrophyCountForGames } from "../../../helper/gameHelper";
-import MobileGameDisplay from "../../../components/mobile/MobileGameDisplay";
-import { getLoader } from "../../../helper/constantHelper";
-import TrophiesMobileGames from "../../../components/molecules/TrophiesMobileGames";
+import axios from 'axios';
+import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import styled from 'styled-components';
+import { HEADER_IMAGE } from '../../../helper/urlHelper';
+import { calculateAllTrophyCountForGames } from '../../../helper/gameHelper';
+import MobileGameDisplay from '../../../components/mobile/MobileGameDisplay';
+import { getLoader } from '../../../helper/constantHelper';
+import TrophiesMobileGames from '../../../components/molecules/TrophiesMobileGames';
+import { useSelector } from 'react-redux';
 
 const Container = styled.div`
   display: flex;
@@ -72,7 +73,7 @@ const OptionContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: ${(props) => (props.open ? "8vh" : "-8vh")};
+  top: ${(props) => (props.open ? '8vh' : '-8vh')};
   right: 0;
   width: 80%;
   padding: 0.5rem;
@@ -85,9 +86,14 @@ export default function Games() {
   const [loading, setLoading] = useState(false);
   const [optionOpen, setOptionOpen] = useState(false);
 
+  const steam = useSelector((state) => state.steam);
+  const { settings } = steam;
+  const { forceRefreshAchievement, themeId } = settings;
+  const { toggle } = steam;
+
   useEffect(() => {
     setLoading(true);
-    axios.get("/api/games").then((response) => {
+    axios.get('/api/games').then((response) => {
       setGames(response.data.games);
       setLoading(false);
     });
@@ -100,7 +106,7 @@ export default function Games() {
   const trophies = calculateAllTrophyCountForGames(games);
 
   return (
-    <Container image={BACKGROUND_IMAGE}>
+    <Container image={HEADER_IMAGE(themeId ?? '130130')}>
       <Overlay>
         {loading && <LoadingContainer>{getLoader()}</LoadingContainer>}
         {!loading && (

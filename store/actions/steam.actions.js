@@ -1,5 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 import {
+  CHANGE_THEME,
   FORCE_REFRESH_ACHIEVEMENT,
   FORCE_REFRESH_GAMES,
   KEEP_ADDING_ACHIEVEMENT,
@@ -8,7 +9,14 @@ import {
   SHOW_CREATE_NEW_ACHIEVEMENT,
   SHOW_CREATE_NEW_ACHIEVEMENT_CARD,
   SHOW_CREATE_NEW_GAME,
-} from "../types/steam.types";
+} from '../types/steam.types';
+
+export const actionChangeTheme = (themeId) => {
+  return {
+    type: CHANGE_THEME,
+    payload: themeId,
+  };
+};
 
 export const actionKeepAddingAchievements = (toggle) => {
   return {
