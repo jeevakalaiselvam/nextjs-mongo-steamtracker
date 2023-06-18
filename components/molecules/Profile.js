@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { COLOR_GOLD } from "../../helper/colorHelper";
+import { calculateLevel } from "../../helper/gameHelper";
 
-export default function Profile() {
+export default function Profile({ games }) {
   return (
     <Container>
       <Icon url="https://avatars.cloudflare.steamstatic.com/3984d41a867b9b4eca056cdfcd1134bd591d9100_full.jpg"></Icon>
       <Info>
         <Title>NotRealLogan</Title>
-        <Level color={COLOR_GOLD}>Level 0</Level>
+        <Level color={COLOR_GOLD}>Level {calculateLevel(games)}</Level>
       </Info>
     </Container>
   );

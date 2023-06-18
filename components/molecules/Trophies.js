@@ -7,39 +7,52 @@ import {
   COLOR_PLATINUM,
   COLOR_SILVER,
 } from "../../helper/colorHelper";
+import { calculateAllTrophyCountForGames } from "../../helper/gameHelper";
 
-export default function Trophies({ trophies }) {
+export default function Trophies({ games, title }) {
+  const { platinum, gold, silver, copper } =
+    calculateAllTrophyCountForGames(games);
+
   return (
     <Container>
+      <Name>{title}</Name>
       <TrophiesContainer>
         <Trophy color={COLOR_PLATINUM}>
           <Icon>{getIcon(ICON_TROPHY)}</Icon>
-          <Count>{trophies?.platinum ?? 0}</Count>
+          <Count>{platinum ?? 0}</Count>
         </Trophy>
 
         <Trophy color={COLOR_GOLD}>
           <Icon>{getIcon(ICON_TROPHY)}</Icon>
-          <Count>{trophies?.gold ?? 0}</Count>
+          <Count>{gold ?? 0}</Count>
         </Trophy>
 
         <Trophy color={COLOR_SILVER}>
           <Icon>{getIcon(ICON_TROPHY)}</Icon>
-          <Count>{trophies?.silver ?? 0}</Count>
+          <Count>{silver ?? 0}</Count>
         </Trophy>
 
         <Trophy color={COLOR_COPPER}>
           <Icon>{getIcon(ICON_TROPHY)}</Icon>
-          <Count>{trophies?.copper ?? 0}</Count>
+          <Count>{copper ?? 0}</Count>
         </Trophy>
       </TrophiesContainer>
     </Container>
   );
 }
 
+const Name = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+`;
+
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  flex-direction: column;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);

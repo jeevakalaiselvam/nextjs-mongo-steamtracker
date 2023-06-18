@@ -22,7 +22,8 @@ import {
 export default function GamesPage() {
   const [achievementsLoading, setAchievementsLoading] = useState(false);
   const [achievements, setAchievements] = useState([]);
-  const [game, setGame] = useState([]);
+  const [game, setGame] = useState({});
+  const [games, setGames] = useState([]);
   const [editModeActive, setEditModeActive] = useState(false);
   const [achievementToEdit, setAchievementToEdit] = useState({});
 
@@ -34,10 +35,6 @@ export default function GamesPage() {
   const { forceRefreshAchievement, themeId } = settings;
   const { toggle } = steam;
   const { createNewAchievementModal, keepAddingAchievements } = toggle;
-
-  const finalizeGenerate = () => {
-    setShowGenerate(false);
-  };
 
   useEffect(() => {
     if (router.query.gameId) {
@@ -55,11 +52,15 @@ export default function GamesPage() {
     }
   }, [forceRefreshAchievement, router.query.gameId, dispatch]);
 
+  useEffect(() => {
+    axios.get("/api/games").then((response) => {
+      setGames(response.data.games);
+    });
+  }, [dispatch]);
+
   const updateAchievementToEdit = (achievement) => {
     setAchievementToEdit(achievement);
   };
-
-  const trophies = getTrophyCount(game);
 
   return (
     <Container image={HEADER_IMAGE(themeId ?? "130130")}>
@@ -82,7 +83,7 @@ export default function GamesPage() {
         )}
         <SidebarContainer>
           <Profile />
-          <Trophies trophies={trophies} />
+          <Trophies games={games} title={"COLLECTION"} />
           <GameInfo game={game} />
           <GameMenu />
         </SidebarContainer>
@@ -163,7 +164,6 @@ const Overlay = styled.div`
 
 const SidebarContainer = styled.div`
   min-width: 200px;
-  background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
   padding: 1rem 1rem 1rem 1rem;
   display: flex;

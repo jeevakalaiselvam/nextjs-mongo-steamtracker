@@ -1,21 +1,21 @@
-import axios from 'axios';
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import styled from 'styled-components';
-import GameDisplay from '../../components/atoms/GameDisplay';
-import { HEADER_IMAGE } from '../../helper/urlHelper';
-import Profile from '../../components/molecules/Profile';
-import Trophies from '../../components/molecules/Trophies';
-import GameMenu from '../../components/atoms/GameMenu';
-import { useDispatch, useSelector } from 'react-redux';
-import CreateNewGame from '../../components/organisms/CreateNewGame';
+import axios from "axios";
+import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import styled from "styled-components";
+import GameDisplay from "../../components/atoms/GameDisplay";
+import { HEADER_IMAGE } from "../../helper/urlHelper";
+import Profile from "../../components/molecules/Profile";
+import Trophies from "../../components/molecules/Trophies";
+import GameMenu from "../../components/atoms/GameMenu";
+import { useDispatch, useSelector } from "react-redux";
+import CreateNewGame from "../../components/organisms/CreateNewGame";
 import {
   actionForceRefreshGames,
   actionShowCreateNewGame,
-} from '../../store/actions/steam.actions';
-import Button from '../../components/atoms/Button';
-import { getLoader } from '../../helper/constantHelper';
+} from "../../store/actions/steam.actions";
+import Button from "../../components/atoms/Button";
+import { getLoader } from "../../helper/constantHelper";
 
 export default function GamesPage() {
   const [gamesLoading, setGamesLoading] = useState(false);
@@ -31,7 +31,7 @@ export default function GamesPage() {
   useEffect(() => {
     dispatch(actionShowCreateNewGame(false));
     setGamesLoading(true);
-    axios.get('/api/games').then((response) => {
+    axios.get("/api/games").then((response) => {
       setGames(response.data.games);
       setGamesLoading(false);
     });
@@ -39,11 +39,11 @@ export default function GamesPage() {
   }, [forceRefreshGames, dispatch]);
 
   return (
-    <Container image={HEADER_IMAGE(themeId ?? '130130')}>
+    <Container image={HEADER_IMAGE(themeId ?? "130130")}>
       <Overlay>
         <SidebarContainer>
-          <Profile />
-          <Trophies />
+          <Profile games={games} />
+          <Trophies games={games} title={"COLLECTION"} />
           <GameMenu />
         </SidebarContainer>
         <MainContainer>
@@ -51,7 +51,7 @@ export default function GamesPage() {
           {!createNewGameModal && !gamesLoading && games.length == 0 && (
             <NoGames>
               <Button
-                title={'Add New Game'}
+                title={"Add New Game"}
                 onClick={() => {
                   dispatch(actionShowCreateNewGame(true));
                 }}
