@@ -12,10 +12,10 @@ import {
   HiOutlineArrowSmLeft,
   HiDotsVertical,
   HiViewBoards,
-} from 'react-icons/hi';
-import { HiTrophy } from 'react-icons/hi2';
-import { FaSteam, FaPlaystation, FaXbox } from 'react-icons/fa';
-import { SiOrigin, SiUbisoft, SiEpicgames, SiActivision } from 'react-icons/si';
+} from "react-icons/hi";
+import { HiTrophy } from "react-icons/hi2";
+import { FaSteam, FaPlaystation, FaXbox, FaTrophy } from "react-icons/fa";
+import { SiOrigin, SiUbisoft, SiEpicgames, SiActivision } from "react-icons/si";
 import {
   BLIZZARD,
   EPIC,
@@ -25,29 +25,29 @@ import {
   STEAM,
   UPLAY,
   XBOX,
-} from './constantHelper';
-import { COLOR_PLAYSTATION, COLOR_XBOX } from './colorHelper';
+} from "./constantHelper";
+import { COLOR_PLAYSTATION, COLOR_XBOX } from "./colorHelper";
 
-export const ICON_CLOSE = 'ICON_CLOSE';
-export const ICON_TROPHY = 'ICON_TROPHY';
-export const ICON_DELETE = 'ICON_DELETE';
-export const ICON_EDIT = 'ICON_EDIT';
-export const ICON_CHECK = 'ICON_CHECK';
-export const ICON_CROSS = 'ICON_CROSS';
-export const ICON_STEAM = 'ICON_STEAM';
-export const ICON_UPLAY = 'ICON_UPLAY';
-export const ICON_GOG = 'ICON_GOG';
-export const ICON_BLIZZARD = 'ICON_BLIZZARD';
-export const ICON_PLAYSTATION = 'ICON_PLAYSTATION';
-export const ICON_XBOX = 'ICON_XBOX';
-export const ICON_EPIC = 'ICON_EPIC';
-export const ICON_ORIGIN = 'ICON_ORIGIN';
-export const ICON_GAMES = 'ICON_GAMES';
-export const ICON_ADD = 'ICON_ADD';
-export const ICON_MENU = 'ICON_MENU';
-export const ICON_BACK = 'ICON_BACK';
-export const ICON_OPTIONS = 'ICON_OPTIONS';
-export const ICON_THEME = 'ICON_THEME';
+export const ICON_CLOSE = "ICON_CLOSE";
+export const ICON_TROPHY = "ICON_TROPHY";
+export const ICON_DELETE = "ICON_DELETE";
+export const ICON_EDIT = "ICON_EDIT";
+export const ICON_CHECK = "ICON_CHECK";
+export const ICON_CROSS = "ICON_CROSS";
+export const ICON_STEAM = "ICON_STEAM";
+export const ICON_UPLAY = "ICON_UPLAY";
+export const ICON_GOG = "ICON_GOG";
+export const ICON_BLIZZARD = "ICON_BLIZZARD";
+export const ICON_PLAYSTATION = "ICON_PLAYSTATION";
+export const ICON_XBOX = "ICON_XBOX";
+export const ICON_EPIC = "ICON_EPIC";
+export const ICON_ORIGIN = "ICON_ORIGIN";
+export const ICON_GAMES = "ICON_GAMES";
+export const ICON_ADD = "ICON_ADD";
+export const ICON_MENU = "ICON_MENU";
+export const ICON_BACK = "ICON_BACK";
+export const ICON_OPTIONS = "ICON_OPTIONS";
+export const ICON_THEME = "ICON_THEME";
 
 export const getIcon = (key) => {
   switch (key) {

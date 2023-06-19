@@ -13,7 +13,7 @@ export default function Profile({ games }) {
         <Title>NotRealLogan</Title>
         <Level>
           <Data color={COLOR_GOLD}>Level {currentLevel}</Data>
-          <ToNext>{toNext} MORE..</ToNext>
+          <ToNext>{toNext} more..</ToNext>
         </Level>
       </Info>
     </Container>
@@ -74,7 +74,9 @@ const ToNext = styled.div`
   align-items: center;
   color: ${(props) => props.color};
   justify-content: flex-start;
-  opacity: 0.2;
+  opacity: 0.4;
+  margin-top: 0.25rem;
+  margin-left: 0.25rem;
   font-size: 1rem;
 `;
 
