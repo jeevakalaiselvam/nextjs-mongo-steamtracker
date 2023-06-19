@@ -68,7 +68,7 @@ export default function CreateNewAchievement({
         {
           game: {
             name,
-            image,
+            image: image == "" ? (type == PLATINUM ? "" : "") : "",
             description,
             id: achievementToEdit?.achievementToEdit,
             type,
@@ -93,7 +93,7 @@ export default function CreateNewAchievement({
         achievement: {
           name: name.trim(),
           type,
-          image,
+          image: image == "" ? (type == PLATINUM ? "" : "") : "",
           description,
           id: router.query.gameId,
           percentage,

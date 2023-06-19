@@ -17,10 +17,13 @@ import { actionForceRefreshAchievement } from "../../store/actions/steam.actions
 import {
   COLOR_BUTTON_PRIMARY,
   COLOR_DANGER,
+  COLOR_GREY,
+  COLOR_PLATINUM,
   COLOR_SUCCESS,
   getColor,
 } from "../../helper/colorHelper";
 import moment from "moment";
+import { PLATINUM } from "../../helper/constantHelper";
 
 export default function AchievementDisplay({
   achievement,
@@ -133,6 +136,14 @@ export default function AchievementDisplay({
 
         <AchievementIcon achieved={achieved}>
           {image && <Icon image={image}></Icon>}
+          {!image && type == PLATINUM && (
+            <DefaultIcon image={game.image} color={COLOR_PLATINUM}>
+              {getIcon(ICON_TROPHY)}
+            </DefaultIcon>
+          )}
+          {!image && type != PLATINUM && (
+            <DefaultIcon color={COLOR_GREY}>{getIcon(ICON_TROPHY)}</DefaultIcon>
+          )}
           {false && <Percentage>{percentage} %</Percentage>}
         </AchievementIcon>
 
@@ -305,6 +316,20 @@ const Description = styled.div`
   height: 40px;
   overflow: scroll;
   opacity: 0.5;
+`;
+
+const DefaultIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  font-size: 3rem;
+  color: ${(props) => props.color};
+  background: ${(props) => `url(${props.image})`};
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  margin: 1rem;
 `;
 
 const Icon = styled.div`
