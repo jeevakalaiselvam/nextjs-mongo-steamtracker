@@ -212,7 +212,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   width: 380px;
-  height: 140px;
+  height: 150px;
   background-repeat: no-repeat;
   background-size: contain;
   margin: 1rem;
