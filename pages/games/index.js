@@ -15,14 +15,14 @@ import {
   actionShowCreateNewGame,
 } from "../../store/actions/steam.actions";
 import Button from "../../components/atoms/Button";
-import { getLoader } from "../../helper/constantHelper";
+import { ALL, getLoader } from "../../helper/constantHelper";
 
 export default function GamesPage() {
   const [gamesLoading, setGamesLoading] = useState(false);
   const [games, setGames] = useState([]);
   const steam = useSelector((state) => state.steam);
   const { settings } = steam;
-  const { forceRefreshGames, themeId } = settings;
+  const { forceRefreshGames, themeId, gamesFilter, showHiddenGames } = settings;
   const dispatch = useDispatch();
 
   const { toggle } = steam;
@@ -55,7 +55,7 @@ export default function GamesPage() {
       <Overlay>
         <SidebarContainer>
           <Profile games={games} />
-          <Trophies games={games} title={"COLLECTION"} />
+          <Trophies games={games} title={"Trophies"} />
           <GameMenu />
         </SidebarContainer>
         <MainContainer>
@@ -72,9 +72,18 @@ export default function GamesPage() {
           )}
           {!gamesLoading &&
             games.length != 0 &&
-            games.map((game, index) => {
-              return <GameDisplay game={game} key={game._id} />;
-            })}
+            games
+              .filter((game) => {
+                if (
+                  (game?.platform == gamesFilter || gamesFilter == ALL) &&
+                  (showHiddenGames ? true : !game.hidden)
+                ) {
+                  return true;
+                }
+              })
+              .map((game, index) => {
+                return <GameDisplay game={game} key={game._id} />;
+              })}
           {createNewGameModal && <CreateNewGame />}
         </MainContainer>
       </Overlay>
@@ -114,7 +123,7 @@ const Overlay = styled.div`
 const SidebarContainer = styled.div`
   min-width: 200px;
   min-height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   display: flex;

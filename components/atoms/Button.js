@@ -11,6 +11,7 @@ export default function Button({
   fontSize,
   icon,
   height,
+  active,
 }) {
   return (
     <Container
@@ -19,6 +20,7 @@ export default function Button({
       margin={margin}
       fontSize={fontSize}
       height={height}
+      active={active}
     >
       <Icon>{icon}</Icon>
       {!ignoreTitle && <Title>{title}</Title>}
@@ -43,7 +45,8 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: ${(props) =>
+    props.active ? COLOR_BUTTON_PRIMARY : "rgba(0, 0, 0, 0.25)"};
   padding: 0.25rem 1rem;
   height: ${(props) => props.height ?? "auto"};
   width: ${(props) => props.width ?? "100%"};

@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { ICON_TROPHY, getIcon } from "../../helper/iconHelper";
+import {
+  ICON_HIDDEN_VISIBLE,
+  ICON_TROPHY,
+  getIcon,
+} from "../../helper/iconHelper";
 import {
   COLOR_COPPER,
   COLOR_GOLD,

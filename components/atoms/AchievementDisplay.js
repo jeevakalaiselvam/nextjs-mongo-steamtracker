@@ -175,7 +175,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0.5rem;
+  margin: 0.75rem;
   font-size: 1.3rem;
 
   &:hover {

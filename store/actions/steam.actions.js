@@ -5,13 +5,22 @@ import {
   CHANGE_THEME,
   FORCE_REFRESH_ACHIEVEMENT,
   FORCE_REFRESH_GAMES,
+  GAMES_FILTER,
   KEEP_ADDING_ACHIEVEMENT,
   SHOW_ACHIEVEMENT_DELETE_SELECTION,
   SHOW_CREATE_BULK_ACHIEVEMENTS,
   SHOW_CREATE_NEW_ACHIEVEMENT,
   SHOW_CREATE_NEW_ACHIEVEMENT_CARD,
   SHOW_CREATE_NEW_GAME,
+  SHOW_HIDDEN_GAMES,
 } from "../types/steam.types";
+
+export const actionShowHiddenGames = (showHidden) => {
+  return {
+    type: SHOW_HIDDEN_GAMES,
+    payload: showHidden,
+  };
+};
 
 export const actionAchievementSearch = (search) => {
   return {
@@ -20,10 +29,17 @@ export const actionAchievementSearch = (search) => {
   };
 };
 
-export const actionAchievementFilter = (search) => {
+export const actionGamesFilter = (filter) => {
+  return {
+    type: GAMES_FILTER,
+    payload: filter,
+  };
+};
+
+export const actionAchievementFilter = (filter) => {
   return {
     type: ACHIEVEMENT_FILTER,
-    payload: search,
+    payload: filter,
   };
 };
 

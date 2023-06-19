@@ -59,6 +59,7 @@ export default function GameDisplay({ game }) {
   const [updatedName, setUpdatedName] = useState(name);
   const [updatedImage, setUpdatedImage] = useState(image);
   const [updatedPlatform, setUpdatedPlatform] = useState(platform);
+  const [updatedHidden, setUpdatedHidden] = useState(game?.hidden ?? false);
   const [loading, setLoading] = useState(false);
 
   const confirmDelete = () => {
@@ -77,6 +78,7 @@ export default function GameDisplay({ game }) {
           image: updatedImage,
           id: _id,
           platform: updatedPlatform,
+          hidden: updatedHidden,
         },
       })
       .then((response) => {
@@ -201,7 +203,24 @@ export default function GameDisplay({ game }) {
                 </Input>
                 <Input>
                   <Label>Hidden:</Label>
-                  <Hidden></Hidden>
+                  <Hidden>
+                    <HiddenYes
+                      active={updatedHidden}
+                      onClick={() => {
+                        setUpdatedHidden(true);
+                      }}
+                    >
+                      YES
+                    </HiddenYes>
+                    <HiddenNo
+                      active={!updatedHidden}
+                      onClick={() => {
+                        setUpdatedHidden(false);
+                      }}
+                    >
+                      NO
+                    </HiddenNo>
+                  </Hidden>
                 </Input>
                 <SaveContainer>
                   <Button
@@ -284,6 +303,34 @@ export default function GameDisplay({ game }) {
   );
 }
 
+const Hidden = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-start;
+`;
+
+const HiddenYes = styled.div`
+  display: flex;
+  background-color: ${(props) =>
+    props.active ? COLOR_BUTTON_PRIMARY : "rgba(0, 0, 0, 0.5)"};
+  align-items: center;
+  padding: 0.2rem 1rem;
+  border-radius: 4px 0 0 4px;
+  justify-content: center;
+`;
+
+const HiddenNo = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0.2rem 1rem;
+  background-color: ${(props) =>
+    props.active ? COLOR_BUTTON_PRIMARY : "rgba(0, 0, 0, 0.5)"};
+  border-radius: 0 4px 4px 0;
+  justify-content: center;
+`;
+
 const TrophyCount = styled.div`
   position: absolute;
   bottom: 0;
@@ -337,7 +384,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   width: 380px;
-  height: 140px;
+  height: 150px;
   background: ${(props) => `url(${props.image})`};
   background-repeat: no-repeat;
   background-size: cover;
@@ -413,7 +460,9 @@ const SaveContainer = styled.div`
   align-items: center;
   justify-content: flex-end;
   padding: 0.5rem 1rem;
-  width: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 `;
 
 const EditMode = styled.div`
@@ -441,14 +490,6 @@ const EditContainer = styled.div`
   &:hover {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
-`;
-
-const Hidden = styled.div`
-  display: flex;
-  flex: 1;
-  align-items: center;
-  width: 100%;
-  justify-content: flex-start;
 `;
 
 const PlatformSelection = styled.div`

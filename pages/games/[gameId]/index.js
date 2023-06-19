@@ -88,7 +88,7 @@ export default function GamesPage() {
         )}
         <SidebarContainer>
           <Profile games={games} />
-          <Trophies games={games} title={"COLLECTION"} />
+          <Trophies games={games} title={"Trophies"} />
           <GameInfo game={game} />
           <GameMenu />
         </SidebarContainer>

@@ -4,12 +4,14 @@ import {
   CHANGE_THEME,
   FORCE_REFRESH_ACHIEVEMENT,
   FORCE_REFRESH_GAMES,
+  GAMES_FILTER,
   KEEP_ADDING_ACHIEVEMENT,
   SHOW_ACHIEVEMENT_DELETE_SELECTION,
   SHOW_CREATE_BULK_ACHIEVEMENTS,
   SHOW_CREATE_NEW_ACHIEVEMENT,
   SHOW_CREATE_NEW_ACHIEVEMENT_CARD,
   SHOW_CREATE_NEW_GAME,
+  SHOW_HIDDEN_GAMES,
 } from "../types/steam.types";
 
 const INITIAL_STATE = {
@@ -27,6 +29,8 @@ const INITIAL_STATE = {
     themeId: 130130,
     achievementSearch: "",
     achievementFilter: "",
+    showHiddenGames: false,
+    gamesFilter: "",
   },
 };
 
@@ -34,6 +38,22 @@ const reducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case GAMES_FILTER:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          gamesFilter: payload,
+        },
+      };
+    case SHOW_HIDDEN_GAMES:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          showHiddenGames: payload,
+        },
+      };
     case ACHIEVEMENT_SEARCH:
       return {
         ...state,

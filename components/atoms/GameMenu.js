@@ -4,24 +4,57 @@ import styled from "styled-components";
 import {
   actionAchievementSearch,
   actionChangeTheme,
+  actionGamesFilter,
   actionShowAchievementDeleteSelection,
   actionShowCreateBulkAchievements,
   actionShowCreateNewAchievement,
   actionShowCreateNewAchievementCard,
   actionShowCreateNewGame,
+  actionShowHiddenGames,
 } from "../../store/actions/steam.actions";
 import Button from "./Button";
 import { useRouter } from "next/router";
 import {
   ICON_ADD,
+  ICON_BLIZZARD,
+  ICON_EPIC,
   ICON_GAMES,
+  ICON_GOG,
+  ICON_HIDDEN_INVISIBLE,
+  ICON_HIDDEN_VISIBLE,
+  ICON_ORIGIN,
+  ICON_PLAYSTATION,
+  ICON_STEAM,
   ICON_THEME,
+  ICON_UPLAY,
+  ICON_XBOX,
   getIcon,
 } from "../../helper/iconHelper";
 import axios from "axios";
 import { FETCH_ALL_GAMES } from "../../helper/urlHelper";
-import { themeIds } from "../../helper/constantHelper";
+import {
+  ALL,
+  BLIZZARD,
+  EPIC,
+  GOG,
+  ORIGIN,
+  PLAYSTATION,
+  STEAM,
+  UPLAY,
+  XBOX,
+  themeIds,
+} from "../../helper/constantHelper";
 import SearchInput from "./SearchInput";
+import {
+  COLOR_BLIZZARD,
+  COLOR_EPIC,
+  COLOR_GOG,
+  COLOR_ORIGIN,
+  COLOR_PLAYSTATION,
+  COLOR_STEAM,
+  COLOR_UPLAY,
+  COLOR_XBOX,
+} from "../../helper/colorHelper";
 
 export default function GameMenu({ mobile }) {
   const dispatch = useDispatch();
@@ -30,6 +63,7 @@ export default function GameMenu({ mobile }) {
   const steam = useSelector((state) => state.steam);
   const { settings } = steam;
   const { toggle } = steam;
+  const { gamesFilter, showHiddenGames } = settings;
 
   const changeTheme = () => {
     let newThemeId = themeIds[Math.floor(Math.random() * themeIds.length)];
@@ -41,7 +75,7 @@ export default function GameMenu({ mobile }) {
 
   return (
     <Container>
-      <SubTitle>Actions</SubTitle>
+      {router.pathname?.includes("/games/") && <SubTitle>Actions</SubTitle>}
       {router.pathname?.includes("/games/") && (
         <Link>
           <Button
@@ -112,9 +146,159 @@ export default function GameMenu({ mobile }) {
           }}
         />
       </Link>
+      {router.pathname == "/games" && (
+        <Link>
+          <Button
+            height={height}
+            icon={getIcon(
+              showHiddenGames ? ICON_HIDDEN_INVISIBLE : ICON_HIDDEN_VISIBLE
+            )}
+            fontSize={fontSize}
+            title={showHiddenGames ? "HIDE HIDDEN" : "SHOW HIDDEN"}
+            onClick={() => {
+              dispatch(actionShowHiddenGames(!showHiddenGames));
+            }}
+          />
+        </Link>
+      )}
+      {router.pathname == "/games" && <SubTitle>Platforms</SubTitle>}
+      {router.pathname == "/games" && (
+        <>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_GAMES)}
+              fontSize={fontSize}
+              title="Show All"
+              active={gamesFilter == ALL}
+              onClick={() => {
+                dispatch(actionGamesFilter(ALL));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_STEAM)}
+              fontSize={fontSize}
+              title="Steam"
+              active={gamesFilter == STEAM}
+              onClick={() => {
+                dispatch(actionGamesFilter(STEAM));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_PLAYSTATION)}
+              fontSize={fontSize}
+              title="Playstation"
+              active={gamesFilter == PLAYSTATION}
+              onClick={() => {
+                dispatch(actionGamesFilter(PLAYSTATION));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_XBOX)}
+              fontSize={fontSize}
+              title="Xbox"
+              active={gamesFilter == XBOX}
+              onClick={() => {
+                dispatch(actionGamesFilter(XBOX));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_UPLAY)}
+              fontSize={fontSize}
+              title="Uplay"
+              active={gamesFilter == UPLAY}
+              onClick={() => {
+                dispatch(actionGamesFilter(UPLAY));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_GOG)}
+              fontSize={fontSize}
+              title="Gog"
+              active={gamesFilter == GOG}
+              onClick={() => {
+                dispatch(actionGamesFilter(GOG));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_ORIGIN)}
+              fontSize={fontSize}
+              title="Origin"
+              active={gamesFilter == ORIGIN}
+              onClick={() => {
+                dispatch(actionGamesFilter(ORIGIN));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_EPIC)}
+              fontSize={fontSize}
+              title="Epic Games"
+              active={gamesFilter == EPIC}
+              onClick={() => {
+                dispatch(actionGamesFilter(EPIC));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_BLIZZARD)}
+              fontSize={fontSize}
+              title="Blizzard"
+              active={gamesFilter == BLIZZARD}
+              onClick={() => {
+                dispatch(actionGamesFilter(BLIZZARD));
+              }}
+            />
+          </Link>
+        </>
+      )}
     </Container>
   );
 }
+
+const PlatformIcons = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const PlatformIcon = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  font-size: 2rem;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  justify-content: center;
+
+  &:hover {
+    color: ${(props) => props.color};
+  }
+`;
 
 const Container = styled.div`
   display: flex;
