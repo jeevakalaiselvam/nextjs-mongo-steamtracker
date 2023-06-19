@@ -178,11 +178,11 @@ const SidebarContainer = styled.div`
 const MainContainer = styled.div`
   flex: 1;
   padding: 1rem 1rem 1rem 2vw;
-  min-height: 100vh;
+  margin-bottom: 1vh;
+  max-height: 99vh;
   display: flex;
   overflow: scroll;
   align-items: flex-start;
-  background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
   justify-content: flex-start;
   flex-direction: column;
