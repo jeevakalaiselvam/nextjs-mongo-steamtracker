@@ -8,6 +8,7 @@ export const MISSABLE = "MISSABLE";
 export const ONLINE = "ONLINE";
 export const REPLAY = "REPLAY";
 export const HARD = "HARD";
+export const SIDEQUEST = "SIDE QUEST";
 
 export const PLATINUM = "PLATINUM";
 export const GOLD = "GOLD";

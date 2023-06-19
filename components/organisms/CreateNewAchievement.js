@@ -30,6 +30,7 @@ import {
   MISSABLE,
   ONLINE,
   REPLAY,
+  SIDEQUEST,
   SILVER,
   STORY,
 } from "../../helper/constantHelper";
@@ -195,6 +196,12 @@ export default function CreateNewAchievement({
               onClick={() => addOrRemoveCategory(EASY)}
             >
               {EASY}
+            </Category>
+            <Category
+              selected={categories.includes(SIDEQUEST)}
+              onClick={() => addOrRemoveCategory(SIDEQUEST)}
+            >
+              {SIDEQUEST}
             </Category>
             <Category
               selected={categories.includes(MISSABLE)}
