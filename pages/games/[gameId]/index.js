@@ -73,7 +73,7 @@ export default function GamesPage() {
           </CreateModal>
         )}
         {editModeActive && !achievementsLoading && (
-          <CreateModal>
+          <CreateModal image={HEADER_IMAGE(themeId ?? "130130")}>
             <CreateNewAchievement
               achievementToEdit={achievementToEdit}
               isEditMode={true}
@@ -120,7 +120,7 @@ export default function GamesPage() {
 }
 
 const CreateModal = styled.div`
-  width: 700px;
+  width: 800px;
   height: 300px;
   position: absolute;
   left: 50%;
@@ -130,7 +130,7 @@ const CreateModal = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   z-index: 100;
-  background: ${`url(${BACKGROUND_IMAGE})`};
+  background: ${(props) => `url(${props.image})`};
 `;
 
 const NoGames = styled.div`
