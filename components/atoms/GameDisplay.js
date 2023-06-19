@@ -199,6 +199,10 @@ export default function GameDisplay({ game }) {
                     </Platform>
                   </PlatformSelection>
                 </Input>
+                <Input>
+                  <Label>Hidden:</Label>
+                  <Hidden></Hidden>
+                </Input>
                 <SaveContainer>
                   <Button
                     width={"auto"}
@@ -437,6 +441,14 @@ const EditContainer = styled.div`
   &:hover {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
+`;
+
+const Hidden = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-start;
 `;
 
 const PlatformSelection = styled.div`

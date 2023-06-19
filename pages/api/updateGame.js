@@ -10,9 +10,10 @@ export default async function handler(req, res) {
       let name = game.name;
       let image = game.image;
       let platform = game.platform;
+      let hidden = game?.hidden ?? false;
       let id = game.id;
       let query = { _id: new mongodb.ObjectID(id) };
-      let toUpdate = { $set: { name, image, platform } };
+      let toUpdate = { $set: { name, image, platform, hidden } };
       let games = await db.collection("games").updateOne(query, toUpdate);
       res.json(games);
       break;
