@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { COLOR_BUTTON_PRIMARY } from "../../helper/colorHelper";
 
 export default function Button({
+  ignoreTitle,
   title,
   onClick,
   width,
@@ -18,7 +19,7 @@ export default function Button({
       fontSize={fontSize}
     >
       <Icon>{icon}</Icon>
-      <Title>{title}</Title>
+      {!ignoreTitle && <Title>{title}</Title>}
     </Container>
   );
 }

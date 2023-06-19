@@ -66,7 +66,7 @@ export default function GamesPage() {
     <Container image={HEADER_IMAGE(themeId ?? "130130")}>
       <Overlay>
         {createNewAchievementModal && !achievementsLoading && (
-          <CreateModal>
+          <CreateModal image={HEADER_IMAGE(themeId ?? "130130")}>
             <CreateNewAchievement
               keepAddingAchievements={keepAddingAchievements}
             />

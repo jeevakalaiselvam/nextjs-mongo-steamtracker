@@ -347,7 +347,7 @@ const Container = styled.div`
   height: 100%;
   font-size: 1.3rem;
   backdrop-filter: blur(20px);
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.5);
 `;
 
 const Label = styled.div`

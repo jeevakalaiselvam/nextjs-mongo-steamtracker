@@ -38,6 +38,21 @@ export default function GameMenu({ mobile }) {
 
   return (
     <Container>
+      <SubTitle>Actions</SubTitle>
+      {router.pathname?.includes("/games/") && (
+        <Link>
+          <Button
+            ignoreTitle={true}
+            fontSize={"2rem"}
+            icon={getIcon(ICON_ADD)}
+            title="Add Achievement"
+            onClick={() => {
+              dispatch(actionShowCreateNewAchievement(true));
+            }}
+          />
+        </Link>
+      )}
+      <SubTitle>Menu</SubTitle>
       <Link>
         <Button
           icon={getIcon(ICON_GAMES)}
@@ -56,18 +71,6 @@ export default function GameMenu({ mobile }) {
             title="Add Game"
             onClick={() => {
               dispatch(actionShowCreateNewGame(true));
-            }}
-          />
-        </Link>
-      )}
-      {router.pathname?.includes("/games/") && (
-        <Link>
-          <Button
-            icon={getIcon(ICON_ADD)}
-            fontSize={fontSize}
-            title="Add Achievement"
-            onClick={() => {
-              dispatch(actionShowCreateNewAchievement(true));
             }}
           />
         </Link>
@@ -109,5 +112,15 @@ const Link = styled.div`
   width: 100%;
   align-items: center;
   justify-content: center;
+  margin-top: 0.5rem;
+`;
+
+const SubTitle = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1rem;
+  opacity: 0.5;
   margin-top: 0.5rem;
 `;
