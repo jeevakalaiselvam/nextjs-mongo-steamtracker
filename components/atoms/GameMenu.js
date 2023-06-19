@@ -37,6 +37,7 @@ export default function GameMenu({ mobile }) {
   };
 
   const fontSize = mobile ? "1.5rem" : "1.25rem";
+  const height = "25px";
 
   return (
     <Container>
@@ -44,6 +45,7 @@ export default function GameMenu({ mobile }) {
       {router.pathname?.includes("/games/") && (
         <Link>
           <Button
+            height={height}
             fontSize={fontSize}
             icon={getIcon(ICON_ADD)}
             title="Add Achievement"
@@ -56,6 +58,7 @@ export default function GameMenu({ mobile }) {
       {router.pathname?.includes("/games/") && (
         <Link>
           <SearchInput
+            height={height}
             onSearchChange={(search) => {
               dispatch(actionAchievementSearch(search));
             }}
@@ -65,6 +68,7 @@ export default function GameMenu({ mobile }) {
       <SubTitle>Menu</SubTitle>
       <Link>
         <Button
+          height={height}
           icon={getIcon(ICON_GAMES)}
           fontSize={fontSize}
           title="My Games"
@@ -76,6 +80,7 @@ export default function GameMenu({ mobile }) {
       {router.pathname == "/games" && (
         <Link>
           <Button
+            height={height}
             icon={getIcon(ICON_ADD)}
             fontSize={fontSize}
             title="Add Game"
@@ -87,6 +92,7 @@ export default function GameMenu({ mobile }) {
       )}
       <Link>
         <Button
+          height={height}
           icon={getIcon(ICON_THEME)}
           fontSize={fontSize}
           title="Change Theme"
@@ -97,6 +103,7 @@ export default function GameMenu({ mobile }) {
       </Link>
       <Link>
         <Button
+          height={height}
           icon={getIcon(ICON_THEME)}
           fontSize={fontSize}
           title="Mobile View"

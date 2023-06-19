@@ -13,9 +13,10 @@ const Container = styled.div`
     background-color: rgba(0, 0, 0, 0.5);
     outline: none;
     width: 100%;
-    height: 23px;
+    height: ${(props) => props.height ?? "25px"};
     font-size: 1rem;
     padding: 0.5rem;
+    text-align: center;
     border: none;
     cursor: text;
   }
@@ -23,7 +24,7 @@ const Container = styled.div`
 
 const Clear = styled.div`
   display: flex;
-  height: 23px;
+  height: ${(props) => props.height ?? "25px"};
   color: #fefefe33;
   background-color: rgba(0, 0, 0, 0.5);
   align-items: center;
@@ -34,7 +35,7 @@ const Clear = styled.div`
   }
 `;
 
-export default function SearchInput({ onSearchChange }) {
+export default function SearchInput({ onSearchChange, height }) {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -49,13 +50,16 @@ export default function SearchInput({ onSearchChange }) {
   return (
     <Container>
       <input
+        height={height}
         placeholder="Search..."
         type="text"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
       {search?.length > 0 && (
-        <Clear onClick={() => setSearch("")}>{getIcon(ICON_CROSS)}</Clear>
+        <Clear onClick={() => setSearch("")} height={height}>
+          {getIcon(ICON_CROSS)}
+        </Clear>
       )}
     </Container>
   );

@@ -10,6 +10,7 @@ export default function Button({
   margin,
   fontSize,
   icon,
+  height,
 }) {
   return (
     <Container
@@ -17,6 +18,7 @@ export default function Button({
       width={width}
       margin={margin}
       fontSize={fontSize}
+      height={height}
     >
       <Icon>{icon}</Icon>
       {!ignoreTitle && <Title>{title}</Title>}
@@ -36,12 +38,14 @@ const Title = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.25);
   padding: 0.25rem 1rem;
+  height: ${(props) => props.height ?? "auto"};
   width: ${(props) => props.width ?? "100%"};
   margin: ${(props) => props.margin ?? ""};
   font-size: ${(props) => props.fontSize ?? "1.1rem"};
