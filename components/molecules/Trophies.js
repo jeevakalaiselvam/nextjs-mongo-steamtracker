@@ -7,11 +7,15 @@ import {
   COLOR_PLATINUM,
   COLOR_SILVER,
 } from "../../helper/colorHelper";
-import { calculateAllTrophyCountForGames } from "../../helper/gameHelper";
+import {
+  calculateAllTrophyCountForGames,
+  getTrophyCount,
+} from "../../helper/gameHelper";
 
-export default function Trophies({ games, title }) {
-  const { platinum, gold, silver, copper } =
-    calculateAllTrophyCountForGames(games);
+export default function Trophies({ games, title, game }) {
+  const { platinum, gold, silver, copper } = games
+    ? calculateAllTrophyCountForGames(games)
+    : getTrophyCount(game?.achievements);
 
   return (
     <Container>

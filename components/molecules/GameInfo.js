@@ -5,19 +5,9 @@ import Trophies from "./Trophies";
 import { getTrophyCount } from "../../helper/gameHelper";
 
 export default function GameInfo({ game }) {
-  const { platinum, silver, gold, copper } = getTrophyCount(
-    game?.achievements ?? []
-  );
-
   return (
     <Container>
-      <Trophies
-        title={game?.name}
-        platinum={platinum}
-        gold={gold}
-        silver={silver}
-        copper={copper}
-      />
+      <Trophies title={game?.name} game={game} />
     </Container>
   );
 }

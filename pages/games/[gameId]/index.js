@@ -41,6 +41,7 @@ export default function GamesPage() {
       axios
         .get(`/api/${router.query.gameId}/achievements`)
         .then((response) => {
+          console.log("JEEVA GAME", { response });
           setGame(response.data.game ?? {});
           setAchievements(response.data.game.achievements ?? []);
           dispatch(actionForceRefreshAchievement(false));
