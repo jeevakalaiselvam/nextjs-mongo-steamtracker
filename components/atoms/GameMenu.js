@@ -42,8 +42,7 @@ export default function GameMenu({ mobile }) {
       {router.pathname?.includes("/games/") && (
         <Link>
           <Button
-            ignoreTitle={true}
-            fontSize={"2rem"}
+            fontSize={fontSize}
             icon={getIcon(ICON_ADD)}
             title="Add Achievement"
             onClick={() => {
