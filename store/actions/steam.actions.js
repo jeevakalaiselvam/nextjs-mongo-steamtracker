@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  ACHIEVEMENT_FILTER,
   ACHIEVEMENT_SEARCH,
   CHANGE_THEME,
   FORCE_REFRESH_ACHIEVEMENT,
@@ -15,6 +16,13 @@ import {
 export const actionAchievementSearch = (search) => {
   return {
     type: ACHIEVEMENT_SEARCH,
+    payload: search,
+  };
+};
+
+export const actionAchievementFilter = (search) => {
+  return {
+    type: ACHIEVEMENT_FILTER,
     payload: search,
   };
 };

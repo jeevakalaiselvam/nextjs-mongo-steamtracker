@@ -1,4 +1,5 @@
 import {
+  ACHIEVEMENT_FILTER,
   ACHIEVEMENT_SEARCH,
   CHANGE_THEME,
   FORCE_REFRESH_ACHIEVEMENT,
@@ -25,6 +26,7 @@ const INITIAL_STATE = {
     forceRefreshAchievement: false,
     themeId: 130130,
     achievementSearch: "",
+    achievementFilter: "",
   },
 };
 
@@ -38,6 +40,14 @@ const reducer = (state = INITIAL_STATE, action) => {
         settings: {
           ...state.settings,
           achievementSearch: payload,
+        },
+      };
+    case ACHIEVEMENT_FILTER:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          achievementFilter: payload,
         },
       };
     case CHANGE_THEME:

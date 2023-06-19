@@ -13,7 +13,7 @@ import CreateNewAchievement from "../../../components/organisms/CreateNewAchieve
 import { useRouter } from "next/router";
 import AchievementDisplay from "../../../components/atoms/AchievementDisplay";
 import GameInfo from "../../../components/molecules/GameInfo";
-import { getLoader } from "../../../helper/constantHelper";
+import { ALL, PLATINUM, getLoader } from "../../../helper/constantHelper";
 import {
   calculateAllTrophyCountForGames,
   getTrophyCount,
@@ -32,7 +32,12 @@ export default function GamesPage() {
 
   const steam = useSelector((state) => state.steam);
   const { settings } = steam;
-  const { forceRefreshAchievement, themeId, achievementSearch } = settings;
+  const {
+    forceRefreshAchievement,
+    themeId,
+    achievementSearch,
+    achievementFilter,
+  } = settings;
   const { toggle } = steam;
   const { createNewAchievementModal, keepAddingAchievements } = toggle;
 
@@ -41,7 +46,6 @@ export default function GamesPage() {
       axios
         .get(`/api/${router.query.gameId}/achievements`)
         .then((response) => {
-          console.log("JEEVA GAME", { response });
           setGame(response.data.game ?? {});
           setAchievements(response.data.game.achievements ?? []);
           dispatch(actionForceRefreshAchievement(false));
@@ -102,14 +106,16 @@ export default function GamesPage() {
                 achievements
                   .filter((achievement) => {
                     if (
-                      achievement?.name
+                      (achievement?.name
                         ?.toLowerCase()
                         .trim()
                         ?.includes(achievementSearch) ||
-                      achievement?.description
-                        ?.toLowerCase()
-                        .trim()
-                        ?.includes(achievementSearch)
+                        achievement?.description
+                          ?.toLowerCase()
+                          .trim()
+                          ?.includes(achievementSearch)) &&
+                      (achievement.type == achievementFilter ||
+                        achievementFilter == ALL)
                     ) {
                       return true;
                     }

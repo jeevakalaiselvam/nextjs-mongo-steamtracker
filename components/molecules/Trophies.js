@@ -11,33 +11,53 @@ import {
   calculateAllTrophyCountForGames,
   getTrophyCount,
 } from "../../helper/gameHelper";
+import { useDispatch } from "react-redux";
+import { actionAchievementFilter } from "../../store/actions/steam.actions";
+import {
+  ALL,
+  COPPER,
+  GOLD,
+  PLATINUM,
+  SILVER,
+} from "../../helper/constantHelper";
 
 export default function Trophies({ games, title, game }) {
+  const dispatch = useDispatch();
   const { platinum, gold, silver, copper } = games
     ? calculateAllTrophyCountForGames(games)
     : getTrophyCount(game?.achievements);
 
   return (
     <Container>
-      <Name>{title}</Name>
+      <Name onClick={() => dispatch(actionAchievementFilter(ALL))}>
+        {title}
+      </Name>
       <TrophiesContainer>
         <Trophy color={COLOR_PLATINUM}>
-          <Icon>{getIcon(ICON_TROPHY)}</Icon>
+          <Icon onClick={() => dispatch(actionAchievementFilter(PLATINUM))}>
+            {getIcon(ICON_TROPHY)}
+          </Icon>
           <Count>{platinum ?? 0}</Count>
         </Trophy>
 
         <Trophy color={COLOR_GOLD}>
-          <Icon>{getIcon(ICON_TROPHY)}</Icon>
+          <Icon onClick={() => dispatch(actionAchievementFilter(GOLD))}>
+            {getIcon(ICON_TROPHY)}
+          </Icon>
           <Count>{gold ?? 0}</Count>
         </Trophy>
 
         <Trophy color={COLOR_SILVER}>
-          <Icon>{getIcon(ICON_TROPHY)}</Icon>
+          <Icon onClick={() => dispatch(actionAchievementFilter(SILVER))}>
+            {getIcon(ICON_TROPHY)}
+          </Icon>
           <Count>{silver ?? 0}</Count>
         </Trophy>
 
         <Trophy color={COLOR_COPPER}>
-          <Icon>{getIcon(ICON_TROPHY)}</Icon>
+          <Icon onClick={() => dispatch(actionAchievementFilter(COPPER))}>
+            {getIcon(ICON_TROPHY)}
+          </Icon>
           <Count>{copper ?? 0}</Count>
         </Trophy>
       </TrophiesContainer>
