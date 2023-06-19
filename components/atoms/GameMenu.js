@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
+  actionAchievementSearch,
   actionChangeTheme,
   actionShowAchievementDeleteSelection,
   actionShowCreateBulkAchievements,
@@ -20,6 +21,7 @@ import {
 import axios from "axios";
 import { FETCH_ALL_GAMES } from "../../helper/urlHelper";
 import { themeIds } from "../../helper/constantHelper";
+import SearchInput from "./SearchInput";
 
 export default function GameMenu({ mobile }) {
   const dispatch = useDispatch();
@@ -47,6 +49,15 @@ export default function GameMenu({ mobile }) {
             title="Add Achievement"
             onClick={() => {
               dispatch(actionShowCreateNewAchievement(true));
+            }}
+          />
+        </Link>
+      )}
+      {router.pathname?.includes("/games/") && (
+        <Link>
+          <SearchInput
+            onSearchChange={(search) => {
+              dispatch(actionAchievementSearch(search));
             }}
           />
         </Link>

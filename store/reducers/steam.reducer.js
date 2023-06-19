@@ -1,4 +1,5 @@
 import {
+  ACHIEVEMENT_SEARCH,
   CHANGE_THEME,
   FORCE_REFRESH_ACHIEVEMENT,
   FORCE_REFRESH_GAMES,
@@ -23,6 +24,7 @@ const INITIAL_STATE = {
     forceRefreshGames: false,
     forceRefreshAchievement: false,
     themeId: 130130,
+    achievementSearch: "",
   },
 };
 
@@ -30,6 +32,14 @@ const reducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case ACHIEVEMENT_SEARCH:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          achievementSearch: payload,
+        },
+      };
     case CHANGE_THEME:
       return {
         ...state,

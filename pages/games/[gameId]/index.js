@@ -32,7 +32,7 @@ export default function GamesPage() {
 
   const steam = useSelector((state) => state.steam);
   const { settings } = steam;
-  const { forceRefreshAchievement, themeId } = settings;
+  const { forceRefreshAchievement, themeId, achievementSearch } = settings;
   const { toggle } = steam;
   const { createNewAchievementModal, keepAddingAchievements } = toggle;
 
@@ -99,6 +99,20 @@ export default function GamesPage() {
               {!achievementsLoading &&
                 achievements.length != 0 &&
                 achievements
+                  .filter((achievement) => {
+                    if (
+                      achievement?.name
+                        ?.toLowerCase()
+                        .trim()
+                        ?.includes(achievementSearch) ||
+                      achievement?.description
+                        ?.toLowerCase()
+                        .trim()
+                        ?.includes(achievementSearch)
+                    ) {
+                      return true;
+                    }
+                  })
                   .sort((ach1, ach2) => ach2.percentage - ach1.percentage)
                   .map((achievement, index) => {
                     return (

@@ -1,5 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 import {
+  ACHIEVEMENT_SEARCH,
   CHANGE_THEME,
   FORCE_REFRESH_ACHIEVEMENT,
   FORCE_REFRESH_GAMES,
@@ -9,7 +10,14 @@ import {
   SHOW_CREATE_NEW_ACHIEVEMENT,
   SHOW_CREATE_NEW_ACHIEVEMENT_CARD,
   SHOW_CREATE_NEW_GAME,
-} from '../types/steam.types';
+} from "../types/steam.types";
+
+export const actionAchievementSearch = (search) => {
+  return {
+    type: ACHIEVEMENT_SEARCH,
+    payload: search,
+  };
+};
 
 export const actionChangeTheme = (themeId) => {
   return {
