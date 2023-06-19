@@ -69,7 +69,7 @@ export default function AchievementDisplay({
   };
 
   return (
-    <Container>
+    <Container achieved={achieved}>
       <Overlay
         onMouseEnter={() => setMouseEnter(true)}
         onMouseLeave={() => setMouseEnter(false)}
@@ -177,6 +177,7 @@ const Container = styled.div`
   justify-content: center;
   margin: 0.75rem;
   font-size: 1.3rem;
+  opacity: ${(props) => (props.achieved ? "0.25" : "1")};
 
   &:hover {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
