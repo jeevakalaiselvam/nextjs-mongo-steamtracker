@@ -226,7 +226,6 @@ const Trophy = styled.div`
   margin-bottom: 1rem;
   margin-right: 1rem;
   color: ${(props) => props.color};
-  opacity: ${(props) => (props.achieved ? "0.25" : "1")};
 `;
 
 const Delete = styled.div`
@@ -294,7 +293,6 @@ const AchievementIcon = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  opacity: ${(props) => (props.achieved ? "0.25" : "1")};
 `;
 
 const Title = styled.div`
@@ -349,7 +347,6 @@ const AchievementDetails = styled.div`
   align-items: flex-start;
   flex: 1;
   justify-content: center;
-  opacity: ${(props) => (props.achieved ? "0.25" : "1")};
   flex-direction: column;
   margin: 1rem 0;
 `;
