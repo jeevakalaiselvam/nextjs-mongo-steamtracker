@@ -157,8 +157,8 @@ const Container = styled.div`
   padding: 1rem;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  margin-bottom: 0.5rem;
   opacity: ${(props) => (props.achieved ? "0.25" : "1")};
+  margin-bottom: 0.5rem;
   position: relative;
 `;
 
