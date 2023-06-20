@@ -204,7 +204,7 @@ const Container = styled.div`
   padding: 1rem;
   z-index: 100;
   width: 100%;
-  background-color: rgba(0, 0, 0, 1);
+  background-color: rgba(0, 0, 0, 0.5);
   opacity: ${(props) => (props.achieved && !props.swiping ? "0.25" : "1")};
   margin-bottom: 0.5rem;
   position: relative;
