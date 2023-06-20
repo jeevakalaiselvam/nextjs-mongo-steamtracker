@@ -64,9 +64,10 @@ export const calculateAllTrophyCountForGames = (games) => {
         });
       }
     });
+    return { platinum, gold, silver, copper };
+  } else {
+    return { platinum: -1, gold: -1, silver: -1, copper: -1 };
   }
-
-  return { platinum, gold, silver, copper };
 };
 
 const getPointForTrophyType = (type) => {

@@ -41,6 +41,7 @@ import {
   EPIC,
   GOG,
   ORIGIN,
+  PLATINUM,
   PLAYSTATION,
   STEAM,
   UPLAY,
@@ -291,17 +292,52 @@ export default function GameDisplay({ game }) {
           {getIcon(getIconForPlatform(platform))}
         </PlatformIcon>
         <TrophyCount>
-          {
-            (game?.achievements ?? [])?.filter(
-              (achievement) => achievement.achieved
-            ).length
-          }{" "}
-          / {(game?.achievements ?? []).length}
+          {game?.achievements &&
+            game?.achievements?.length &&
+            game?.achievements.filter((achievement) => !achievement.achieved)
+              ?.length == 0 && (
+              <Platinum color={COLOR_PLATINUM}>{getIcon(ICON_TROPHY)}</Platinum>
+            )}
+          <Count>
+            {
+              (game?.achievements ?? [])?.filter(
+                (achievement) => achievement.achieved
+              ).length
+            }{" "}
+            / {(game?.achievements ?? []).length}
+          </Count>
         </TrophyCount>
       </Overlay>
     </Container>
   );
 }
+
+const TrophyCount = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin-left: 1rem;
+  margin-bottom: 0.6rem;
+  font-size: 1.5rem;
+  color: ${(props) => props.color};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Count = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Platinum = styled.div`
+  display: flex;
+  margin-right: 1rem;
+  align-items: center;
+  justify-content: center;
+  color: ${(props) => props.color};
+`;
 
 const Hidden = styled.div`
   display: flex;
@@ -329,16 +365,6 @@ const HiddenNo = styled.div`
     props.active ? COLOR_BUTTON_PRIMARY : "rgba(0, 0, 0, 0.5)"};
   border-radius: 0 4px 4px 0;
   justify-content: center;
-`;
-
-const TrophyCount = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  margin-left: 1rem;
-  margin-bottom: 0.6rem;
-  font-size: 1.5rem;
-  color: ${(props) => props.color};
 `;
 
 const PlatformIcon = styled.div`

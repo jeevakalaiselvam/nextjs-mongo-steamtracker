@@ -14,6 +14,7 @@ import {
   HiViewBoards,
   HiEye,
   HiEyeOff,
+  HiCheckCircle,
 } from "react-icons/hi";
 import { HiTrophy } from "react-icons/hi2";
 import { FaSteam, FaPlaystation, FaXbox, FaTrophy } from "react-icons/fa";
@@ -52,6 +53,7 @@ export const ICON_OPTIONS = "ICON_OPTIONS";
 export const ICON_THEME = "ICON_THEME";
 export const ICON_HIDDEN_VISIBLE = "ICON_HIDDEN_VISIBLE";
 export const ICON_HIDDEN_INVISIBLE = "ICON_HIDDEN_INVISIBLE";
+export const ICON_COMPLETED = "ICON_COMPLETED";
 
 export const getIcon = (key) => {
   switch (key) {
@@ -99,6 +101,8 @@ export const getIcon = (key) => {
       return <HiEye />;
     case ICON_HIDDEN_INVISIBLE:
       return <HiEyeOff />;
+    case ICON_COMPLETED:
+      return <HiCheckCircle />;
     default:
   }
 };

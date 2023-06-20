@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { COLOR_GOLD } from "../../helper/colorHelper";
+import { COLOR_GOLD, COLOR_GREY, COLOR_SILVER } from "../../helper/colorHelper";
 import { calculateLevel } from "../../helper/gameHelper";
+import { MoonLoader } from "react-spinners";
+import Loading from "../atoms/Loading";
 
 export default function Profile({ games }) {
   const { currentLevel, totalPoints, toNext } = calculateLevel(games);
@@ -12,8 +14,16 @@ export default function Profile({ games }) {
       <Info>
         <Title>NotRealLogan</Title>
         <Level>
-          <Data color={COLOR_GOLD}>Level {currentLevel}</Data>
-          <ToNext>{toNext} more..</ToNext>
+          {currentLevel == -1 && <Loading size={2} color={COLOR_GREY} />}
+          {currentLevel != -1 && (
+            <Data color={COLOR_GOLD}>Level {currentLevel}</Data>
+          )}
+          {currentLevel != -1 && (
+            <ToNext>
+              {toNext}
+              more..
+            </ToNext>
+          )}
         </Level>
       </Info>
     </Container>

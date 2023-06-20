@@ -8,6 +8,7 @@ import {
 import {
   COLOR_COPPER,
   COLOR_GOLD,
+  COLOR_GREY,
   COLOR_PLATINUM,
   COLOR_SILVER,
 } from "../../helper/colorHelper";
@@ -24,6 +25,7 @@ import {
   PLATINUM,
   SILVER,
 } from "../../helper/constantHelper";
+import Loading from "../atoms/Loading";
 
 export default function Trophies({ games, title, game }) {
   const dispatch = useDispatch();
@@ -36,35 +38,69 @@ export default function Trophies({ games, title, game }) {
       <Name onClick={() => dispatch(actionAchievementFilter(ALL))}>
         {title}
       </Name>
-      <TrophiesContainer>
-        <Trophy color={COLOR_PLATINUM}>
-          <Icon onClick={() => dispatch(actionAchievementFilter(PLATINUM))}>
-            {getIcon(ICON_TROPHY)}
-          </Icon>
-          <Count>{platinum ?? 0}</Count>
-        </Trophy>
 
-        <Trophy color={COLOR_GOLD}>
-          <Icon onClick={() => dispatch(actionAchievementFilter(GOLD))}>
-            {getIcon(ICON_TROPHY)}
-          </Icon>
-          <Count>{gold ?? 0}</Count>
-        </Trophy>
+      {copper == -1 ? (
+        <TrophiesPlaceholderContainer>
+          <TrophyPlaceholder>
+            <Trophy color={COLOR_PLATINUM}>
+              <Icon onClick={() => dispatch(actionAchievementFilter(PLATINUM))}>
+                {getIcon(ICON_TROPHY)}
+              </Icon>
+            </Trophy>
 
-        <Trophy color={COLOR_SILVER}>
-          <Icon onClick={() => dispatch(actionAchievementFilter(SILVER))}>
-            {getIcon(ICON_TROPHY)}
-          </Icon>
-          <Count>{silver ?? 0}</Count>
-        </Trophy>
+            <Trophy color={COLOR_GOLD}>
+              <Icon onClick={() => dispatch(actionAchievementFilter(GOLD))}>
+                {getIcon(ICON_TROPHY)}
+              </Icon>
+            </Trophy>
 
-        <Trophy color={COLOR_COPPER}>
-          <Icon onClick={() => dispatch(actionAchievementFilter(COPPER))}>
-            {getIcon(ICON_TROPHY)}
-          </Icon>
-          <Count>{copper ?? 0}</Count>
-        </Trophy>
-      </TrophiesContainer>
+            <Trophy color={COLOR_SILVER}>
+              <Icon onClick={() => dispatch(actionAchievementFilter(SILVER))}>
+                {getIcon(ICON_TROPHY)}
+              </Icon>
+            </Trophy>
+
+            <Trophy color={COLOR_COPPER}>
+              <Icon onClick={() => dispatch(actionAchievementFilter(COPPER))}>
+                {getIcon(ICON_TROPHY)}
+              </Icon>
+            </Trophy>
+          </TrophyPlaceholder>
+          <LoaderContainer>
+            <Loading size={1} color={COLOR_SILVER} />
+          </LoaderContainer>
+        </TrophiesPlaceholderContainer>
+      ) : (
+        <TrophiesContainer>
+          <Trophy color={COLOR_PLATINUM}>
+            <Icon onClick={() => dispatch(actionAchievementFilter(PLATINUM))}>
+              {getIcon(ICON_TROPHY)}
+            </Icon>
+            <Count>{platinum}</Count>
+          </Trophy>
+
+          <Trophy color={COLOR_GOLD}>
+            <Icon onClick={() => dispatch(actionAchievementFilter(GOLD))}>
+              {getIcon(ICON_TROPHY)}
+            </Icon>
+            <Count>{gold}</Count>
+          </Trophy>
+
+          <Trophy color={COLOR_SILVER}>
+            <Icon onClick={() => dispatch(actionAchievementFilter(SILVER))}>
+              {getIcon(ICON_TROPHY)}
+            </Icon>
+            <Count>{silver}</Count>
+          </Trophy>
+
+          <Trophy color={COLOR_COPPER}>
+            <Icon onClick={() => dispatch(actionAchievementFilter(COPPER))}>
+              {getIcon(ICON_TROPHY)}
+            </Icon>
+            <Count>{copper}</Count>
+          </Trophy>
+        </TrophiesContainer>
+      )}
     </Container>
   );
 }
@@ -85,6 +121,29 @@ const Container = styled.div`
   background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);
   margin-top: 0.25rem;
+`;
+
+const TrophyPlaceholder = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+`;
+
+const LoaderContainer = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+`;
+
+const TrophiesPlaceholderContainer = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 `;
 
 const TrophiesContainer = styled.div`
