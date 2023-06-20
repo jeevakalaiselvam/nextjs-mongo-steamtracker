@@ -22,16 +22,18 @@ export default function TrophiesMobileGame({
   trophies,
   optionToggle,
   optionOpen,
+  leftSidebarToggle,
+  leftSidebarOpen,
 }) {
   const router = useRouter();
   return (
     <Container>
       <MenuIcon
         onClick={() => {
-          router.push("/mobile/games");
+          leftSidebarToggle(!leftSidebarOpen);
         }}
       >
-        {getIcon(ICON_BACK)}
+        {getIcon(ICON_MENU)}
       </MenuIcon>
       <TrophiesContainer>
         <Trophy color={COLOR_PLATINUM}>

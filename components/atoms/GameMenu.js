@@ -76,7 +76,7 @@ export default function GameMenu({ mobile }) {
   return (
     <Container>
       {router.pathname?.includes("/games/") && <SubTitle>Actions</SubTitle>}
-      {router.pathname?.includes("/games/") && (
+      {!mobile && router.pathname?.includes("/games/") && (
         <Link>
           <Button
             height={height}
@@ -107,7 +107,7 @@ export default function GameMenu({ mobile }) {
           fontSize={fontSize}
           title="My Games"
           onClick={() => {
-            router.push("/games");
+            mobile ? router.push("/mobile/games") : router.push("/games");
           }}
         />
       </Link>
