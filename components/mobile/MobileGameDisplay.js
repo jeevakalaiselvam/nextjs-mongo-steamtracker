@@ -1,8 +1,12 @@
 import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
-import { getColorForPlatform } from "../../helper/colorHelper";
-import { getIcon, getIconForPlatform } from "../../helper/iconHelper";
+import { COLOR_PLATINUM, getColorForPlatform } from "../../helper/colorHelper";
+import {
+  ICON_TROPHY,
+  getIcon,
+  getIconForPlatform,
+} from "../../helper/iconHelper";
 
 const Container = styled.div`
   display: flex;
@@ -54,9 +58,28 @@ const TrophyCount = styled.div`
   z-index: 100;
 `;
 
+const PlatinumCompletion = styled.div`
+  display: flex;
+  position: absolute;
+  top: 45%;
+  font-size: 5rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  align-items: center;
+  justify-content: center;
+  color: ${COLOR_PLATINUM};
+  color: ${(props) => props.color};
+`;
+
 export default function MobileGameDisplay({ game }) {
   const { image, _id, name, platform, achievements } = game;
   const router = useRouter();
+
+  const isPlatinumCompleted =
+    game?.achievements &&
+    game?.achievements?.length &&
+    game?.achievements.filter((achievement) => !achievement.achieved)?.length ==
+      0;
 
   return (
     <Container image={image}>
@@ -78,6 +101,9 @@ export default function MobileGameDisplay({ game }) {
       >
         {name}
       </Name>
+      {isPlatinumCompleted && (
+        <PlatinumCompletion>{getIcon(ICON_TROPHY)}</PlatinumCompletion>
+      )}
     </Container>
   );
 }

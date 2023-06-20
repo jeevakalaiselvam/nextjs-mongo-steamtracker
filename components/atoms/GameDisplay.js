@@ -298,9 +298,6 @@ export default function GameDisplay({ game }) {
           {getIcon(getIconForPlatform(platform))}
         </PlatformIcon>
         <TrophyCount>
-          {isPlatinumCompleted && (
-            <Platinum color={COLOR_PLATINUM}>{getIcon(ICON_TROPHY)}</Platinum>
-          )}
           <Count>
             {
               (game?.achievements ?? [])?.filter(

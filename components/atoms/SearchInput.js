@@ -10,12 +10,12 @@ const Container = styled.div`
   justify-content: center;
 
   & > input {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: ${(props) => props.background ?? "rgba(0, 0, 0, 0.5)"};
     outline: none;
     width: 100%;
     height: ${(props) => props.height ?? "25px"};
-    font-size: 1rem;
-    padding: 0.5rem;
+    padding: ${(props) => props.padding ?? "0.5rem"};
+    font-size: ${(props) => props.fontSize ?? "1rem"};
     text-align: center;
     border: none;
     cursor: text;
@@ -26,7 +26,7 @@ const Clear = styled.div`
   display: flex;
   height: ${(props) => props.height ?? "25px"};
   color: #fefefe33;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.background ?? "rgba(0, 0, 0, 0.5)"};
   align-items: center;
   padding-right: 0.5rem;
   justify-content: center;
@@ -35,7 +35,13 @@ const Clear = styled.div`
   }
 `;
 
-export default function SearchInput({ onSearchChange, height }) {
+export default function SearchInput({
+  onSearchChange,
+  height,
+  padding,
+  background,
+  fontSize,
+}) {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -48,16 +54,24 @@ export default function SearchInput({ onSearchChange, height }) {
   }, [search, onSearchChange]);
 
   return (
-    <Container>
+    <Container
+      padding={padding}
+      height={height}
+      background={background}
+      fontSize={fontSize}
+    >
       <input
-        height={height}
         placeholder="Search..."
         type="text"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
       {search?.length > 0 && (
-        <Clear onClick={() => setSearch("")} height={height}>
+        <Clear
+          onClick={() => setSearch("")}
+          height={height}
+          background={background}
+        >
           {getIcon(ICON_CROSS)}
         </Clear>
       )}

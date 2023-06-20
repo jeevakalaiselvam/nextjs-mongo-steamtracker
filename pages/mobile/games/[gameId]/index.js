@@ -7,10 +7,14 @@ import { BACKGROUND_IMAGE, HEADER_IMAGE } from "../../../../helper/urlHelper";
 import { getTrophyCount } from "../../../../helper/gameHelper";
 import { useRouter } from "next/router";
 import MobileAchievementDisplay from "../../../../components/mobile/MobileAchievementDisplay";
-import { getLoader } from "../../../../helper/constantHelper";
+import { ALL, getLoader } from "../../../../helper/constantHelper";
 import TrophiesMobileGame from "../../../../components/molecules/TrophiesMobileGame";
 import { useDispatch, useSelector } from "react-redux";
-import { actionForceRefreshAchievement } from "../../../../store/actions/steam.actions";
+import {
+  actionAchievementSearch,
+  actionForceRefreshAchievement,
+} from "../../../../store/actions/steam.actions";
+import SearchInput from "../../../../components/atoms/SearchInput";
 
 const Container = styled.div`
   display: flex;
@@ -79,7 +83,6 @@ const OptionContainer = styled.div`
   right: 0;
   width: 80%;
   padding: 0.5rem;
-  background-color: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(20px);
 `;
 
@@ -101,7 +104,12 @@ export default function Game() {
 
   const steam = useSelector((state) => state.steam);
   const { settings } = steam;
-  const { forceRefreshAchievement, themeId } = settings;
+  const {
+    forceRefreshAchievement,
+    themeId,
+    achievementSearch,
+    achievementFilter,
+  } = settings;
   const { toggle } = steam;
 
   useEffect(() => {
@@ -142,8 +150,24 @@ export default function Game() {
               )}
               {game?.achievements?.length != 0 &&
                 game?.achievements
-                  ?.sort((ach1, ach2) => ach2.percentage - ach1.percentage)
-                  ?.map((achievement) => {
+                  ?.filter((achievement) => {
+                    if (
+                      (achievement?.name
+                        ?.toLowerCase()
+                        .trim()
+                        ?.includes(achievementSearch) ||
+                        achievement?.description
+                          ?.toLowerCase()
+                          .trim()
+                          ?.includes(achievementSearch)) &&
+                      (achievement.type == achievementFilter ||
+                        achievementFilter == ALL)
+                    ) {
+                      return true;
+                    }
+                  })
+                  .sort((ach1, ach2) => ach2.percentage - ach1.percentage)
+                  .map((achievement) => {
                     return (
                       <MobileAchievementDisplay
                         achievement={achievement}
@@ -155,7 +179,19 @@ export default function Game() {
             </Content>
           </GamesContainer>
         )}
-        {<OptionContainer open={optionOpen}>OPTIONS</OptionContainer>}
+        {
+          <OptionContainer open={optionOpen}>
+            <SearchInput
+              background={"rgba(0,0,0,0.2)"}
+              height={"50px"}
+              padding={"2rem"}
+              fontSize="1.5rem"
+              onSearchChange={(search) => {
+                dispatch(actionAchievementSearch(search));
+              }}
+            />
+          </OptionContainer>
+        }
       </Overlay>
     </Container>
   );
