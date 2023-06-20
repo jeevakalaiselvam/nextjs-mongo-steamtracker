@@ -69,22 +69,20 @@ export default function MobileAchievementDisplay({ game, achievement }) {
   const handlers = useSwipeable({
     onSwipedLeft: (eventData) => {
       completeAchievement(false);
-      setLeft(0);
     },
     onSwipedRight: (eventData) => {
       completeAchievement(true);
-      setLeft(0);
     },
     onSwipeStart: (eventData) => {
       setSwiping(true);
     },
     onSwiped: (eventData) => {
       setSwiping(false);
+      setLeft(0);
     },
     onSwiping: (eventData) => {
       const { deltaX, deltaY, absX, absY } = eventData;
       let sign = Math.sign(deltaX);
-      console.log("JEEVA SIGN", sign);
       if (sign > 0) {
         setLeft(deltaX > 120 ? 120 : deltaX);
       } else {
