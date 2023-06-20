@@ -12,8 +12,8 @@ export default async function handler(req, res) {
       let image = game.image;
       let platform = game.platform;
       let target = game.target;
-      let targetStart = moment.utc().format();
-      let targetEnd = moment().add(target, "days").utc().format();
+      let targetStart = game.targetStart ?? moment.utc().format();
+      let targetEnd = moment(targetStart).add(target, "days").utc().format();
       let hidden = game?.hidden ?? false;
       let id = game.id;
       let query = { _id: new mongodb.ObjectID(id) };

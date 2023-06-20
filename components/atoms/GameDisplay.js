@@ -83,6 +83,7 @@ export default function GameDisplay({ game }) {
           platform: updatedPlatform,
           hidden: updatedHidden,
           target: updatedTarget,
+          targetStart: targetStart,
         },
       })
       .then((response) => {
