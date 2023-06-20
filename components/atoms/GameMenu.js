@@ -149,6 +149,17 @@ export default function GameMenu({ mobile }) {
       <Link>
         <Button
           height={height}
+          icon={getIcon(ICON_THEME)}
+          fontSize={fontSize}
+          title="Desktop View"
+          onClick={() => {
+            router.push("/games");
+          }}
+        />
+      </Link>
+      <Link>
+        <Button
+          height={height}
           icon={getIcon(
             showHiddenGames ? ICON_HIDDEN_INVISIBLE : ICON_HIDDEN_VISIBLE
           )}
