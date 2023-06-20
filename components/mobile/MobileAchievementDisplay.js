@@ -173,8 +173,8 @@ const MarkComplete = styled.div`
   width: 100%;
   padding: 1rem 1rem 1rem 1rem;
   display: flex;
-  min-height: 120px;
-  max-height: 120px;
+  min-height: 100px;
+  max-height: 100px;
   background-color: green;
   align-items: center;
   margin-bottom: 0.5rem;
@@ -186,8 +186,8 @@ const MarkNotComplete = styled.div`
   right: 0;
   width: 100%;
   padding: 1rem 1rem 1rem 1rem;
-  min-height: 120px;
-  max-height: 120px;
+  min-height: 100px;
+  max-height: 100px;
   background-color: red;
   display: flex;
   margin-bottom: 0.5rem;
@@ -206,7 +206,7 @@ const Container = styled.div`
   opacity: ${(props) => (props.achieved && !props.swiping ? "0.25" : "1")};
   margin-bottom: 0.5rem;
   position: relative;
-  min-height: 120px;
+  min-height: 100px;
   left: ${(props) => props.left + "px"};
 `;
 
