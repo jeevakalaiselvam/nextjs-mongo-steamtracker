@@ -82,11 +82,15 @@ export default function MobileAchievementDisplay({ game, achievement }) {
     },
     onSwiping: (eventData) => {
       const { deltaX, deltaY, absX, absY } = eventData;
+      console.log("JEEVA", { deltaY });
       let sign = Math.sign(deltaX);
-      if (sign > 0) {
-        setLeft(deltaX > 120 ? 120 : deltaX);
+      if (deltaY > 100 || deltaY < -100) {
       } else {
-        setLeft(deltaX < -120 ? -120 : deltaX);
+        if (sign > 0) {
+          setLeft(deltaX > 120 ? 120 : deltaX);
+        } else {
+          setLeft(deltaX < -120 ? -120 : deltaX);
+        }
       }
     },
     ...config,
@@ -173,8 +177,8 @@ const MarkComplete = styled.div`
   width: 100%;
   padding: 1rem 1rem 1rem 1rem;
   display: flex;
-  min-height: 100px;
-  max-height: 100px;
+  min-height: 110px;
+  max-height: 110px;
   background-color: green;
   align-items: center;
   margin-bottom: 0.5rem;
@@ -186,8 +190,8 @@ const MarkNotComplete = styled.div`
   right: 0;
   width: 100%;
   padding: 1rem 1rem 1rem 1rem;
-  min-height: 100px;
-  max-height: 100px;
+  min-height: 110px;
+  max-height: 110px;
   background-color: red;
   display: flex;
   margin-bottom: 0.5rem;
@@ -206,7 +210,7 @@ const Container = styled.div`
   opacity: ${(props) => (props.achieved && !props.swiping ? "0.25" : "1")};
   margin-bottom: 0.5rem;
   position: relative;
-  min-height: 100px;
+  min-height: 110px;
   left: ${(props) => props.left + "px"};
 `;
 
@@ -219,7 +223,7 @@ const CompletedOrNot = styled.div`
   padding: 0.5rem 0.5rem;
   font-size: 2rem;
   background: rgba(0, 0, 0, 0.25);
-  right: ${(props) => (props.show ? "0px" : "-100px")};
+  right: ${(props) => (props.show ? "0px" : "-110px")};
   opacity: 0.5;
   overflow: hidden;
   font-size: 1.25rem;
