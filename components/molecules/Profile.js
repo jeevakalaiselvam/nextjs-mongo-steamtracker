@@ -18,12 +18,7 @@ export default function Profile({ games }) {
           {currentLevel != -1 && (
             <Data color={COLOR_GOLD}>Level {currentLevel}</Data>
           )}
-          {currentLevel != -1 && (
-            <ToNext>
-              {toNext}
-              more..
-            </ToNext>
-          )}
+          {currentLevel != -1 && <ToNext>{toNext} more..</ToNext>}
         </Level>
       </Info>
     </Container>
