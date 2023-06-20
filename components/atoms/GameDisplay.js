@@ -90,6 +90,12 @@ export default function GameDisplay({ game }) {
       });
   };
 
+  const isPlatinumCompleted =
+    game?.achievements &&
+    game?.achievements?.length &&
+    game?.achievements.filter((achievement) => !achievement.achieved)?.length ==
+      0;
+
   return (
     <Container image={image}>
       <Overlay
@@ -292,12 +298,9 @@ export default function GameDisplay({ game }) {
           {getIcon(getIconForPlatform(platform))}
         </PlatformIcon>
         <TrophyCount>
-          {game?.achievements &&
-            game?.achievements?.length &&
-            game?.achievements.filter((achievement) => !achievement.achieved)
-              ?.length == 0 && (
-              <Platinum color={COLOR_PLATINUM}>{getIcon(ICON_TROPHY)}</Platinum>
-            )}
+          {isPlatinumCompleted && (
+            <Platinum color={COLOR_PLATINUM}>{getIcon(ICON_TROPHY)}</Platinum>
+          )}
           <Count>
             {
               (game?.achievements ?? [])?.filter(
@@ -307,10 +310,26 @@ export default function GameDisplay({ game }) {
             / {(game?.achievements ?? []).length}
           </Count>
         </TrophyCount>
+        {isPlatinumCompleted && (
+          <PlatinumCompletion>{getIcon(ICON_TROPHY)}</PlatinumCompletion>
+        )}
       </Overlay>
     </Container>
   );
 }
+
+const PlatinumCompletion = styled.div`
+  display: flex;
+  position: absolute;
+  top: 45%;
+  font-size: 5rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  align-items: center;
+  justify-content: center;
+  color: ${COLOR_PLATINUM};
+  color: ${(props) => props.color};
+`;
 
 const TrophyCount = styled.div`
   position: absolute;
