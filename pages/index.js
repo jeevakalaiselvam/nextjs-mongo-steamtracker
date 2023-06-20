@@ -18,5 +18,5 @@ export default function Home() {
     router.push("/games");
   }, [router]);
 
-  return <Container>GAMES</Container>;
+  return <Container></Container>;
 }
