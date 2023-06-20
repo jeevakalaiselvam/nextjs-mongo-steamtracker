@@ -6,12 +6,37 @@ import styled from "styled-components";
 import { HEADER_IMAGE } from "../../../helper/urlHelper";
 import { calculateAllTrophyCountForGames } from "../../../helper/gameHelper";
 import MobileGameDisplay from "../../../components/mobile/MobileGameDisplay";
-import { getLoader } from "../../../helper/constantHelper";
+import {
+  ALL,
+  BLIZZARD,
+  EPIC,
+  GOG,
+  ORIGIN,
+  PLAYSTATION,
+  STEAM,
+  UPLAY,
+  XBOX,
+  getLoader,
+} from "../../../helper/constantHelper";
 import TrophiesMobileGames from "../../../components/molecules/TrophiesMobileGames";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Profile from "../../../components/molecules/Profile";
 import Trophies from "../../../components/molecules/Trophies";
 import GameMenu from "../../../components/atoms/GameMenu";
+import Button from "../../../components/atoms/Button";
+import {
+  ICON_BLIZZARD,
+  ICON_EPIC,
+  ICON_GAMES,
+  ICON_GOG,
+  ICON_ORIGIN,
+  ICON_PLAYSTATION,
+  ICON_STEAM,
+  ICON_UPLAY,
+  ICON_XBOX,
+  getIcon,
+} from "../../../helper/iconHelper";
+import { actionGamesFilter } from "../../../store/actions/steam.actions";
 
 const Container = styled.div`
   display: flex;
@@ -99,10 +124,39 @@ const LeftSidebarContainer = styled.div`
   left: ${(props) => (props.open ? "0" : "-60vw")};
   width: 60vw;
   z-index: 100;
-  height: 100%;
+  min-height: 92vh;
+  max-height: 92vh;
   padding: 0.5rem;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(20px);
+`;
+
+const Link = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+`;
+
+const SubTitle = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1rem;
+  opacity: 0.5;
+  margin-top: 1rem;
+`;
+
+const PlatformOptions = styled.div`
+  display: flex;
+  flex: 1;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: scroll;
+  flex-direction: column;
 `;
 
 export default function Games() {
@@ -110,10 +164,12 @@ export default function Games() {
   const [loading, setLoading] = useState(false);
   const [optionOpen, setOptionOpen] = useState(false);
   const [leftSidebarOpen, setLeftSidebarOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const steam = useSelector((state) => state.steam);
   const { settings } = steam;
-  const { forceRefreshAchievement, themeId } = settings;
+  const { forceRefreshAchievement, themeId, gamesFilter, showHiddenGames } =
+    settings;
   const { toggle } = steam;
 
   useEffect(() => {
@@ -150,9 +206,18 @@ export default function Games() {
               />
             </Header>
             <Content>
-              {games.map((game) => {
-                return <MobileGameDisplay game={game} key={game._id} />;
-              })}
+              {games
+                .filter((game) => {
+                  if (
+                    (game?.platform == gamesFilter || gamesFilter == ALL) &&
+                    (showHiddenGames ? true : !game.hidden)
+                  ) {
+                    return true;
+                  }
+                })
+                .map((game) => {
+                  return <MobileGameDisplay game={game} key={game._id} />;
+                })}
             </Content>
           </GamesContainer>
         )}
@@ -161,6 +226,117 @@ export default function Games() {
           <Profile games={games} />
           <Trophies games={games} title={"COLLECTION"} />
           <GameMenu mobile={true} />
+          <SubTitle>Platforms</SubTitle>
+          <PlatformOptions>
+            <Link>
+              <Button
+                height={"35px"}
+                icon={getIcon(ICON_GAMES)}
+                fontSize={"1.5rem"}
+                title="Show All"
+                active={gamesFilter == ALL}
+                onClick={() => {
+                  dispatch(actionGamesFilter(ALL));
+                }}
+              />
+            </Link>
+            <Link>
+              <Button
+                height={"35px"}
+                icon={getIcon(ICON_STEAM)}
+                fontSize={"1.5rem"}
+                title="Steam"
+                active={gamesFilter == STEAM}
+                onClick={() => {
+                  dispatch(actionGamesFilter(STEAM));
+                }}
+              />
+            </Link>
+            <Link>
+              <Button
+                height={"35px"}
+                icon={getIcon(ICON_PLAYSTATION)}
+                fontSize={"1.5rem"}
+                title="Playstation"
+                active={gamesFilter == PLAYSTATION}
+                onClick={() => {
+                  dispatch(actionGamesFilter(PLAYSTATION));
+                }}
+              />
+            </Link>
+            <Link>
+              <Button
+                height={"35px"}
+                icon={getIcon(ICON_XBOX)}
+                fontSize={"1.5rem"}
+                title="Xbox"
+                active={gamesFilter == XBOX}
+                onClick={() => {
+                  dispatch(actionGamesFilter(XBOX));
+                }}
+              />
+            </Link>
+            <Link>
+              <Button
+                height={"35px"}
+                icon={getIcon(ICON_UPLAY)}
+                fontSize={"1.5rem"}
+                title="Uplay"
+                active={gamesFilter == UPLAY}
+                onClick={() => {
+                  dispatch(actionGamesFilter(UPLAY));
+                }}
+              />
+            </Link>
+            <Link>
+              <Button
+                height={"35px"}
+                icon={getIcon(ICON_GOG)}
+                fontSize={"1.5rem"}
+                title="Gog"
+                active={gamesFilter == GOG}
+                onClick={() => {
+                  dispatch(actionGamesFilter(GOG));
+                }}
+              />
+            </Link>
+            <Link>
+              <Button
+                height={"35px"}
+                icon={getIcon(ICON_ORIGIN)}
+                fontSize={"1.5rem"}
+                title="Origin"
+                active={gamesFilter == ORIGIN}
+                onClick={() => {
+                  dispatch(actionGamesFilter(ORIGIN));
+                }}
+              />
+            </Link>
+            <Link>
+              <Button
+                height={"35px"}
+                icon={getIcon(ICON_EPIC)}
+                fontSize={"1.5rem"}
+                title="Epic Games"
+                active={gamesFilter == EPIC}
+                onClick={() => {
+                  dispatch(actionGamesFilter(EPIC));
+                }}
+              />
+            </Link>
+            <Link>
+              <Button
+                height={"35px"}
+                icon={getIcon(ICON_BLIZZARD)}
+                fontSize={"1.5rem"}
+                title="Blizzard"
+                active={gamesFilter == BLIZZARD}
+                onClick={() => {
+                  dispatch(actionGamesFilter(BLIZZARD));
+                }}
+              />
+            </Link>
+          </PlatformOptions>
         </LeftSidebarContainer>
       </Overlay>
     </Container>

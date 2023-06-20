@@ -71,7 +71,7 @@ export default function GameMenu({ mobile }) {
   };
 
   const fontSize = mobile ? "1.5rem" : "1.25rem";
-  const height = "25px";
+  const height = mobile ? "35px" : "25px";
 
   return (
     <Container>
@@ -146,21 +146,19 @@ export default function GameMenu({ mobile }) {
           }}
         />
       </Link>
-      {router.pathname == "/games" && (
-        <Link>
-          <Button
-            height={height}
-            icon={getIcon(
-              showHiddenGames ? ICON_HIDDEN_INVISIBLE : ICON_HIDDEN_VISIBLE
-            )}
-            fontSize={fontSize}
-            title={showHiddenGames ? "HIDE HIDDEN" : "SHOW HIDDEN"}
-            onClick={() => {
-              dispatch(actionShowHiddenGames(!showHiddenGames));
-            }}
-          />
-        </Link>
-      )}
+      <Link>
+        <Button
+          height={height}
+          icon={getIcon(
+            showHiddenGames ? ICON_HIDDEN_INVISIBLE : ICON_HIDDEN_VISIBLE
+          )}
+          fontSize={fontSize}
+          title={showHiddenGames ? "Hide Hidden" : "Show Hidden"}
+          onClick={() => {
+            dispatch(actionShowHiddenGames(!showHiddenGames));
+          }}
+        />
+      </Link>
       {router.pathname == "/games" && <SubTitle>Platforms</SubTitle>}
       {router.pathname == "/games" && (
         <>
@@ -277,28 +275,6 @@ export default function GameMenu({ mobile }) {
     </Container>
   );
 }
-
-const PlatformIcons = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
-
-const PlatformIcon = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 0.5rem;
-  font-size: 2rem;
-  padding: 1rem;
-  background-color: rgba(0, 0, 0, 0.2);
-  justify-content: center;
-
-  &:hover {
-    color: ${(props) => props.color};
-  }
-`;
 
 const Container = styled.div`
   display: flex;
