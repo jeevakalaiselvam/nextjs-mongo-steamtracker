@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import Button from "./Button";
@@ -47,9 +47,10 @@ import {
   UPLAY,
   XBOX,
 } from "../../helper/constantHelper";
+import moment from "moment";
 
 export default function GameDisplay({ game }) {
-  const { image, _id, name, platform } = game;
+  const { image, _id, name, platform, target, targetStart, targetEnd } = game;
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -61,6 +62,7 @@ export default function GameDisplay({ game }) {
   const [updatedImage, setUpdatedImage] = useState(image);
   const [updatedPlatform, setUpdatedPlatform] = useState(platform);
   const [updatedHidden, setUpdatedHidden] = useState(game?.hidden ?? false);
+  const [updatedTarget, setUpdatedTarget] = useState(target ?? 7);
   const [loading, setLoading] = useState(false);
 
   const confirmDelete = () => {
@@ -80,6 +82,7 @@ export default function GameDisplay({ game }) {
           id: _id,
           platform: updatedPlatform,
           hidden: updatedHidden,
+          target: updatedTarget,
         },
       })
       .then((response) => {
@@ -95,6 +98,28 @@ export default function GameDisplay({ game }) {
     game?.achievements?.length &&
     game?.achievements.filter((achievement) => !achievement.achieved)?.length ==
       0;
+
+  const [daysDifference, setDaysDifference] = useState(
+    moment(targetEnd).diff(moment(), "days")
+  );
+  const [hoursDifference, setHoursDifference] = useState(
+    moment(targetEnd).diff(moment(), "hours") % 24
+  );
+  const [minutesDifference, setMinutesDifference] = useState(
+    moment(targetEnd).diff(moment(), "minutes") % 60
+  );
+  useEffect(() => {
+    if (!isPlatinumCompleted) {
+      const timing = setInterval(() => {
+        setDaysDifference(moment(targetEnd).diff(moment(), "days"));
+        setHoursDifference(moment(targetEnd).diff(moment(), "hours") % 24);
+        setMinutesDifference(moment(targetEnd).diff(moment(), "minutes") % 60);
+      }, [1000]);
+      return () => {
+        clearInterval(timing);
+      };
+    }
+  }, [target, targetStart, targetEnd]);
 
   return (
     <Container image={image}>
@@ -209,25 +234,35 @@ export default function GameDisplay({ game }) {
                   </PlatformSelection>
                 </Input>
                 <Input>
-                  <Label>Hidden:</Label>
-                  <Hidden>
-                    <HiddenYes
-                      active={updatedHidden}
-                      onClick={() => {
-                        setUpdatedHidden(true);
-                      }}
-                    >
-                      YES
-                    </HiddenYes>
-                    <HiddenNo
-                      active={!updatedHidden}
-                      onClick={() => {
-                        setUpdatedHidden(false);
-                      }}
-                    >
-                      NO
-                    </HiddenNo>
-                  </Hidden>
+                  <HiddenContainer>
+                    <Label>Hidden:</Label>
+                    <Hidden>
+                      <HiddenYes
+                        active={updatedHidden}
+                        onClick={() => {
+                          setUpdatedHidden(true);
+                        }}
+                      >
+                        YES
+                      </HiddenYes>
+                      <HiddenNo
+                        active={!updatedHidden}
+                        onClick={() => {
+                          setUpdatedHidden(false);
+                        }}
+                      >
+                        NO
+                      </HiddenNo>
+                    </Hidden>
+                  </HiddenContainer>
+                  <DaysTargetContainer>
+                    <input
+                      type="number"
+                      placeholder="Target Days.."
+                      value={updatedTarget}
+                      onChange={(e) => setUpdatedTarget(e.target.value)}
+                    />
+                  </DaysTargetContainer>
                 </Input>
                 <SaveContainer>
                   <Button
@@ -271,6 +306,15 @@ export default function GameDisplay({ game }) {
             </No>
           </Confirm>
         )}
+        {!isPlatinumCompleted && (
+          <Before>
+            {targetEnd &&
+              targetStart &&
+              target &&
+              `${daysDifference} days - ${hoursDifference} hours - ${minutesDifference} minutes`}
+          </Before>
+        )}
+        {isPlatinumCompleted && <Before>PLATINUM</Before>}
         <Name
           onClick={() => {
             router.push(`/games/${_id}`);
@@ -314,6 +358,43 @@ export default function GameDisplay({ game }) {
     </Container>
   );
 }
+
+const Before = styled.div`
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100%;
+  font-size: 1.25rem;
+  display: flex;
+  padding: 1rem;
+  transform: translateX(-50%);
+  align-items: center;
+  justify-content: center;
+`;
+
+const HiddenContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+`;
+
+const DaysTargetContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex: 5;
+  justify-content: flex-start;
+
+  & > input {
+    width: 100px;
+    margin-left: 1rem;
+    padding: 0.75rem;
+    background: rgba(0, 0, 0, 0.5);
+    outline: none;
+    border: none;
+    cursor: text;
+  }
+`;
 
 const PlatinumCompletion = styled.div`
   display: flex;

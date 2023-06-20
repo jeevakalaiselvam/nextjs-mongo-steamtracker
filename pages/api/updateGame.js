@@ -1,3 +1,4 @@
+import moment from "moment/moment";
 import clientPromise from "../../lib/mongo";
 import mongodb from "mongodb";
 
@@ -10,10 +11,24 @@ export default async function handler(req, res) {
       let name = game.name;
       let image = game.image;
       let platform = game.platform;
+      let target = game.target;
+      let targetStart = moment.utc().format();
+      let targetEnd = moment().add(target, "days").utc().format();
       let hidden = game?.hidden ?? false;
       let id = game.id;
       let query = { _id: new mongodb.ObjectID(id) };
-      let toUpdate = { $set: { name, image, platform, hidden } };
+      let toUpdate = {
+        $set: {
+          name,
+          image,
+          platform,
+          hidden,
+          lastUpdated: moment.now(),
+          target,
+          targetStart,
+          targetEnd,
+        },
+      };
       let games = await db.collection("games").updateOne(query, toUpdate);
       res.json(games);
       break;

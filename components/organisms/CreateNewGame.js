@@ -56,7 +56,9 @@ export default function CreateNewGame() {
   const saveGame = () => {
     setLoading(true);
     axios
-      .post("/api/createGame", { game: { name, image } })
+      .post("/api/createGame", {
+        game: { name, image },
+      })
       .then((response) => {
         setLoading(false);
         dispatch(actionForceRefreshGames(true));
