@@ -37,6 +37,7 @@ import {
   getIcon,
 } from "../../../helper/iconHelper";
 import { actionGamesFilter } from "../../../store/actions/steam.actions";
+import GamesMenu from "../../../components/atoms/GamesMenu";
 
 const Container = styled.div`
   display: flex;
@@ -225,118 +226,7 @@ export default function Games() {
         <LeftSidebarContainer open={leftSidebarOpen}>
           <Profile games={games} />
           <Trophies games={games} title={"COLLECTION"} />
-          <GameMenu mobile={true} />
-          <SubTitle>Platforms</SubTitle>
-          <PlatformOptions>
-            <Link>
-              <Button
-                height={"35px"}
-                icon={getIcon(ICON_GAMES)}
-                fontSize={"1.5rem"}
-                title="Show All"
-                active={gamesFilter == ALL}
-                onClick={() => {
-                  dispatch(actionGamesFilter(ALL));
-                }}
-              />
-            </Link>
-            <Link>
-              <Button
-                height={"35px"}
-                icon={getIcon(ICON_STEAM)}
-                fontSize={"1.5rem"}
-                title="Steam"
-                active={gamesFilter == STEAM}
-                onClick={() => {
-                  dispatch(actionGamesFilter(STEAM));
-                }}
-              />
-            </Link>
-            <Link>
-              <Button
-                height={"35px"}
-                icon={getIcon(ICON_PLAYSTATION)}
-                fontSize={"1.5rem"}
-                title="Playstation"
-                active={gamesFilter == PLAYSTATION}
-                onClick={() => {
-                  dispatch(actionGamesFilter(PLAYSTATION));
-                }}
-              />
-            </Link>
-            <Link>
-              <Button
-                height={"35px"}
-                icon={getIcon(ICON_XBOX)}
-                fontSize={"1.5rem"}
-                title="Xbox"
-                active={gamesFilter == XBOX}
-                onClick={() => {
-                  dispatch(actionGamesFilter(XBOX));
-                }}
-              />
-            </Link>
-            <Link>
-              <Button
-                height={"35px"}
-                icon={getIcon(ICON_UPLAY)}
-                fontSize={"1.5rem"}
-                title="Uplay"
-                active={gamesFilter == UPLAY}
-                onClick={() => {
-                  dispatch(actionGamesFilter(UPLAY));
-                }}
-              />
-            </Link>
-            <Link>
-              <Button
-                height={"35px"}
-                icon={getIcon(ICON_GOG)}
-                fontSize={"1.5rem"}
-                title="Gog"
-                active={gamesFilter == GOG}
-                onClick={() => {
-                  dispatch(actionGamesFilter(GOG));
-                }}
-              />
-            </Link>
-            <Link>
-              <Button
-                height={"35px"}
-                icon={getIcon(ICON_ORIGIN)}
-                fontSize={"1.5rem"}
-                title="Origin"
-                active={gamesFilter == ORIGIN}
-                onClick={() => {
-                  dispatch(actionGamesFilter(ORIGIN));
-                }}
-              />
-            </Link>
-            <Link>
-              <Button
-                height={"35px"}
-                icon={getIcon(ICON_EPIC)}
-                fontSize={"1.5rem"}
-                title="Epic Games"
-                active={gamesFilter == EPIC}
-                onClick={() => {
-                  dispatch(actionGamesFilter(EPIC));
-                }}
-              />
-            </Link>
-            <Link>
-              <Button
-                height={"35px"}
-                icon={getIcon(ICON_BLIZZARD)}
-                fontSize={"1.5rem"}
-                title="Blizzard"
-                active={gamesFilter == BLIZZARD}
-                onClick={() => {
-                  dispatch(actionGamesFilter(BLIZZARD));
-                }}
-              />
-            </Link>
-          </PlatformOptions>
+          <GamesMenu mobile={true} />
         </LeftSidebarContainer>
       </Overlay>
     </Container>

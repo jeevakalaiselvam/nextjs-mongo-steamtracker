@@ -37,6 +37,7 @@ export default function GamesPage() {
     themeId,
     achievementSearch,
     achievementFilter,
+    achievementFilterCategory,
   } = settings;
   const { toggle } = steam;
   const { createNewAchievementModal, keepAddingAchievements } = toggle;
@@ -90,7 +91,7 @@ export default function GamesPage() {
           <Profile games={games} />
           <Trophies games={games} title={"Trophies"} />
           <GameInfo game={game} />
-          <GameMenu />
+          <GameMenu game={game} />
         </SidebarContainer>
         <MainContainer>
           {achievementsLoading && (
@@ -115,7 +116,12 @@ export default function GamesPage() {
                           .trim()
                           ?.includes(achievementSearch)) &&
                       (achievement.type == achievementFilter ||
-                        achievementFilter == ALL)
+                        achievementFilter == ALL) &&
+                      (achievementFilterCategory == ALL
+                        ? true
+                        : achievement?.categories?.includes(
+                            achievementFilterCategory ?? ALL
+                          ))
                     ) {
                       return true;
                     }

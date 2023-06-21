@@ -16,7 +16,7 @@ import {
 } from "../../../../store/actions/steam.actions";
 import SearchInput from "../../../../components/atoms/SearchInput";
 import Button from "../../../../components/atoms/Button";
-import GameMenu from "../../../../components/atoms/GameMenu";
+import GameMenu from "../../../../components/atoms/GamesMenu";
 import Trophies from "../../../../components/molecules/Trophies";
 import Profile from "../../../../components/molecules/Profile";
 import GameInfo from "../../../../components/molecules/GameInfo";

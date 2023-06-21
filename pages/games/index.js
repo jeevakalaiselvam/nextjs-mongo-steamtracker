@@ -7,7 +7,7 @@ import GameDisplay from "../../components/atoms/GameDisplay";
 import { HEADER_IMAGE } from "../../helper/urlHelper";
 import Profile from "../../components/molecules/Profile";
 import Trophies from "../../components/molecules/Trophies";
-import GameMenu from "../../components/atoms/GameMenu";
+import GameMenu from "../../components/atoms/GamesMenu";
 import { useDispatch, useSelector } from "react-redux";
 import CreateNewGame from "../../components/organisms/CreateNewGame";
 import {
@@ -16,6 +16,7 @@ import {
 } from "../../store/actions/steam.actions";
 import Button from "../../components/atoms/Button";
 import { ALL, getLoader } from "../../helper/constantHelper";
+import GamesMenu from "../../components/atoms/GamesMenu";
 
 export default function GamesPage() {
   const [gamesLoading, setGamesLoading] = useState(false);
@@ -56,7 +57,7 @@ export default function GamesPage() {
         <SidebarContainer>
           <Profile games={games} />
           <Trophies games={games} title={"Trophies"} />
-          <GameMenu />
+          <GamesMenu />
         </SidebarContainer>
         <MainContainer>
           {gamesLoading && getLoader()}

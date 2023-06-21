@@ -54,6 +54,7 @@ export const ICON_THEME = "ICON_THEME";
 export const ICON_HIDDEN_VISIBLE = "ICON_HIDDEN_VISIBLE";
 export const ICON_HIDDEN_INVISIBLE = "ICON_HIDDEN_INVISIBLE";
 export const ICON_COMPLETED = "ICON_COMPLETED";
+export const ICON_CATEGORY = "ICON_CATEGORY";
 
 export const getIcon = (key) => {
   switch (key) {
@@ -103,6 +104,8 @@ export const getIcon = (key) => {
       return <HiEyeOff />;
     case ICON_COMPLETED:
       return <HiCheckCircle />;
+    case ICON_CATEGORY:
+      return <HiCollection />;
     default:
   }
 };

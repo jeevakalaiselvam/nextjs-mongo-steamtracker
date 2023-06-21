@@ -1,5 +1,6 @@
 import {
   ACHIEVEMENT_FILTER,
+  ACHIEVEMENT_FILTER_CATEGORY,
   ACHIEVEMENT_SEARCH,
   CHANGE_THEME,
   FORCE_REFRESH_ACHIEVEMENT,
@@ -29,6 +30,7 @@ const INITIAL_STATE = {
     themeId: 130130,
     achievementSearch: "",
     achievementFilter: "",
+    achievementFilterCategory: "",
     showHiddenGames: false,
     gamesFilter: "",
   },
@@ -38,6 +40,14 @@ const reducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case ACHIEVEMENT_FILTER_CATEGORY:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          achievementFilterCategory: payload,
+        },
+      };
     case GAMES_FILTER:
       return {
         ...state,
