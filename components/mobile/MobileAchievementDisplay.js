@@ -21,7 +21,11 @@ import moment from "moment";
 import Draggable, { DraggableCore } from "react-draggable";
 import { BeatLoader } from "react-spinners";
 
-export default function MobileAchievementDisplay({ game, achievement }) {
+export default function MobileAchievementDisplay({
+  game,
+  achievement,
+  setLeftSidebarOpen,
+}) {
   const {
     image,
     id,
@@ -97,7 +101,11 @@ export default function MobileAchievementDisplay({ game, achievement }) {
   });
 
   return (
-    <MainContainer>
+    <MainContainer
+      onClick={() => {
+        setLeftSidebarOpen(false);
+      }}
+    >
       {completing && (
         <CompletingLoader>
           <BeatLoader color={COLOR_SILVER} />
@@ -112,10 +120,8 @@ export default function MobileAchievementDisplay({ game, achievement }) {
         swiping={swiping}
       >
         <IconContainer>
-          <Icon image={image} />
-        </IconContainer>
-        <DetailContainer>
-          <Title
+          <Icon
+            image={image}
             onClick={() => {
               if (window !== "undefined") {
                 const searchQuery = `${name} achievement ${game?.name} `;
@@ -123,9 +129,10 @@ export default function MobileAchievementDisplay({ game, achievement }) {
                 // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
               }
             }}
-          >
-            {name}
-          </Title>
+          />
+        </IconContainer>
+        <DetailContainer>
+          <Title onClick={() => {}}>{name}</Title>
           <Description>{description}</Description>
           <Categories>
             {categories.map((category) => {
@@ -256,8 +263,8 @@ const Category = styled.div`
 const IconContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 45px;
-  height: 45px;
+  width: 60px;
+  height: 60px;
   justify-content: center;
 `;
 

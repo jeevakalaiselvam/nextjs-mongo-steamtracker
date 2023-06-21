@@ -51,7 +51,7 @@ export default function SearchInput({
     return () => {
       clearTimeout(time);
     };
-  }, [search, onSearchChange]);
+  }, [search]);
 
   return (
     <Container

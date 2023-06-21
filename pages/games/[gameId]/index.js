@@ -93,7 +93,7 @@ export default function GamesPage() {
           <GameInfo game={game} />
           <GameMenu game={game} />
         </SidebarContainer>
-        <MainContainer>
+        <MainContainer onClick={() => setLeftSidebarOpen(false)}>
           {achievementsLoading && (
             <LoaderContainer>{getLoader()}</LoaderContainer>
           )}
@@ -105,7 +105,7 @@ export default function GamesPage() {
               {!achievementsLoading &&
                 achievements.length != 0 &&
                 achievements
-                  .filter((achievement) => {
+                  ?.filter((achievement) => {
                     if (
                       (achievement?.name
                         ?.toLowerCase()
@@ -117,7 +117,7 @@ export default function GamesPage() {
                           ?.includes(achievementSearch)) &&
                       (achievement.type == achievementFilter ||
                         achievementFilter == ALL) &&
-                      (achievementFilterCategory == ALL
+                      ((achievementFilterCategory ?? ALL) == ALL
                         ? true
                         : achievement?.categories?.includes(
                             achievementFilterCategory ?? ALL

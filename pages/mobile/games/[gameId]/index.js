@@ -162,6 +162,7 @@ export default function Game() {
     themeId,
     achievementSearch,
     achievementFilter,
+    achievementFilterCategory,
   } = settings;
   const { toggle } = steam;
 
@@ -214,13 +215,18 @@ export default function Game() {
                       (achievement?.name
                         ?.toLowerCase()
                         .trim()
-                        ?.includes(achievementSearch ?? "") ||
+                        ?.includes(achievementSearch) ||
                         achievement?.description
                           ?.toLowerCase()
                           .trim()
-                          ?.includes(achievementSearch ?? "")) &&
+                          ?.includes(achievementSearch)) &&
                       (achievement.type == achievementFilter ||
-                        achievementFilter == ALL)
+                        achievementFilter == ALL) &&
+                      (achievementFilterCategory == ALL
+                        ? true
+                        : achievement?.categories?.includes(
+                            achievementFilterCategory ?? ALL
+                          ))
                     ) {
                       return true;
                     }
@@ -232,23 +238,14 @@ export default function Game() {
                         achievement={achievement}
                         game={game}
                         key={achievement.id}
+                        setLeftSidebarOpen={setLeftSidebarOpen}
                       />
                     );
                   })}
             </Content>
           </GamesContainer>
         )}
-        <OptionContainer open={optionOpen}>
-          <SearchInput
-            background={"rgba(0,0,0,0.2)"}
-            height={"50px"}
-            padding={"2rem"}
-            fontSize="1.5rem"
-            onSearchChange={(search) => {
-              dispatch(actionAchievementSearch(search));
-            }}
-          />
-        </OptionContainer>
+        <OptionContainer open={optionOpen}></OptionContainer>
         <LeftSidebarContainer
           open={leftSidebarOpen}
           image={HEADER_IMAGE(themeId ?? "130130")}

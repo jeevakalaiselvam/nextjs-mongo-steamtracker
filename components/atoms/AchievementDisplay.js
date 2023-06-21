@@ -135,7 +135,18 @@ export default function AchievementDisplay({
         </Trophy>
 
         <AchievementIcon achieved={achieved}>
-          {image && <Icon image={image}></Icon>}
+          {image && (
+            <Icon
+              image={image}
+              onClick={() => {
+                if (window !== "undefined") {
+                  const searchQuery = `${name} achievement ${game?.name} `;
+                  window.open(`https://www.google.com/search?q=${searchQuery}`);
+                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                }
+              }}
+            ></Icon>
+          )}
           {!image && type == PLATINUM && (
             <DefaultIcon image={game.image} color={COLOR_PLATINUM}>
               {getIcon(ICON_TROPHY)}
@@ -148,17 +159,7 @@ export default function AchievementDisplay({
         </AchievementIcon>
 
         <AchievementDetails achieved={achieved}>
-          <Title
-            onClick={() => {
-              if (window !== "undefined") {
-                const searchQuery = `${name} achievement ${game?.name} `;
-                window.open(`https://www.google.com/search?q=${searchQuery}`);
-                // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
-              }
-            }}
-          >
-            {name}
-          </Title>
+          <Title onClick={() => {}}>{name}</Title>
           <Description>{description}</Description>
           <Categories>
             {categories.map((category, index) => {
@@ -335,8 +336,8 @@ const Icon = styled.div`
   align-items: center;
   justify-content: center;
   align-self: flex-start;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   background: ${(props) => `url(${props.image})`};
   background-size: cover;
   margin: 1rem;

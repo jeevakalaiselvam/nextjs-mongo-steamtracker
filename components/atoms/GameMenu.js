@@ -106,6 +106,7 @@ export default function GameMenu({ mobile, game }) {
           onSearchChange={(search) => {
             dispatch(actionAchievementSearch(search));
           }}
+          fontSize={fontSize}
         />
       </Link>
       <SubTitle>Menu</SubTitle>
