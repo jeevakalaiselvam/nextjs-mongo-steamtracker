@@ -285,8 +285,9 @@ const Container = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
+  overflow: scroll;
 `;
 
 const Link = styled.div`
@@ -303,6 +304,6 @@ const SubTitle = styled.div`
   align-items: center;
   justify-content: flex-start;
   font-size: 1rem;
-  opacity: 0.5;
+  opacity: 1;
   margin-top: 0.5rem;
 `;

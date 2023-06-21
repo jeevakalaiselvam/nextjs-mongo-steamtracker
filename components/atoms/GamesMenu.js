@@ -289,8 +289,9 @@ export default function GameMenu({ mobile, game }) {
 const Container = styled.div`
   display: flex;
   width: 100%;
+  overflow: scroll;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
 `;
 
@@ -309,5 +310,6 @@ const SubTitle = styled.div`
   justify-content: flex-start;
   font-size: 1rem;
   opacity: 0.5;
+  opacity: 1;
   margin-top: 0.5rem;
 `;

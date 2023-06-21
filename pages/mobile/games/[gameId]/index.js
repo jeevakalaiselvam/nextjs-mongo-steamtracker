@@ -16,7 +16,7 @@ import {
 } from "../../../../store/actions/steam.actions";
 import SearchInput from "../../../../components/atoms/SearchInput";
 import Button from "../../../../components/atoms/Button";
-import GameMenu from "../../../../components/atoms/GamesMenu";
+import GameMenu from "../../../../components/atoms/GameMenu";
 import Trophies from "../../../../components/molecules/Trophies";
 import Profile from "../../../../components/molecules/Profile";
 import GameInfo from "../../../../components/molecules/GameInfo";
@@ -30,6 +30,8 @@ const Container = styled.div`
   min-height: 100vh;
   backdrop-filter: blur(20px);
   background: ${(props) => `url(${props.image})`};
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 const Overlay = styled.div`
@@ -102,9 +104,7 @@ const NoAchievements = styled.div`
 const LeftSidebarContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding: 0.5rem;
-  flex-direction: column;
+  justify-content: center;
   position: absolute;
   top: 8vh;
   transition: 0.5s all;
@@ -113,8 +113,25 @@ const LeftSidebarContainer = styled.div`
   z-index: 100;
   min-height: 92vh;
   max-height: 92vh;
+  background: ${(props) => `url(${props.image})`};
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
+
+const SidebarOverlay = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   padding: 0.5rem;
+  flex-direction: column;
+  width: 100%;
+  transition: 0.5s all;
+  width: 60vw;
+  z-index: 100;
   background-color: rgba(0, 0, 0, 0.2);
+  min-height: 92vh;
+  max-height: 92vh;
+  padding: 0.5rem;
   backdrop-filter: blur(20px);
 `;
 
@@ -232,11 +249,16 @@ export default function Game() {
             }}
           />
         </OptionContainer>
-        <LeftSidebarContainer open={leftSidebarOpen}>
-          <Profile games={games} />
-          <Trophies games={games} title={"COLLECTION"} />
-          <GameInfo game={game} />
-          <GameMenu mobile={true} />
+        <LeftSidebarContainer
+          open={leftSidebarOpen}
+          image={HEADER_IMAGE(themeId ?? "130130")}
+        >
+          <SidebarOverlay>
+            <Profile games={games} />
+            <Trophies games={games} title={"COLLECTION"} />
+            <GameInfo game={game} />
+            <GameMenu mobile={true} />
+          </SidebarOverlay>
         </LeftSidebarContainer>
       </Overlay>
     </Container>

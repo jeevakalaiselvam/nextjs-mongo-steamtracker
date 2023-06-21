@@ -10,7 +10,7 @@ import {
 } from "./constantHelper";
 
 export const COLOR_PLATINUM = "#748AC7";
-export const COLOR_GOLD = "#CD9A46";
+export const COLOR_GOLD = "#FFD700";
 export const COLOR_SILVER = "#D6D6D6";
 export const COLOR_COPPER = "#BF6A3A";
 export const COLOR_DANGER = "#EC4134";
