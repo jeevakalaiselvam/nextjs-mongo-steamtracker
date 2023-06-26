@@ -29,6 +29,7 @@ export default function AchievementDisplay({
   achievement,
   setEditModeActive,
   updateAchievementToEdit,
+  useTitleForClick,
   game,
 }) {
   const {
@@ -139,10 +140,14 @@ export default function AchievementDisplay({
             <Icon
               image={image}
               onClick={() => {
-                if (window !== "undefined") {
-                  const searchQuery = `${name} achievement ${game?.name} `;
-                  window.open(`https://www.google.com/search?q=${searchQuery}`);
-                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                if (!useTitleForClick) {
+                  if (window !== "undefined") {
+                    const searchQuery = `${name} achievement ${game?.name} `;
+                    window.open(
+                      `https://www.google.com/search?q=${searchQuery}`
+                    );
+                    // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                  }
                 }
               }}
             ></Icon>
@@ -159,7 +164,19 @@ export default function AchievementDisplay({
         </AchievementIcon>
 
         <AchievementDetails achieved={achieved}>
-          <Title onClick={() => {}}>{name}</Title>
+          <Title
+            onClick={() => {
+              if (useTitleForClick) {
+                if (window !== "undefined") {
+                  const searchQuery = `${name} achievement ${game?.name} `;
+                  window.open(`https://www.google.com/search?q=${searchQuery}`);
+                  // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+                }
+              }
+            }}
+          >
+            {name}
+          </Title>
           <Description>{description}</Description>
           <Categories>
             {categories.map((category, index) => {

@@ -93,7 +93,7 @@ export default function GamesPage() {
           <GameInfo game={game} />
           <GameMenu game={game} />
         </SidebarContainer>
-        <MainContainer onClick={() => setLeftSidebarOpen(false)}>
+        <MainContainer onClick={() => {}}>
           {achievementsLoading && (
             <LoaderContainer>{getLoader()}</LoaderContainer>
           )}
@@ -135,6 +135,7 @@ export default function GamesPage() {
                         key={achievement._id}
                         setEditModeActive={setEditModeActive}
                         updateAchievementToEdit={updateAchievementToEdit}
+                        useTitleForClick={true}
                       />
                     );
                   })}
