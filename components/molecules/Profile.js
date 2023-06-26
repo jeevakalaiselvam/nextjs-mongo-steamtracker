@@ -101,7 +101,7 @@ const ToNext = styled.div`
   opacity: 0.4;
   margin-top: 0.25rem;
   margin-left: 0.25rem;
-  font-size: 1rem;
+  font-size: 1.2rem;
 `;
 
 const Level = styled.div`

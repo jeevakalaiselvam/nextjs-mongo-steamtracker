@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   ICON_HIDDEN_VISIBLE,
@@ -16,7 +16,7 @@ import {
   calculateAllTrophyCountForGames,
   getTrophyCount,
 } from "../../helper/gameHelper";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionAchievementFilter } from "../../store/actions/steam.actions";
 import {
   ALL,
@@ -26,12 +26,31 @@ import {
   SILVER,
 } from "../../helper/constantHelper";
 import Loading from "../atoms/Loading";
+import axios from "axios";
 
-export default function Trophies({ games, title, game }) {
+export default function Trophies({ title, game }) {
   const dispatch = useDispatch();
+  const [games, setGames] = useState([]);
+
+  const steam = useSelector((state) => state.steam);
+  const { settings } = steam;
+  const { forceRefreshProfile } = settings;
+
   const { platinum, gold, silver, copper } = games
     ? calculateAllTrophyCountForGames(games)
     : getTrophyCount(game?.achievements);
+
+  useEffect(() => {
+    axios.get("/api/games").then((response) => {
+      setGames(response.data.games);
+    });
+  }, []);
+
+  useEffect(() => {
+    axios.get("/api/games").then((response) => {
+      setGames(response.data.games);
+    });
+  }, [forceRefreshProfile]);
 
   return (
     <Container>
