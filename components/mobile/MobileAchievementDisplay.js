@@ -15,7 +15,10 @@ import {
   getColor,
 } from "../../helper/colorHelper";
 import { useSwipeable } from "react-swipeable";
-import { actionForceRefreshAchievement } from "../../store/actions/steam.actions";
+import {
+  actionForceRefreshAchievement,
+  actionForceRefreshProfile,
+} from "../../store/actions/steam.actions";
 import axios from "axios";
 import moment from "moment";
 import Draggable, { DraggableCore } from "react-draggable";
@@ -48,6 +51,7 @@ export default function MobileAchievementDisplay({
   const completeAchievement = (shouldCompleteOrNot) => {
     setCompleting(true);
     dispatch(actionForceRefreshAchievement(false));
+    dispatch(actionForceRefreshProfile(false));
     axios
       .post(`/api/completeAchievement?gameId=${gameId}&achievementId=${id}`, {
         achieved: shouldCompleteOrNot,
@@ -56,6 +60,7 @@ export default function MobileAchievementDisplay({
       .then((response) => {
         setCompleting(false);
         dispatch(actionForceRefreshAchievement(true));
+        dispatch(actionForceRefreshProfile(true));
         router.push(`/mobile/games/${gameId}`);
       });
   };

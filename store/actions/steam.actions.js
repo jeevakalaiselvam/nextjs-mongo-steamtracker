@@ -6,6 +6,7 @@ import {
   CHANGE_THEME,
   FORCE_REFRESH_ACHIEVEMENT,
   FORCE_REFRESH_GAMES,
+  FORCE_REFRESH_PROFILE,
   GAMES_FILTER,
   KEEP_ADDING_ACHIEVEMENT,
   SHOW_ACHIEVEMENT_DELETE_SELECTION,
@@ -15,6 +16,13 @@ import {
   SHOW_CREATE_NEW_GAME,
   SHOW_HIDDEN_GAMES,
 } from "../types/steam.types";
+
+export const actionForceRefreshProfile = (shouldRefresh) => {
+  return {
+    type: FORCE_REFRESH_PROFILE,
+    payload: shouldRefresh,
+  };
+};
 
 export const actionShowHiddenGames = (showHidden) => {
   return {

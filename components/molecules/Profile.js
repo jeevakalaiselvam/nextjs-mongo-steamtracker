@@ -1,12 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { COLOR_GOLD, COLOR_GREY, COLOR_SILVER } from "../../helper/colorHelper";
 import { calculateLevel } from "../../helper/gameHelper";
 import { MoonLoader } from "react-spinners";
 import Loading from "../atoms/Loading";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
-export default function Profile({ games }) {
+export default function Profile() {
+  const [games, setGames] = useState([]);
   const { currentLevel, totalPoints, toNext } = calculateLevel(games);
+
+  const steam = useSelector((state) => state.steam);
+  const { settings } = steam;
+  const { forceRefreshProfile } = settings;
+
+  useEffect(() => {
+    axios.get("/api/games").then((response) => {
+      setGames(response.data.games);
+    });
+  }, []);
+
+  useEffect(() => {
+    axios.get("/api/games").then((response) => {
+      setGames(response.data.games);
+    });
+  }, [forceRefreshProfile]);
 
   return (
     <Container>

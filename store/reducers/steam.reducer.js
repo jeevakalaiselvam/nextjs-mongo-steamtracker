@@ -5,6 +5,7 @@ import {
   CHANGE_THEME,
   FORCE_REFRESH_ACHIEVEMENT,
   FORCE_REFRESH_GAMES,
+  FORCE_REFRESH_PROFILE,
   GAMES_FILTER,
   KEEP_ADDING_ACHIEVEMENT,
   SHOW_ACHIEVEMENT_DELETE_SELECTION,
@@ -33,6 +34,7 @@ const INITIAL_STATE = {
     achievementFilterCategory: "",
     showHiddenGames: false,
     gamesFilter: "",
+    forceRefreshProfile: false,
   },
 };
 
@@ -46,6 +48,14 @@ const reducer = (state = INITIAL_STATE, action) => {
         settings: {
           ...state.settings,
           achievementFilterCategory: payload,
+        },
+      };
+    case FORCE_REFRESH_PROFILE:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          forceRefreshProfile: payload,
         },
       };
     case GAMES_FILTER:

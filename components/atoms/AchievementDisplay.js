@@ -13,7 +13,10 @@ import Button from "./Button";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import { actionForceRefreshAchievement } from "../../store/actions/steam.actions";
+import {
+  actionForceRefreshAchievement,
+  actionForceRefreshProfile,
+} from "../../store/actions/steam.actions";
 import {
   COLOR_BUTTON_PRIMARY,
   COLOR_DANGER,
@@ -51,16 +54,19 @@ export default function AchievementDisplay({
 
   const confirmDelete = () => {
     dispatch(actionForceRefreshAchievement(false));
+    dispatch(actionForceRefreshProfile(false));
     axios
       .delete(`/api/deleteAchievement?gameId=${gameId}&achievementId=${id}`)
       .then((response) => {
         dispatch(actionForceRefreshAchievement(true));
+        dispatch(actionForceRefreshProfile(true));
         router.push(`/games/${gameId}`);
       });
   };
 
   const completeAchievement = (shouldCompleteOrNot) => {
     dispatch(actionForceRefreshAchievement(false));
+    dispatch(actionForceRefreshProfile(false));
     axios
       .post(`/api/completeAchievement?gameId=${gameId}&achievementId=${id}`, {
         achieved: shouldCompleteOrNot,
@@ -68,6 +74,7 @@ export default function AchievementDisplay({
       })
       .then((response) => {
         dispatch(actionForceRefreshAchievement(true));
+        dispatch(actionForceRefreshProfile(true));
         router.push(`/games/${gameId}`);
       });
   };
