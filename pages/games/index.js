@@ -71,21 +71,23 @@ export default function GamesPage() {
               />
             </NoGames>
           )}
-          {!gamesLoading &&
-            games.length != 0 &&
-            games
-              .filter((game) => {
-                if (
-                  (game?.platform == gamesFilter || gamesFilter == ALL) &&
-                  (showHiddenGames ? true : !game.hidden)
-                ) {
-                  return true;
-                }
-              })
-              .map((game, index) => {
-                return <GameDisplay game={game} key={game._id} />;
-              })}
-          {createNewGameModal && <CreateNewGame />}
+          <GamesList>
+            {!gamesLoading &&
+              games.length != 0 &&
+              games
+                .filter((game) => {
+                  if (
+                    (game?.platform == gamesFilter || gamesFilter == ALL) &&
+                    (showHiddenGames ? true : !game.hidden)
+                  ) {
+                    return true;
+                  }
+                })
+                .map((game, index) => {
+                  return <GameDisplay game={game} key={game._id} />;
+                })}
+            {createNewGameModal && <CreateNewGame />}
+          </GamesList>
         </MainContainer>
       </Overlay>
     </Container>
@@ -139,7 +141,16 @@ const MainContainer = styled.div`
   min-height: 100vh;
   padding: 1rem 1rem 1rem 1rem;
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   background-color: rgba(0, 0, 0, 0.3);
+  justify-content: center;
+`;
+
+const GamesList = styled.div`
+  padding: 1rem 1rem 1rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
   justify-content: center;
 `;
