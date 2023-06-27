@@ -14,7 +14,7 @@ const Container = styled.div`
   align-content: center;
   justify-content: center;
   width: 100%;
-  height: 160px;
+  min-height: 200px;
   margin-bottom: 0.5rem;
   background: ${(props) => `url(${props.image})`};
   background-repeat: no-repeat;
@@ -26,7 +26,7 @@ const Overlay = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   padding: 1rem;
   background: rgba(0, 0, 0, 0.5);
   position: relative;
