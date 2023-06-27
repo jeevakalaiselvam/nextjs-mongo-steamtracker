@@ -254,7 +254,7 @@ export default function Game() {
             <Profile games={games} />
             <Trophies games={games} title={"COLLECTION"} />
             <GameInfo game={game} />
-            <GameMenu mobile={true} />
+            <GameMenu mobile={true} game={game} />
           </SidebarOverlay>
         </LeftSidebarContainer>
       </Overlay>
