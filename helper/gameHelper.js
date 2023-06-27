@@ -1,4 +1,17 @@
-import { COPPER, GOLD, PLATINUM, SILVER } from "./constantHelper";
+import {
+  COLLECTIBLE,
+  COPPER,
+  EASY,
+  GOLD,
+  GRIND,
+  HARD,
+  MISSABLE,
+  ONLINE,
+  PLATINUM,
+  REPLAY,
+  SIDEQUEST,
+  SILVER,
+} from "./constantHelper";
 
 export const getTrophyCount = (achievements) => {
   let platinum = 0,
@@ -166,5 +179,63 @@ export const calculateLevel = (games) => {
     currentLevel: currentLevel - 1,
     totalPoints,
     toNext: breakPoint - beforeBreakingPoints,
+  };
+};
+
+export const gatherAchievementCategories = (achievements) => {
+  let all = 0,
+    easy = 0,
+    side = 0,
+    missable = 0,
+    collectible = 0,
+    grind = 0,
+    hard = 0,
+    replay = 0,
+    online = 0;
+
+  achievements?.forEach((achievement) => {
+    all++;
+    if (!achievement.achieved) {
+      achievement?.categories?.forEach((category) => {
+        switch (category) {
+          case EASY:
+            easy++;
+            break;
+          case SIDEQUEST:
+            side++;
+            break;
+          case MISSABLE:
+            missable++;
+            break;
+          case COLLECTIBLE:
+            collectible++;
+            break;
+          case GRIND:
+            grind++;
+            break;
+          case HARD:
+            hard++;
+            break;
+          case REPLAY:
+            replay++;
+            break;
+          case ONLINE:
+            online++;
+            break;
+        }
+      });
+    }
+  });
+
+  return {
+    all,
+    easy,
+    side,
+    missable,
+    collectible,
+    grind,
+    hard,
+    replay,
+    online,
   };
 };

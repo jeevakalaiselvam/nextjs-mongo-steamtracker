@@ -66,6 +66,7 @@ import {
   COLOR_UPLAY,
   COLOR_XBOX,
 } from "../../helper/colorHelper";
+import { gatherAchievementCategories } from "../../helper/gameHelper";
 
 export default function GameMenu({ mobile, game }) {
   const dispatch = useDispatch();
@@ -83,6 +84,10 @@ export default function GameMenu({ mobile, game }) {
 
   const fontSize = mobile ? "1.5rem" : "1.25rem";
   const height = mobile ? "35px" : "25px";
+
+  let achievements = game?.achievements ?? [];
+  let { all, easy, side, missable, collectible, grind, hard, replay, online } =
+    gatherAchievementCategories(achievements);
 
   return (
     <Container>
@@ -174,7 +179,7 @@ export default function GameMenu({ mobile, game }) {
             height={height}
             icon={getIcon(ICON_CATEGORY)}
             fontSize={fontSize}
-            title={`ALL`}
+            title={`ALL - ${all}`}
             active={achievementFilterCategory == ALL}
             onClick={() => {
               dispatch(actionAchievementFilterCategory(ALL));
@@ -186,7 +191,7 @@ export default function GameMenu({ mobile, game }) {
             height={height}
             icon={getIcon(ICON_CATEGORY)}
             fontSize={fontSize}
-            title={`EASY`}
+            title={`EASY - ${easy}`}
             active={achievementFilterCategory == EASY}
             onClick={() => {
               dispatch(actionAchievementFilterCategory(EASY));
@@ -198,7 +203,7 @@ export default function GameMenu({ mobile, game }) {
             height={height}
             icon={getIcon(ICON_CATEGORY)}
             fontSize={fontSize}
-            title={`SIDE QUEST`}
+            title={`SIDE QUEST - ${side}`}
             active={achievementFilterCategory == SIDEQUEST}
             onClick={() => {
               dispatch(actionAchievementFilterCategory(SIDEQUEST));
@@ -210,7 +215,7 @@ export default function GameMenu({ mobile, game }) {
             height={height}
             icon={getIcon(ICON_CATEGORY)}
             fontSize={fontSize}
-            title={`MISSABLE`}
+            title={`MISSABLE - ${missable}`}
             active={achievementFilterCategory == MISSABLE}
             onClick={() => {
               dispatch(actionAchievementFilterCategory(MISSABLE));
@@ -222,7 +227,7 @@ export default function GameMenu({ mobile, game }) {
             height={height}
             icon={getIcon(ICON_CATEGORY)}
             fontSize={fontSize}
-            title={`COLLECTIBLE`}
+            title={`COLLECTIBLE - ${collectible}`}
             active={achievementFilterCategory == COLLECTIBLE}
             onClick={() => {
               dispatch(actionAchievementFilterCategory(COLLECTIBLE));
@@ -234,7 +239,7 @@ export default function GameMenu({ mobile, game }) {
             height={height}
             icon={getIcon(ICON_CATEGORY)}
             fontSize={fontSize}
-            title={`GRIND`}
+            title={`GRIND - ${grind}`}
             active={achievementFilterCategory == GRIND}
             onClick={() => {
               dispatch(actionAchievementFilterCategory(GRIND));
@@ -246,7 +251,7 @@ export default function GameMenu({ mobile, game }) {
             height={height}
             icon={getIcon(ICON_CATEGORY)}
             fontSize={fontSize}
-            title={`HARD`}
+            title={`HARD - ${hard}`}
             active={achievementFilterCategory == HARD}
             onClick={() => {
               dispatch(actionAchievementFilterCategory(HARD));
@@ -258,7 +263,7 @@ export default function GameMenu({ mobile, game }) {
             height={height}
             icon={getIcon(ICON_CATEGORY)}
             fontSize={fontSize}
-            title={`REPLAY`}
+            title={`REPLAY - ${replay}`}
             active={achievementFilterCategory == REPLAY}
             onClick={() => {
               dispatch(actionAchievementFilterCategory(REPLAY));
@@ -270,7 +275,7 @@ export default function GameMenu({ mobile, game }) {
             height={height}
             icon={getIcon(ICON_CATEGORY)}
             fontSize={fontSize}
-            title={`ONLINE`}
+            title={`ONLINE - ${online}`}
             active={achievementFilterCategory == ONLINE}
             onClick={() => {
               dispatch(actionAchievementFilterCategory(ONLINE));
