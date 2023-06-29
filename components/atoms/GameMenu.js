@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
@@ -79,6 +79,9 @@ export default function GameMenu({ mobile, game }) {
   const { toggle } = steam;
   const { gamesFilter, showHiddenGames, achievementFilterCategory } = settings;
 
+  const [confirmClickMarkAll, setConfirmClickMarkAll] = useState(0);
+  const [confirmClickUnmarkAll, setConfirmClickUnmarkAll] = useState(0);
+
   const changeTheme = () => {
     let newThemeId = themeIds[Math.floor(Math.random() * themeIds.length)];
     dispatch(actionChangeTheme(newThemeId));
@@ -91,27 +94,49 @@ export default function GameMenu({ mobile, game }) {
   let { all, easy, side, missable, collectible, grind, hard, replay, online } =
     gatherAchievementCategories(achievements);
 
+  useEffect(() => {
+    if (confirmClickMarkAll >= 3) {
+      const gameId = game?._id;
+      dispatch(actionForceRefreshAchievement(false));
+      dispatch(actionForceRefreshProfile(false));
+      axios
+        .get(`/api/markAllAchievements?gameId=${gameId}`)
+        .then((response) => {
+          dispatch(actionForceRefreshAchievement(true));
+          dispatch(actionForceRefreshProfile(true));
+          router.push(`/games/${gameId}`);
+          setConfirmClickMarkAll(0);
+        });
+    }
+  }, [confirmClickMarkAll, game, dispatch, router]);
+
+  useEffect(() => {
+    if (confirmClickUnmarkAll >= 3) {
+      const gameId = game?._id;
+      dispatch(actionForceRefreshAchievement(false));
+      dispatch(actionForceRefreshProfile(false));
+      axios
+        .get(`/api/unmarkAllAchievements?gameId=${gameId}`)
+        .then((response) => {
+          dispatch(actionForceRefreshAchievement(true));
+          dispatch(actionForceRefreshProfile(true));
+          router.push(`/games/${gameId}`);
+          setConfirmClickUnmarkAll(0);
+        });
+    }
+  }, [confirmClickUnmarkAll, game, dispatch, router]);
+
   const markAllAchievements = () => {
-    const gameId = game?._id;
-    dispatch(actionForceRefreshAchievement(false));
-    dispatch(actionForceRefreshProfile(false));
-    axios.get(`/api/markAllAchievements?gameId=${gameId}`).then((response) => {
-      dispatch(actionForceRefreshAchievement(true));
-      dispatch(actionForceRefreshProfile(true));
-      router.push(`/games/${gameId}`);
-    });
+    if (confirmClickMarkAll >= 3) {
+    } else {
+      setConfirmClickMarkAll((count) => count + 1);
+    }
   };
   const unmarkAllAchievements = () => {
-    const gameId = game?._id;
-    dispatch(actionForceRefreshAchievement(false));
-    dispatch(actionForceRefreshProfile(false));
-    axios
-      .get(`/api/unmarkAllAchievements?gameId=${gameId}`)
-      .then((response) => {
-        dispatch(actionForceRefreshAchievement(true));
-        dispatch(actionForceRefreshProfile(true));
-        router.push(`/games/${gameId}`);
-      });
+    if (confirmClickUnmarkAll >= 3) {
+    } else {
+      setConfirmClickUnmarkAll((count) => count + 1);
+    }
   };
 
   return (
@@ -136,7 +161,9 @@ export default function GameMenu({ mobile, game }) {
             height={height}
             fontSize={fontSize}
             icon={getIcon(ICON_ADD)}
-            title="Mark All"
+            title={`Mark All ${
+              confirmClickMarkAll == 0 ? "" : confirmClickMarkAll
+            }`}
             onClick={() => {
               markAllAchievements();
             }}
@@ -149,7 +176,9 @@ export default function GameMenu({ mobile, game }) {
             height={height}
             fontSize={fontSize}
             icon={getIcon(ICON_ADD)}
-            title="Unmark All"
+            title={`Unmark All ${
+              confirmClickUnmarkAll == 0 ? "" : confirmClickUnmarkAll
+            }`}
             onClick={() => {
               unmarkAllAchievements();
             }}
