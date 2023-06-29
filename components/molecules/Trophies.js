@@ -36,9 +36,10 @@ export default function Trophies({ title, game }) {
   const { settings } = steam;
   const { forceRefreshProfile } = settings;
 
-  const { platinum, gold, silver, copper } = games
-    ? calculateAllTrophyCountForGames(games)
-    : getTrophyCount(game?.achievements);
+  const { platinum, gold, silver, copper } =
+    games && !game
+      ? calculateAllTrophyCountForGames(games)
+      : getTrophyCount(game?.achievements);
 
   useEffect(() => {
     axios.get("/api/games").then((response) => {

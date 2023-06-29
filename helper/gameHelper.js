@@ -21,6 +21,7 @@ export const getTrophyCount = (achievements) => {
 
   if (achievements?.length > 0) {
     achievements?.forEach((achievement) => {
+      console.log("TYPE", achievement.type);
       if (!achievement?.achieved) {
         switch (achievement?.type) {
           case PLATINUM:

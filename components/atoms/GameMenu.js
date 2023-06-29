@@ -6,6 +6,8 @@ import {
   actionAchievementFilterCategory,
   actionAchievementSearch,
   actionChangeTheme,
+  actionForceRefreshAchievement,
+  actionForceRefreshProfile,
   actionGamesFilter,
   actionShowAchievementDeleteSelection,
   actionShowCreateBulkAchievements,
@@ -89,6 +91,29 @@ export default function GameMenu({ mobile, game }) {
   let { all, easy, side, missable, collectible, grind, hard, replay, online } =
     gatherAchievementCategories(achievements);
 
+  const markAllAchievements = () => {
+    const gameId = game?._id;
+    dispatch(actionForceRefreshAchievement(false));
+    dispatch(actionForceRefreshProfile(false));
+    axios.get(`/api/markAllAchievements?gameId=${gameId}`).then((response) => {
+      dispatch(actionForceRefreshAchievement(true));
+      dispatch(actionForceRefreshProfile(true));
+      router.push(`/games/${gameId}`);
+    });
+  };
+  const unmarkAllAchievements = () => {
+    const gameId = game?._id;
+    dispatch(actionForceRefreshAchievement(false));
+    dispatch(actionForceRefreshProfile(false));
+    axios
+      .get(`/api/unmarkAllAchievements?gameId=${gameId}`)
+      .then((response) => {
+        dispatch(actionForceRefreshAchievement(true));
+        dispatch(actionForceRefreshProfile(true));
+        router.push(`/games/${gameId}`);
+      });
+  };
+
   return (
     <Container>
       <SubTitle>Actions</SubTitle>
@@ -101,6 +126,32 @@ export default function GameMenu({ mobile, game }) {
             title="Add Achievement"
             onClick={() => {
               dispatch(actionShowCreateNewAchievement(true));
+            }}
+          />
+        </Link>
+      )}
+      {!mobile && (
+        <Link>
+          <Button
+            height={height}
+            fontSize={fontSize}
+            icon={getIcon(ICON_ADD)}
+            title="Mark All"
+            onClick={() => {
+              markAllAchievements();
+            }}
+          />
+        </Link>
+      )}
+      {!mobile && (
+        <Link>
+          <Button
+            height={height}
+            fontSize={fontSize}
+            icon={getIcon(ICON_ADD)}
+            title="Unmark All"
+            onClick={() => {
+              unmarkAllAchievements();
             }}
           />
         </Link>
