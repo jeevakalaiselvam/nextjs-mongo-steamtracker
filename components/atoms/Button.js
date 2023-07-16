@@ -45,7 +45,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.5;
+  opacity: 0.7;
   background-color: ${(props) =>
     props.active ? COLOR_BUTTON_PRIMARY : "#121315"};
   padding: 0.25rem 1rem;

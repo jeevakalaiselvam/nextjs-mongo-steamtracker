@@ -36,9 +36,13 @@ export default function MobileGameDisplayPSUI({ game }) {
     silver,
     gold,
     platinumLeft,
+    platinumCompleted,
     goldLeft,
+    goldCompleted,
     silverLeft,
+    silverCompleted,
     bronzeLeft,
+    bronzeCompleted,
   } = getAllStatsForGame(game);
 
   let completion = Math.floor((completed / total) * 100);
@@ -85,19 +89,19 @@ export default function MobileGameDisplayPSUI({ game }) {
             <Trophies>
               <Trophy>
                 <Icon>{getImage(IMAGE_PLATINUM, "30px")}</Icon>
-                <Count>{platinumLeft}</Count>
+                <Count>{platinumCompleted}</Count>
               </Trophy>
               <Trophy>
                 <Icon>{getImage(IMAGE_GOLD, "30px")}</Icon>
-                <Count>{goldLeft}</Count>
+                <Count>{goldCompleted}</Count>
               </Trophy>
               <Trophy>
                 <Icon>{getImage(IMAGE_SILVER, "30px")}</Icon>
-                <Count>{silverLeft}</Count>
+                <Count>{silverCompleted}</Count>
               </Trophy>
               <Trophy>
                 <Icon>{getImage(IMAGE_BRONZE, "30px")}</Icon>
-                <Count>{bronzeLeft}</Count>
+                <Count>{bronzeCompleted}</Count>
               </Trophy>
             </Trophies>
           </TrophiesContainer>
