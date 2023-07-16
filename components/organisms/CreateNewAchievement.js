@@ -113,6 +113,7 @@ export default function CreateNewAchievement({
         dispatch(actionShowCreateNewAchievement(false));
         dispatch(actionForceRefreshAchievement(true));
         dispatch(actionKeepAddingAchievements(true));
+        dispatch(actionShowCreateNewAchievement(true));
       });
   };
 
@@ -321,6 +322,7 @@ const Trophy = styled.div`
   margin-right: 1rem;
   padding: 0.25rem 1rem;
   justify-content: flex-start;
+  opacity: ${(props) => (props.selected ? "1" : "0.1")};
 `;
 
 const Icon = styled.div`
