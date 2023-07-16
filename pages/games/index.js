@@ -86,6 +86,9 @@ export default function GamesPage() {
                     return true;
                   }
                 })
+                .sort((game1, game2) => {
+                  return (game2?.lastUpdated ?? 0) - (game1?.lastUpdated ?? 0);
+                })
                 .map((game, index) => {
                   return <GameDisplayPSUI game={game} key={game._id} />;
                 })}

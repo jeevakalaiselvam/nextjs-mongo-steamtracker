@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { COLOR_GOLD, COLOR_GREY, COLOR_SILVER } from "../../helper/colorHelper";
-import { calculateLevel } from "../../helper/gameHelper";
+import {
+  calculateLevel,
+  calculateLevelForGame,
+  calculateLevelFromXP,
+} from "../../helper/gameHelper";
 import { MoonLoader } from "react-spinners";
 import Loading from "../atoms/Loading";
 import { useSelector } from "react-redux";
@@ -9,7 +13,6 @@ import axios from "axios";
 
 export default function Profile() {
   const [games, setGames] = useState([]);
-  const { currentLevel, totalPoints, toNext } = calculateLevel(games);
 
   const steam = useSelector((state) => state.steam);
   const { settings } = steam;
@@ -26,6 +29,17 @@ export default function Profile() {
       setGames(response.data.games);
     });
   }, [forceRefreshProfile]);
+
+  const {
+    totalXP,
+    totalTrophies,
+    totalPlatinum,
+    totalBronze,
+    totalSilver,
+    totalGold,
+  } = calculateLevelForGame(games);
+
+  const { currentLevel, toNext } = calculateLevelFromXP(totalXP);
 
   return (
     <Container>
@@ -88,16 +102,15 @@ const Title = styled.div`
 const Data = styled.div`
   display: flex;
   align-items: center;
-  color: ${(props) => props.color};
+  opacity: 0.5;
   justify-content: flex-start;
 `;
 
 const ToNext = styled.div`
   display: flex;
   align-items: center;
-  color: ${(props) => props.color};
   justify-content: flex-start;
-  opacity: 0.4;
+  opacity: 0.3;
   margin-top: 0.25rem;
   margin-left: 0.25rem;
   font-size: 1.2rem;
