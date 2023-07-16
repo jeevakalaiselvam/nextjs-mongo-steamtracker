@@ -27,7 +27,7 @@ export const MICROSOFT = "MICROSOFT";
 export const ORIGIN = "ORIGIN";
 
 export const getLoader = () => {
-  return <MoonLoader />;
+  return <MoonLoader color="#FEFEFE" />;
 };
 
 export const themeIds = [

@@ -100,11 +100,36 @@ export default function MobileGameDisplayPSUI({ game }) {
           {completion < 100 && <Completion>{completion} %</Completion>}
           {completion == 100 && <Platinum>{getImage(IMAGE_PLATINUM)}</Platinum>}
         </TrophyAndCompletion>
-        <CompletionLine></CompletionLine>
+        <CompletionOuter>
+          <CompletionLine width={`${completion}%`}></CompletionLine>
+        </CompletionOuter>
       </Content>
     </Container>
   );
 }
+
+const CompletionOuter = styled.div`
+  display: flex;
+  width: 100%;
+  margin-left: 3rem;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #fefefe11;
+  height: 2px;
+  transform: translateY(-7px);
+  border-radius: 4px;
+`;
+
+const CompletionLine = styled.div`
+  display: flex;
+  z-index: 100000;
+  align-items: center;
+  justify-content: flex-start;
+  width: ${(props) => props.width ?? "0%"};
+  background-color: #fefefe;
+  height: 2px;
+  border-radius: 4px;
+`;
 
 const Content = styled.div`
   display: flex;
@@ -153,12 +178,6 @@ const TrophyAndCompletion = styled.div`
   justify-content: center;
 `;
 
-const CompletionLine = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-`;
-
 const Atom = styled.div`
   display: flex;
   align-items: center;
@@ -176,7 +195,7 @@ const Trophy = styled.div`
 const Count = styled.div`
   display: flex;
   align-items: center;
-  font-weight: 100;
+  font-size: 1rem;
   opacity: 0.5;
   justify-content: center;
 `;
