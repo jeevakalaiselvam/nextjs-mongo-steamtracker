@@ -413,6 +413,7 @@ export const calculateLevelFromXP = (totalXP) => {
   let L100_200 = 90;
   let L200_300 = 450;
   let L300_400 = 900;
+  let L400_500 = 1350;
 
   while (remainingXP >= L0_100) {
     if (currentLevel >= 0 && currentLevel < 100) {
@@ -454,9 +455,15 @@ export const calculateLevelFromXP = (totalXP) => {
     if (currentLevel >= 199 && currentLevel < 300) {
       currentLevel++;
       remainingXP = remainingXP - L200_300;
+      console.log(
+        "JEEVA REMAINING XP 200-300 LEVEL UP",
+        remainingXP,
+        currentLevel
+      );
       lastLevel = "200-300";
+      toNext = (remainingXP / L200_300) * 100;
     } else {
-      console.log("JEEVA REMAINING XP 3", remainingXP);
+      console.log("JEEVA REMAINING XP 200-300 END", remainingXP, currentLevel);
       toNext = (remainingXP / L200_300) * 100;
       break;
     }
@@ -465,11 +472,35 @@ export const calculateLevelFromXP = (totalXP) => {
   while (remainingXP >= L300_400) {
     if (currentLevel >= 299 && currentLevel < 400) {
       currentLevel++;
-      remainingXP = remainingXP - L20L300_4000_300;
+      remainingXP = remainingXP - L300_400;
+      console.log(
+        "JEEVA REMAINING XP 300-400 LEVEL UP",
+        remainingXP,
+        currentLevel
+      );
       lastLevel = "300-400";
-    } else {
-      console.log("JEEVA REMAINING XP 4", remainingXP);
       toNext = (remainingXP / L300_400) * 100;
+    } else {
+      console.log("JEEVA REMAINING XP 300-400 END", remainingXP, currentLevel);
+      toNext = (remainingXP / L300_400) * 100;
+      break;
+    }
+  }
+
+  while (remainingXP >= L400_500) {
+    if (currentLevel >= 399 && currentLevel < 500) {
+      currentLevel++;
+      remainingXP = remainingXP - L400_500;
+      console.log(
+        "JEEVA REMAINING XP 399-500 LEVEL UP",
+        remainingXP,
+        currentLevel
+      );
+      lastLevel = "399-500";
+      toNext = (remainingXP / L400_500) * 100;
+    } else {
+      console.log("JEEVA REMAINING XP 399-500 END", remainingXP, currentLevel);
+      toNext = (remainingXP / L400_500) * 100;
       break;
     }
   }
