@@ -323,6 +323,7 @@ const Level = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  transform: translate(10px, 10px);
 `;
 
 const ToNext = styled.div`
@@ -330,6 +331,7 @@ const ToNext = styled.div`
   flex: 1;
   align-items: center;
   justify-content: center;
+  transform: translate(5px, 10px);
 `;
 
 const Total = styled.div`
@@ -338,6 +340,7 @@ const Total = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  transform: translate(-5px, 10px);
 `;
 
 const GamesOverview = styled.div`

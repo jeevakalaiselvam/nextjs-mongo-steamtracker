@@ -54,15 +54,15 @@ const Image = styled.div`
   background: ${(props) => `url(${props.src})`};
   background-repeat: no-repeat;
   background-size: contain;
-  border-radius: 4rem;
+  border-radius: 4px;
   margin-right: 1rem;
 `;
 
 const Handle = styled.div`
   display: flex;
   align-items: center;
-  opacity: 0.5;
   width: 100%;
+  opacity: 1;
   justify-content: flex-start;
 `;
 
@@ -70,7 +70,7 @@ const Sub = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  opacity: 1;
+  opacity: 0.5;
   justify-content: center;
 `;
 
@@ -84,7 +84,7 @@ const Name = styled.div`
 const ProfileImage = styled.div`
   display: flex;
   align-items: center;
-  margin-left: -4rem;
+  margin-left: -8rem;
   width: 100%;
   justify-content: center;
 `;
@@ -99,7 +99,7 @@ const Profile = styled.div`
 const Buttons = styled.div`
   display: flex;
   flex: 1;
-  margin-right: -1rem;
+  margin-right: -3rem;
   align-items: center;
   justify-content: center;
 `;
