@@ -55,7 +55,7 @@ const Container = styled.div`
   min-width: 100vw;
   color: #fefefe;
   min-height: 100vh;
-  background: ${(props) => `url(${props.image})`};
+  background-color: #121315;
 `;
 
 const Overlay = styled.div`
@@ -66,7 +66,7 @@ const Overlay = styled.div`
   min-height: 100vh;
   backdrop-filter: blur(50px);
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #121315;
 `;
 
 const LoadingContainer = styled.div`

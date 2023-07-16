@@ -243,7 +243,6 @@ const InnerContainer = styled.div`
   width: 100%;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
 `;
 
 const MainContainer = styled.div`
@@ -255,7 +254,7 @@ const MainContainer = styled.div`
   padding: 1rem 2rem;
   border-radius: 8px;
   flex-direction: column;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   background: linear-gradient(0deg, #17181a 0%, #1f2022 90%);
   margin-bottom: 1rem;
   position: relative;

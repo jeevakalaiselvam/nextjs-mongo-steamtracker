@@ -49,7 +49,7 @@ export default function TrophiesMobileGame({
         </Trophy>
 
         <Trophy color={COLOR_GOLD}>
-          <Icon>{getIcon(ICON_TROPHY)}</Icon>
+          <Icon>{getImage(ICON_TROPHY)}</Icon>
           <Count>{trophies?.gold ?? 0}</Count>
         </Trophy>
 

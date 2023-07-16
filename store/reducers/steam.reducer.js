@@ -28,7 +28,7 @@ const INITIAL_STATE = {
   settings: {
     forceRefreshGames: false,
     forceRefreshAchievement: false,
-    themeId: 130130,
+    themeId: 489830,
     achievementSearch: "",
     achievementFilter: "",
     achievementFilterCategory: "",

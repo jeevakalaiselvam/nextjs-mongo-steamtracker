@@ -78,7 +78,7 @@ export default function GameMenu({ mobile, game }) {
 
   const changeTheme = () => {
     let newThemeId = themeIds[Math.floor(Math.random() * themeIds.length)];
-    dispatch(actionChangeTheme(newThemeId));
+    dispatch(actionChangeTheme(489830 ?? newThemeId));
   };
 
   const fontSize = mobile ? "1.5rem" : "1.25rem";

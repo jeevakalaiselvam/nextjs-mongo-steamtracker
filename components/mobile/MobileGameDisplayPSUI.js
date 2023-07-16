@@ -102,7 +102,9 @@ export default function MobileGameDisplayPSUI({ game }) {
             </Trophies>
           </TrophiesContainer>
           {completion < 100 && <Completion>{completion} %</Completion>}
-          {completion == 100 && <Platinum>{getImage(IMAGE_PLATINUM)}</Platinum>}
+          {completion == 100 && (
+            <Platinum>{getImage(IMAGE_PLATINUM, "55px")}</Platinum>
+          )}
         </TrophyAndCompletion>
         <CompletionOuter>
           <CompletionLine width={`${completion}%`}></CompletionLine>
@@ -135,13 +137,6 @@ const CompletionLine = styled.div`
   border-radius: 4px;
 `;
 
-const Content = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-`;
-
 const Name = styled.div`
   display: flex;
   width: 100%;
@@ -170,7 +165,7 @@ const Completion = styled.div`
 const Platinum = styled.div`
   display: flex;
   width: 100px;
-  transform: translateX(15px);
+  transform: translateX(14px);
   align-items: center;
   justify-content: flex-end;
 `;
@@ -232,9 +227,17 @@ const Image = styled.div`
   justify-content: center;
   flex-direction: column;
   border-radius: 1rem;
-  width: 50px;
+  width: 30%;
   height: 50px;
   background: ${(props) => `url(${props.src})`};
   background-size: cover;
   background-repeat: no-repeat;
+`;
+
+const Content = styled.div`
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 `;

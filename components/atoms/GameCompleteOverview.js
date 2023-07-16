@@ -17,11 +17,8 @@ export default function GameCompleteOverview({ game }) {
   return (
     <Overview>
       <ProfileImage>
-        <Image
-          alt=""
-          src="https://i.pinimg.com/736x/1b/4f/be/1b4fbe252793720e0c88cc2b65bcb8c1.jpg"
-        ></Image>
-        <Name>Jeeva Kalaiselvam</Name>
+        <Image alt="" src={game?.image}></Image>
+        <Name>{game?.name}</Name>
       </ProfileImage>
       <Completion>
         <Earned>
@@ -64,19 +61,19 @@ const Image = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
+  width: 100px;
   margin-right: 0.5rem;
-  height: 30px;
+  height: 40px;
   background: ${(props) => `url(${props.src})`};
   background-repeat: no-repeat;
-  background-size: contain;
-  border-radius: 10rem;
+  background-size: cover;
 `;
 
 const Name = styled.div`
   display: flex;
   align-items: center;
   opacity: 0.5;
+  transform: translateY(-5px);
   justify-content: center;
 `;
 

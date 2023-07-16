@@ -110,10 +110,10 @@ export default function CreateNewAchievement({
 
   const addOrRemoveCategory = (category) => {
     if (categories?.includes(category)) {
-      let newCategories = categories.filter((c) => c != category);
+      let newCategories = [];
       setCategories(newCategories);
     } else {
-      let newCategories = [...categories, category];
+      let newCategories = [category];
       setCategories(newCategories);
     }
   };

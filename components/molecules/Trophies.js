@@ -3,7 +3,12 @@ import styled from "styled-components";
 import {
   ICON_HIDDEN_VISIBLE,
   ICON_TROPHY,
+  IMAGE_BRONZE,
+  IMAGE_GOLD,
+  IMAGE_PLATINUM,
+  IMAGE_SILVER,
   getIcon,
+  getImage,
 } from "../../helper/iconHelper";
 import {
   COLOR_COPPER,
@@ -70,7 +75,7 @@ export default function Trophies({ title, game }) {
 
             <Trophy color={COLOR_GOLD}>
               <Icon onClick={() => dispatch(actionAchievementFilter(GOLD))}>
-                {getIcon(ICON_TROPHY)}
+                {getImage(IMAGE_GOLD)}
               </Icon>
             </Trophy>
 
@@ -94,28 +99,28 @@ export default function Trophies({ title, game }) {
         <TrophiesContainer>
           <Trophy color={COLOR_PLATINUM}>
             <Icon onClick={() => dispatch(actionAchievementFilter(PLATINUM))}>
-              {getIcon(ICON_TROPHY)}
+              {getImage(IMAGE_PLATINUM, "40px")}
             </Icon>
             <Count>{platinum}</Count>
           </Trophy>
 
           <Trophy color={COLOR_GOLD}>
             <Icon onClick={() => dispatch(actionAchievementFilter(GOLD))}>
-              {getIcon(ICON_TROPHY)}
+              {getImage(IMAGE_GOLD, "40px")}
             </Icon>
             <Count>{gold}</Count>
           </Trophy>
 
           <Trophy color={COLOR_SILVER}>
             <Icon onClick={() => dispatch(actionAchievementFilter(SILVER))}>
-              {getIcon(ICON_TROPHY)}
+              {getImage(IMAGE_SILVER, "40px")}
             </Icon>
             <Count>{silver}</Count>
           </Trophy>
 
           <Trophy color={COLOR_COPPER}>
             <Icon onClick={() => dispatch(actionAchievementFilter(COPPER))}>
-              {getIcon(ICON_TROPHY)}
+              {getImage(IMAGE_BRONZE, "40px")}
             </Icon>
             <Count>{copper}</Count>
           </Trophy>
@@ -179,7 +184,7 @@ const Trophy = styled.div`
   justify-content: center;
   flex-direction: column;
   padding: 1rem;
-  margin-right: 0.5rem;
+  margin-right: 0rem;
   color: ${(props) => props.color};
 `;
 

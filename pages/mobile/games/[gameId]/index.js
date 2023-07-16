@@ -45,7 +45,7 @@ const Container = styled.div`
   min-height: 100vh;
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #18191b;
+  background-color: #121315;
 `;
 
 const Overlay = styled.div`
@@ -55,7 +55,7 @@ const Overlay = styled.div`
   min-width: 100vw;
   min-height: 100vh;
   overflow: hidden;
-  background-color: #18191b;
+  background-color: #121315;
 `;
 
 const LoadingContainer = styled.div`
