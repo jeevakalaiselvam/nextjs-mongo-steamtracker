@@ -21,7 +21,6 @@ export const getTrophyCount = (achievements) => {
 
   if (achievements?.length > 0) {
     achievements?.forEach((achievement) => {
-      console.log("TYPE", achievement.type);
       if (!achievement?.achieved) {
         switch (achievement?.type) {
           case PLATINUM:
@@ -239,4 +238,91 @@ export const gatherAchievementCategories = (achievements) => {
     replay,
     online,
   };
+};
+
+export const getAllStatsForGame = (game) => {
+  let total = 0,
+    completed = 0,
+    notCompleted = 0,
+    platinum = 0,
+    gold = 0,
+    silver = 0,
+    bronze = 0,
+    platinumCompleted = 0,
+    goldCompleted = 0,
+    silverCompleted = 0,
+    bronzeCompleted = 0,
+    platinumLeft = 0,
+    goldLeft = 0,
+    silverLeft = 0,
+    bronzeLeft = 0;
+  game?.achievements?.forEach((achievement) => {
+    if (achievement?.type == PLATINUM) {
+      platinum++;
+      if (achievement?.achieved) {
+        platinumCompleted++;
+      } else {
+        platinumLeft++;
+      }
+    }
+    if (achievement?.type == GOLD) {
+      gold++;
+      if (achievement?.achieved) {
+        goldCompleted++;
+      } else {
+        goldLeft++;
+      }
+    }
+    if (achievement?.type == SILVER) {
+      silver++;
+      if (achievement?.achieved) {
+        silverCompleted++;
+      } else {
+        silverLeft++;
+      }
+    }
+    if (achievement?.type == COPPER) {
+      bronze++;
+      if (achievement?.achieved) {
+        bronzeCompleted++;
+      } else {
+        bronzeLeft++;
+      }
+    }
+    if (achievement?.achieved) {
+      completed++;
+    } else {
+      notCompleted++;
+    }
+    total++;
+  });
+  return {
+    total,
+    completed,
+    notCompleted,
+    platinum,
+    gold,
+    silver,
+    bronze,
+    platinumCompleted,
+    goldCompleted,
+    silverCompleted,
+    bronzeCompleted,
+    platinumLeft,
+    goldLeft,
+    silverLeft,
+    bronzeLeft,
+  };
+};
+
+export const findRarestAchievementForGame = (achievements) => {
+  let rarestAchievement = null;
+
+  rarestAchievement = achievements
+    ?.filter((achievement) => achievement.achieved)
+    ?.sort((ach1, ach2) => {
+      return ach2?.percentage - ach1?.percentage;
+    })?.[0];
+
+  return rarestAchievement;
 };

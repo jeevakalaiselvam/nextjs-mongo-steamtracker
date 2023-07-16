@@ -38,6 +38,8 @@ import {
 } from "../../../helper/iconHelper";
 import { actionGamesFilter } from "../../../store/actions/steam.actions";
 import GamesMenu from "../../../components/atoms/GamesMenu";
+import MobileGameDisplayPSUI from "../../../components/mobile/MobileGameDisplayPSUI";
+import PSUIHeader from "../../../components/atoms/PSUIHeader";
 
 const Container = styled.div`
   display: flex;
@@ -93,7 +95,6 @@ const Content = styled.div`
   width: 100%;
   min-height: 91vh;
   max-height: 91vh;
-  padding: 0.5rem;
   justify-content: flex-start;
   overflow: scroll;
 `;
@@ -184,27 +185,28 @@ export default function Games() {
         {!loading && (
           <GamesContainer>
             <Header>
-              <TrophiesMobileGames
-                trophies={trophies}
-                optionToggle={optionToggle}
-                optionOpen={optionOpen}
-                leftSidebarToggle={leftSidebarToggle}
-                leftSidebarOpen={leftSidebarOpen}
-              />
+              <PSUIHeader />
             </Header>
             <Content>
-              {games
-                .filter((game) => {
-                  if (
-                    (game?.platform == gamesFilter || gamesFilter == ALL) &&
-                    (showHiddenGames ? true : !game.hidden)
-                  ) {
-                    return true;
-                  }
-                })
-                .map((game) => {
-                  return <MobileGameDisplay game={game} key={game._id} />;
-                })}
+              <GamesOverview></GamesOverview>
+              <GamesHeader>Games Played</GamesHeader>
+              <GamesList>
+                {games
+                  .filter((game) => {
+                    if (
+                      (game?.platform == gamesFilter || gamesFilter == ALL) &&
+                      (showHiddenGames ? true : !game.hidden)
+                    ) {
+                      return true;
+                    }
+                  })
+                  .sort((game1, game2) => {
+                    return (game2?.lastPlayed ?? 0) - (game1?.lastPlayed ?? 0);
+                  })
+                  .map((game) => {
+                    return <MobileGameDisplayPSUI game={game} key={game._id} />;
+                  })}
+              </GamesList>
             </Content>
           </GamesContainer>
         )}
@@ -223,3 +225,23 @@ export default function Games() {
     </Container>
   );
 }
+
+const GamesOverview = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const GamesList = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+`;
+
+const GamesHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

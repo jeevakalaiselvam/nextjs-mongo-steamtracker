@@ -91,7 +91,6 @@ export default function MobileAchievementDisplay({
     },
     onSwiping: (eventData) => {
       const { deltaX, deltaY, absX, absY } = eventData;
-      console.log("JEEVA", { deltaY });
       let sign = Math.sign(deltaX);
       if (deltaY > 100 || deltaY < -100) {
       } else {

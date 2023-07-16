@@ -4,7 +4,11 @@ import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import { BACKGROUND_IMAGE, HEADER_IMAGE } from "../../../../helper/urlHelper";
-import { getTrophyCount } from "../../../../helper/gameHelper";
+import {
+  findRarestAchievementForGame,
+  getAllStatsForGame,
+  getTrophyCount,
+} from "../../../../helper/gameHelper";
 import { useRouter } from "next/router";
 import MobileAchievementDisplay from "../../../../components/mobile/MobileAchievementDisplay";
 import { ALL, getLoader } from "../../../../helper/constantHelper";
@@ -20,6 +24,17 @@ import GameMenu from "../../../../components/atoms/GameMenu";
 import Trophies from "../../../../components/molecules/Trophies";
 import Profile from "../../../../components/molecules/Profile";
 import GameInfo from "../../../../components/molecules/GameInfo";
+import MobileAchievementDisplayPSUI from "../../../../components/mobile/MobileAchievementDisplayPSUI";
+import {
+  IMAGE_BRONZE,
+  IMAGE_GOLD,
+  IMAGE_PLATINUM,
+  IMAGE_SILVER,
+  getImage,
+} from "../../../../helper/iconHelper";
+import CirclePercentage from "../../../../components/atoms/CirclePercentage";
+import GameCompleteOverview from "../../../../components/atoms/GameCompleteOverview";
+import PSUIHeader from "../../../../components/atoms/PSUIHeader";
 
 const Container = styled.div`
   display: flex;
@@ -28,10 +43,9 @@ const Container = styled.div`
   min-width: 100vw;
   color: #fefefe;
   min-height: 100vh;
-  backdrop-filter: blur(20px);
-  background: ${(props) => `url(${props.image})`};
   background-repeat: no-repeat;
   background-size: cover;
+  background-color: #18191b;
 `;
 
 const Overlay = styled.div`
@@ -40,9 +54,8 @@ const Overlay = styled.div`
   justify-content: center;
   min-width: 100vw;
   min-height: 100vh;
-  backdrop-filter: blur(20px);
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #18191b;
 `;
 
 const LoadingContainer = styled.div`
@@ -189,6 +202,8 @@ export default function Game() {
     setLeftSidebarOpen(toggle);
   };
 
+  let rarestAchievement = findRarestAchievementForGame(game?.achievements);
+
   return (
     <Container image={HEADER_IMAGE(themeId ?? "130130")}>
       <Overlay>
@@ -196,52 +211,36 @@ export default function Game() {
         {!loading && (
           <GamesContainer>
             <Header>
-              <TrophiesMobileGame
-                trophies={trophies}
-                optionToggle={optionToggle}
-                optionOpen={optionOpen}
-                leftSidebarToggle={leftSidebarToggle}
-                leftSidebarOpen={leftSidebarOpen}
-              />
+              <PSUIHeader />
             </Header>
             <Content>
-              {game?.achievements?.length == 0 && (
-                <NoAchievements>No Achievements</NoAchievements>
-              )}
-              {game?.achievements?.length != 0 &&
-                game?.achievements
-                  ?.filter((achievement) => {
-                    if (
-                      (achievement?.name
-                        ?.toLowerCase()
-                        .trim()
-                        ?.includes(achievementSearch) ||
-                        achievement?.description
-                          ?.toLowerCase()
-                          .trim()
-                          ?.includes(achievementSearch)) &&
-                      (achievement.type == achievementFilter ||
-                        achievementFilter == ALL) &&
-                      (achievementFilterCategory == ALL
-                        ? true
-                        : achievement?.categories?.includes(
-                            achievementFilterCategory ?? ALL
-                          ))
-                    ) {
-                      return true;
-                    }
-                  })
-                  .sort((ach1, ach2) => ach2.percentage - ach1.percentage)
-                  .map((achievement) => {
-                    return (
-                      <MobileAchievementDisplay
-                        achievement={achievement}
+              <GameOverview>
+                <GameCompleteOverview game={game} />
+              </GameOverview>
+              {rarestAchievement && (
+                <Section>
+                  <SectionHeader>Rarest Trophy Earned</SectionHeader>
+                  <SectionContent>
+                    {rarestAchievement && (
+                      <MobileAchievementDisplayPSUI
                         game={game}
-                        key={achievement.id}
-                        setLeftSidebarOpen={setLeftSidebarOpen}
+                        achievement={rarestAchievement}
                       />
-                    );
-                  })}
+                    )}
+                  </SectionContent>
+                </Section>
+              )}
+              <Section>
+                <SectionHeader>All Trophies</SectionHeader>
+                <SectionContent>
+                  {rarestAchievement && (
+                    <MobileAchievementDisplayPSUI
+                      game={game}
+                      achievement={rarestAchievement}
+                    />
+                  )}
+                </SectionContent>
+              </Section>
             </Content>
           </GamesContainer>
         )}
@@ -261,3 +260,41 @@ export default function Game() {
     </Container>
   );
 }
+
+const Atom = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const SectionHeader = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  justify-content: flex-start;
+  width: 100%;
+`;
+
+const SectionContent = styled.div`
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+`;
+
+const Section = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+  width: 100%;
+  flex-direction: column;
+`;
+
+const GameOverview = styled.div`
+  display: flex;
+  width: 90%;
+  align-items: center;
+  justify-content: center;
+`;

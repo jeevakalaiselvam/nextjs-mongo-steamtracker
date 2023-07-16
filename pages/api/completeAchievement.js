@@ -1,3 +1,4 @@
+import moment from "moment";
 import clientPromise from "../../lib/mongo";
 import mongodb from "mongodb";
 import { v4 as uuidv4 } from "uuid";
@@ -25,7 +26,9 @@ export default async function handler(req, res) {
           return achievement;
         }
       });
-      let toUpdate = { $set: { achievements: updatedAchievements } };
+      let toUpdate = {
+        $set: { achievements: updatedAchievements, lastPlayed: moment.now() },
+      };
       let games = await db.collection("games").updateOne(query, toUpdate);
       res.json(games);
       break;

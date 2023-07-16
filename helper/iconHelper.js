@@ -15,21 +15,28 @@ import {
   HiEye,
   HiEyeOff,
   HiCheckCircle,
+  HiOutlineChevronRight,
 } from "react-icons/hi";
+import { IoSettingsSharp, IoNotifications } from "react-icons/io5";
 import { HiTrophy } from "react-icons/hi2";
 import { FaSteam, FaPlaystation, FaXbox, FaTrophy } from "react-icons/fa";
 import { SiOrigin, SiUbisoft, SiEpicgames, SiActivision } from "react-icons/si";
 import {
   BLIZZARD,
+  COPPER,
   EPIC,
   GOG,
+  GOLD,
   ORIGIN,
+  PLATINUM,
   PLAYSTATION,
+  SILVER,
   STEAM,
   UPLAY,
   XBOX,
 } from "./constantHelper";
 import { COLOR_PLAYSTATION, COLOR_XBOX } from "./colorHelper";
+import ImageIcon from "../components/atoms/ImageIcon";
 
 export const ICON_CLOSE = "ICON_CLOSE";
 export const ICON_TROPHY = "ICON_TROPHY";
@@ -55,13 +62,57 @@ export const ICON_HIDDEN_VISIBLE = "ICON_HIDDEN_VISIBLE";
 export const ICON_HIDDEN_INVISIBLE = "ICON_HIDDEN_INVISIBLE";
 export const ICON_COMPLETED = "ICON_COMPLETED";
 export const ICON_CATEGORY = "ICON_CATEGORY";
+export const ICON_RIGHT = "ICON_RIGHT";
+export const ICON_NOTIFICATION = "ICON_NOTIFICATION";
+export const ICON_COG = "ICON_COG";
+
+export const IMAGE_PLATINUM = "IMAGE_PLATINUM";
+export const IMAGE_GOLD = "IMAGE_GOLD";
+export const IMAGE_SILVER = "IMAGE_SILVER";
+export const IMAGE_BRONZE = "IMAGE_BRONZE";
+
+export const getTrophyImage = (type, size) => {
+  const TROPHY_ICON_SIZE = "60px";
+  switch (type) {
+    case PLATINUM:
+      return <ImageIcon src="platinum.png" size={size ?? TROPHY_ICON_SIZE} />;
+    case GOLD:
+      return <ImageIcon src="gold.png" size={size ?? TROPHY_ICON_SIZE} />;
+    case SILVER:
+      return <ImageIcon src="silver.png" size={size ?? TROPHY_ICON_SIZE} />;
+    case COPPER:
+      return <ImageIcon src="bronze.png" size={size ?? TROPHY_ICON_SIZE} />;
+    default:
+      return <HiXCircle />;
+  }
+};
+
+export const getImage = (key, size) => {
+  const TROPHY_ICON_SIZE = size ?? "60px";
+  switch (key) {
+    case IMAGE_PLATINUM:
+      return <ImageIcon src="platinum.png" size={TROPHY_ICON_SIZE} />;
+    case IMAGE_GOLD:
+      return <ImageIcon src="gold.png" size={TROPHY_ICON_SIZE} />;
+    case IMAGE_SILVER:
+      return <ImageIcon src="silver.png" size={TROPHY_ICON_SIZE} />;
+    case IMAGE_BRONZE:
+      return <ImageIcon src="bronze.png" size={TROPHY_ICON_SIZE} />;
+    default:
+      return <HiXCircle />;
+  }
+};
 
 export const getIcon = (key) => {
   switch (key) {
     case ICON_CLOSE:
       return <HiXCircle />;
+    case ICON_COG:
+      return <IoSettingsSharp />;
+    case ICON_NOTIFICATION:
+      return <IoNotifications />;
     case ICON_TROPHY:
-      return <HiTrophy />;
+      return <FaTrophy />;
     case ICON_CHECK:
       return <HiCheck />;
     case ICON_CROSS:
@@ -106,6 +157,8 @@ export const getIcon = (key) => {
       return <HiCheckCircle />;
     case ICON_CATEGORY:
       return <HiCollection />;
+    case ICON_RIGHT:
+      return <HiOutlineChevronRight />;
     default:
   }
 };
