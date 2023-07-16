@@ -220,7 +220,8 @@ const MainContainer = styled.div`
 
 const LoaderContainer = styled.div`
   min-width: 100%;
-  padding: 1rem;
+  padding: 2rem;
+  margin-top: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;

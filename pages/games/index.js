@@ -62,7 +62,7 @@ export default function GamesPage() {
           <GamesMenu />
         </SidebarContainer>
         <MainContainer>
-          {gamesLoading && getLoader()}
+          {gamesLoading && <LoaderContainer>{getLoader()}</LoaderContainer>}
           {!createNewGameModal && !gamesLoading && games.length == 0 && (
             <NoGames>
               <Button
@@ -98,6 +98,15 @@ export default function GamesPage() {
     </Container>
   );
 }
+
+const LoaderContainer = styled.div`
+  min-width: 100%;
+  padding: 2rem;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 const NoGames = styled.div`
   display: flex;
