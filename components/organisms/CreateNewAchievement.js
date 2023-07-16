@@ -361,10 +361,10 @@ const Label = styled.div`
   display: flex;
   align-items: center;
   margin-right: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   width: 80px;
   justify-content: flex-start;
-  color: ${(props) => COLOR_BUTTON_PRIMARY};
+  opacity: 0.5;
 `;
 
 const Input = styled.div`
@@ -379,9 +379,10 @@ const Input = styled.div`
     flex: 1;
     width: 100%;
     padding: 0.5rem;
-    background: rgba(0, 0, 0, 0.5);
+    background-color: #222222;
     outline: none;
     border: none;
+    font-size: 1.4rem;
     cursor: text;
   }
 `;

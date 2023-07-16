@@ -153,12 +153,12 @@ const CreateModal = styled.div`
   height: 300px;
   position: absolute;
   left: 50%;
+  z-index: 99999999999;
   top: 30%;
   transform: translate(-50%, -50%);
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  z-index: 100;
   background-color: #121315;
 `;
 
