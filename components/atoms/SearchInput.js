@@ -10,7 +10,7 @@ const Container = styled.div`
   justify-content: center;
 
   & > input {
-    background-color: ${(props) => props.background ?? "rgba(0, 0, 0, 0.5)"};
+    background-color: ${(props) => props.background ?? "#121315"};
     outline: none;
     width: 100%;
     height: ${(props) => props.height ?? "25px"};
@@ -26,7 +26,7 @@ const Clear = styled.div`
   display: flex;
   height: ${(props) => props.height ?? "25px"};
   color: #fefefe33;
-  background-color: ${(props) => props.background ?? "rgba(0, 0, 0, 0.5)"};
+  background-color: ${(props) => props.background ?? "#121315"};
   align-items: center;
   padding-right: 0.5rem;
   justify-content: center;

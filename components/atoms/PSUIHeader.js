@@ -71,6 +71,7 @@ const Sub = styled.div`
   width: 100%;
   align-items: center;
   opacity: 0.5;
+  font-weight: 100;
   justify-content: center;
 `;
 

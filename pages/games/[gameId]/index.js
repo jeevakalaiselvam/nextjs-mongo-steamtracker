@@ -89,7 +89,6 @@ export default function GamesPage() {
         )}
         <SidebarContainer>
           <Profile games={games} />
-          <Trophies games={games} title={"Trophies"} />
           <GameInfo game={game} />
           <GameMenu game={game} />
         </SidebarContainer>
@@ -158,7 +157,7 @@ const CreateModal = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   z-index: 100;
-  background: ${(props) => `url(${props.image})`};
+  background-color: #121315;
 `;
 
 const NoGames = styled.div`

@@ -34,7 +34,15 @@ import {
   SILVER,
   STORY,
 } from "../../helper/constantHelper";
-import { ICON_TROPHY, getIcon } from "../../helper/iconHelper";
+import {
+  ICON_TROPHY,
+  IMAGE_BRONZE,
+  IMAGE_GOLD,
+  IMAGE_PLATINUM,
+  IMAGE_SILVER,
+  getIcon,
+  getImage,
+} from "../../helper/iconHelper";
 import { useEffect } from "react";
 
 export default function CreateNewAchievement({
@@ -162,22 +170,22 @@ export default function CreateNewAchievement({
               onClick={() => setType(PLATINUM)}
             >
               <Icon color={type == PLATINUM ? COLOR_PLATINUM : COLOR_GREY}>
-                {getIcon(ICON_TROPHY)}
+                {getImage(IMAGE_PLATINUM, "35px")}
               </Icon>
             </Trophy>
             <Trophy selected={type == GOLD} onClick={() => setType(GOLD)}>
               <Icon color={type == GOLD ? COLOR_GOLD : COLOR_GREY}>
-                {getIcon(ICON_TROPHY)}
+                {getImage(IMAGE_GOLD, "33px")}
               </Icon>
             </Trophy>
             <Trophy selected={type == SILVER} onClick={() => setType(SILVER)}>
               <Icon color={type == SILVER ? COLOR_SILVER : COLOR_GREY}>
-                {getIcon(ICON_TROPHY)}
+                {getImage(IMAGE_SILVER, "35px")}
               </Icon>
             </Trophy>
             <Trophy selected={type == COPPER} onClick={() => setType(COPPER)}>
               <Icon color={type == COPPER ? COLOR_COPPER : COLOR_GREY}>
-                {getIcon(ICON_TROPHY)}
+                {getImage(IMAGE_BRONZE, "35px")}
               </Icon>
             </Trophy>
           </TrophySelection>
@@ -346,8 +354,7 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   font-size: 1.3rem;
-  backdrop-filter: blur(20px);
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #121315;
 `;
 
 const Label = styled.div`

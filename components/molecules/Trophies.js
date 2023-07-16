@@ -69,25 +69,25 @@ export default function Trophies({ title, game }) {
           <TrophyPlaceholder>
             <Trophy color={COLOR_PLATINUM}>
               <Icon onClick={() => dispatch(actionAchievementFilter(PLATINUM))}>
-                {getIcon(ICON_TROPHY)}
+                {getImage(IMAGE_PLATINUM, "40px")}
               </Icon>
             </Trophy>
 
             <Trophy color={COLOR_GOLD}>
               <Icon onClick={() => dispatch(actionAchievementFilter(GOLD))}>
-                {getImage(IMAGE_GOLD)}
+                {getImage(IMAGE_GOLD, "40px")}
               </Icon>
             </Trophy>
 
             <Trophy color={COLOR_SILVER}>
               <Icon onClick={() => dispatch(actionAchievementFilter(SILVER))}>
-                {getIcon(ICON_TROPHY)}
+                {getImage(IMAGE_SILVER, "40px")}
               </Icon>
             </Trophy>
 
             <Trophy color={COLOR_COPPER}>
               <Icon onClick={() => dispatch(actionAchievementFilter(COPPER))}>
-                {getIcon(ICON_TROPHY)}
+                {getImage(IMAGE_BRONZE, "40px")}
               </Icon>
             </Trophy>
           </TrophyPlaceholder>
@@ -135,6 +135,7 @@ const Name = styled.div`
   align-items: center;
   justify-content: center;
   padding: 0.5rem 1rem;
+  opacity: 0.5;
 `;
 
 const Container = styled.div`
@@ -143,8 +144,7 @@ const Container = styled.div`
   justify-content: flex-start;
   flex-direction: column;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
+  background-color: #121315;
   margin-top: 0.25rem;
 `;
 
@@ -185,7 +185,6 @@ const Trophy = styled.div`
   flex-direction: column;
   padding: 1rem;
   margin-right: 0rem;
-  color: ${(props) => props.color};
 `;
 
 const Icon = styled.div`
@@ -198,6 +197,7 @@ const Icon = styled.div`
 
 const Count = styled.div`
   display: flex;
+  opacity: 0.5;
   align-items: center;
   justify-content: center;
 `;

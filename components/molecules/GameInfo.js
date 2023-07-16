@@ -18,7 +18,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  backdrop-filter: blur(10px);
+  background-color: #121315;
   margin-top: 0.5rem;
 `;
 

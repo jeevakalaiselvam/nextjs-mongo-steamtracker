@@ -49,8 +49,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
+  background-color: #121315;
   padding: 0.5rem;
   height: 80px;
 `;

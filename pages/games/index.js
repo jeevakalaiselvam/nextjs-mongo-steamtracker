@@ -106,7 +106,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${(props) => `url(${props.image})`};
+  background-color: #121315;
   background-repeat: no-repeat;
   background-size: cover;
   color: #fefefe;
@@ -119,7 +119,6 @@ const Overlay = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  backdrop-filter: blur(20px);
   position: relative;
 `;
 
@@ -127,7 +126,6 @@ const SidebarContainer = styled.div`
   min-width: 200px;
   min-height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(10px);
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   display: flex;
   align-items: center;
