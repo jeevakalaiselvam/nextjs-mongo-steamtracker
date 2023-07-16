@@ -243,7 +243,7 @@ const Label = styled.div`
   align-items: center;
   margin-right: 1rem;
   width: 50px;
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   justify-content: flex-start;
   color: ${(props) => COLOR_BUTTON_PRIMARY};
 `;
@@ -261,6 +261,6 @@ const Input = styled.div`
     background: rgba(0, 0, 0, 0.5);
     outline: none;
     border: none;
-    font-size: 1.4rem;
+    font-size: 1.25rem;
   }
 `;

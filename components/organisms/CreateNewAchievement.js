@@ -374,7 +374,7 @@ const Label = styled.div`
   display: flex;
   align-items: center;
   margin-right: 1rem;
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   width: 80px;
   justify-content: flex-start;
   opacity: 0.5;
@@ -395,7 +395,7 @@ const Input = styled.div`
     background-color: #222222;
     outline: none;
     border: none;
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     cursor: text;
   }
 `;
