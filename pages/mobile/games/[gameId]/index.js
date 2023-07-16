@@ -233,12 +233,17 @@ export default function Game() {
               <Section>
                 <SectionHeader>All Trophies</SectionHeader>
                 <SectionContent>
-                  {rarestAchievement && (
-                    <MobileAchievementDisplayPSUI
-                      game={game}
-                      achievement={rarestAchievement}
-                    />
-                  )}
+                  {game?.achievements
+                    ?.sort((ach1, ach2) => ach2?.percentage - ach1?.percentage)
+                    ?.map((ach) => {
+                      return (
+                        <MobileAchievementDisplayPSUI
+                          game={game}
+                          key={ach.name}
+                          achievement={ach}
+                        />
+                      );
+                    })}
                 </SectionContent>
               </Section>
             </Content>
@@ -279,6 +284,8 @@ const SectionContent = styled.div`
   display: flex;
   padding: 1rem;
   align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
   justify-content: center;
   width: 100%;
 `;

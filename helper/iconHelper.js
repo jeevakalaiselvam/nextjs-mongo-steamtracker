@@ -70,6 +70,7 @@ export const IMAGE_PLATINUM = "IMAGE_PLATINUM";
 export const IMAGE_GOLD = "IMAGE_GOLD";
 export const IMAGE_SILVER = "IMAGE_SILVER";
 export const IMAGE_BRONZE = "IMAGE_BRONZE";
+export const IMAGE_LOCKED = "IMAGE_LOCKED";
 
 export const getTrophyImage = (type, size) => {
   const TROPHY_ICON_SIZE = "60px";
@@ -98,8 +99,20 @@ export const getImage = (key, size) => {
       return <ImageIcon src="silver.png" size={TROPHY_ICON_SIZE} />;
     case IMAGE_BRONZE:
       return <ImageIcon src="bronze.png" size={TROPHY_ICON_SIZE} />;
+    case IMAGE_LOCKED:
+      return <ImageIcon src="lockedtransparent.png" size={TROPHY_ICON_SIZE} />;
     default:
       return <HiXCircle />;
+  }
+};
+
+export const getImageURL = (key, size) => {
+  const TROPHY_ICON_SIZE = size ?? "60px";
+  switch (key) {
+    case IMAGE_LOCKED:
+      return "/images/lockedtransparent.png";
+    default:
+      return "";
   }
 };
 
@@ -182,5 +195,29 @@ export const getIconForPlatform = (platform) => {
     case ORIGIN:
       return ICON_ORIGIN;
     default:
+  }
+};
+
+export const getLevelImage = (currentLevel) => {
+  if (currentLevel >= 0 && currentLevel < 100) {
+    return "/images/0_100.png";
+  } else if (currentLevel >= 100 && currentLevel < 200) {
+    return "/images/100_200.png";
+  } else if (currentLevel >= 200 && currentLevel < 300) {
+    return "/images/200_300.png";
+  } else if (currentLevel >= 300 && currentLevel < 400) {
+    return "/images/300_400.png";
+  } else if (currentLevel >= 400 && currentLevel < 500) {
+    return "/images/400_500.png";
+  } else if (currentLevel >= 500 && currentLevel < 600) {
+    return "/images/500_600.png";
+  } else if (currentLevel >= 600 && currentLevel < 700) {
+    return "/images/600_700.png";
+  } else if (currentLevel >= 700 && currentLevel < 800) {
+    return "/images/700_800.png";
+  } else if (currentLevel >= 800 && currentLevel < 900) {
+    return "/images/800_900.png";
+  } else if (currentLevel >= 900 && currentLevel < 1000) {
+    return "/images/900_1000.png";
   }
 };

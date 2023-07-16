@@ -4,7 +4,11 @@ import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import { HEADER_IMAGE } from "../../../helper/urlHelper";
-import { calculateAllTrophyCountForGames } from "../../../helper/gameHelper";
+import {
+  calculateAllTrophyCountForGames,
+  calculateLevelForGame,
+  calculateLevelFromXP,
+} from "../../../helper/gameHelper";
 import MobileGameDisplay from "../../../components/mobile/MobileGameDisplay";
 import {
   ALL,
@@ -35,11 +39,14 @@ import {
   ICON_UPLAY,
   ICON_XBOX,
   getIcon,
+  getLevelImage,
 } from "../../../helper/iconHelper";
 import { actionGamesFilter } from "../../../store/actions/steam.actions";
 import GamesMenu from "../../../components/atoms/GamesMenu";
 import MobileGameDisplayPSUI from "../../../components/mobile/MobileGameDisplayPSUI";
 import PSUIHeader from "../../../components/atoms/PSUIHeader";
+import ProfileCompletionOverview from "../../../components/atoms/ProfileCompletionOverview";
+import CirclePercentage from "../../../components/atoms/CirclePercentage";
 
 const Container = styled.div`
   display: flex;
@@ -178,6 +185,17 @@ export default function Games() {
 
   const trophies = calculateAllTrophyCountForGames(games);
 
+  const {
+    totalXP,
+    totalTrophies,
+    totalPlatinum,
+    totalBronze,
+    totalSilver,
+    totalGold,
+  } = calculateLevelForGame(games);
+
+  const { currentLevel, toNext } = calculateLevelFromXP(totalXP);
+
   return (
     <Container image={HEADER_IMAGE(themeId ?? "130130")}>
       <Overlay>
@@ -188,14 +206,37 @@ export default function Games() {
               <PSUIHeader />
             </Header>
             <Content>
-              <GamesOverview></GamesOverview>
+              <GamesHeader>Profile Overview</GamesHeader>
+              <GamesOverview>
+                <Top>
+                  <Level>
+                    <LevelIcon image={getLevelImage(currentLevel)} />
+                    <LevelData>Level {currentLevel}</LevelData>
+                  </Level>
+                  <ToNext>
+                    <CirclePercentage percentage={toNext} />
+                  </ToNext>
+                  <Total>
+                    <TotalNumber>{totalTrophies}</TotalNumber>
+                    <TotalText>Total Trophies</TotalText>
+                  </Total>
+                </Top>
+                <Bottom>
+                  <ProfileCompletionOverview
+                    platinum={totalPlatinum}
+                    gold={totalGold}
+                    silver={totalSilver}
+                    bronze={totalBronze}
+                  />
+                </Bottom>
+              </GamesOverview>
               <GamesHeader>Games Played</GamesHeader>
               <GamesList>
                 {games
                   .filter((game) => {
                     if (
                       (game?.platform == gamesFilter || gamesFilter == ALL) &&
-                      (showHiddenGames ? true : !game.hidden)
+                      (showHiddenGames ? true : true)
                     ) {
                       return true;
                     }
@@ -226,9 +267,84 @@ export default function Games() {
   );
 }
 
-const GamesOverview = styled.div`
+const LevelIcon = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
+  background: ${(props) => `url(${props.image})`};
+  width: 50px;
+  height: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+`;
+
+const LevelData = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  opacity: 0.5;
+  justify-content: center;
+`;
+
+const TotalNumber = styled.div`
+  display: flex;
+  align-items: center;
+  font-weight: 100;
+  font-size: 2rem;
+  margin-top: 1rem;
+  justify-content: center;
+`;
+
+const TotalText = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  opacity: 0.5;
+  justify-content: center;
+`;
+
+const Top = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Bottom = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Level = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ToNext = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Total = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+`;
+
+const GamesOverview = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
   justify-content: center;
 `;
 

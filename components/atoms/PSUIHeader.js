@@ -6,6 +6,7 @@ import {
   ICON_STEAM,
   getIcon,
 } from "../../helper/iconHelper";
+import { useRouter } from "next/router";
 
 const Container = styled.div`
   display: flex;
@@ -16,8 +17,14 @@ const Container = styled.div`
 `;
 
 export default function PSUIHeader() {
+  const router = useRouter();
+
   return (
-    <Container>
+    <Container
+      onClick={() => {
+        router.push(`/mobile/games`);
+      }}
+    >
       <Profile>
         <ProfileImage>
           <Image
@@ -77,7 +84,7 @@ const Name = styled.div`
 const ProfileImage = styled.div`
   display: flex;
   align-items: center;
-  margin-left: -2rem;
+  margin-left: -4rem;
   width: 100%;
   justify-content: center;
 `;

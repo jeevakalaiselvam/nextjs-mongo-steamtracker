@@ -95,7 +95,6 @@ const Overview = styled.div`
   align-items: center;
   width: 100%;
   flex-direction: column;
-  background-color: red;
   padding: 2rem;
   background-color: #1d1d1f;
   justify-content: center;
@@ -134,7 +133,6 @@ const Trophy = styled.div`
 const Count = styled.div`
   display: flex;
   align-items: center;
-  font-weight: 100;
   justify-content: center;
 `;
 

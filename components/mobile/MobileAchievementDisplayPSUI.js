@@ -6,8 +6,11 @@ import {
   ICON_CHECK,
   ICON_CROSS,
   ICON_TROPHY,
+  IMAGE_BRONZE,
+  IMAGE_LOCKED,
   getIcon,
   getImage,
+  getImageURL,
   getTrophyImage,
 } from "../../helper/iconHelper";
 import {
@@ -24,7 +27,8 @@ import {
 import axios from "axios";
 import moment from "moment";
 import Draggable, { DraggableCore } from "react-draggable";
-import { BeatLoader } from "react-spinners";
+import { BeatLoader, MoonLoader, PulseLoader } from "react-spinners";
+import { getLoader } from "../../helper/constantHelper";
 
 export default function MobileAchievementDisplayPSUI({
   game,
@@ -47,8 +51,10 @@ export default function MobileAchievementDisplayPSUI({
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const [marking, setMarking] = useState(false);
+
   const completeAchievement = (shouldCompleteOrNot) => {
-    setCompleting(true);
+    setMarking(true);
     dispatch(actionForceRefreshAchievement(false));
     dispatch(actionForceRefreshProfile(false));
     axios
@@ -57,7 +63,7 @@ export default function MobileAchievementDisplayPSUI({
         unlockTime: shouldCompleteOrNot ? moment.now() : "",
       })
       .then((response) => {
-        setCompleting(false);
+        setMarking(false);
         dispatch(actionForceRefreshAchievement(true));
         dispatch(actionForceRefreshProfile(true));
         router.push(`/mobile/games/${gameId}`);
@@ -67,12 +73,28 @@ export default function MobileAchievementDisplayPSUI({
   return (
     <MainContainer>
       <InnerContainer>
-        <Icon
-          src={image}
-          onClick={() => {
-            achieved ? completeAchievement(false) : completeAchievement(true);
-          }}
-        />
+        <IconContainer>
+          {achieved && (
+            <Icon
+              src={image}
+              onClick={() => {
+                achieved
+                  ? completeAchievement(false)
+                  : completeAchievement(true);
+              }}
+            />
+          )}
+          {!achieved && (
+            <LockedIcon
+              src={getImageURL(IMAGE_LOCKED)}
+              onClick={() => {
+                achieved
+                  ? completeAchievement(false)
+                  : completeAchievement(true);
+              }}
+            />
+          )}
+        </IconContainer>
         <Content>
           <Title>{name}</Title>
           <Desc>{description}</Desc>
@@ -88,6 +110,9 @@ export default function MobileAchievementDisplayPSUI({
         </Content>
       </InnerContainer>
       {achieved && <CompletedBar />}
+      <LoadingSpinner>
+        {marking && <PulseLoader size={5} color="#FEFEFE" />}
+      </LoadingSpinner>
     </MainContainer>
   );
 }
@@ -96,6 +121,15 @@ const Atom = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const LoadingSpinner = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 `;
 
 const TrophyType = styled.div`
@@ -116,12 +150,19 @@ const UnlockIcon = styled.div`
 const CompletedTime = styled.div`
   display: flex;
   align-items: center;
-  font-weight: 100;
   margin-top: 1rem;
   font-size: 1.1rem;
   justify-content: flex-end;
   margin-right: 1rem;
   opacity: 0.6;
+`;
+
+const IconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  min-height: 50px;
 `;
 
 const CompletedBar = styled.div`
@@ -137,14 +178,27 @@ const CompletedBar = styled.div`
   background-color: #fefefe;
 `;
 
-const Icon = styled.div`
+const LockedIcon = styled.div`
   display: flex;
-  width: 50px;
-  height: 50px;
+  min-width: 50px;
+  min-height: 50px;
   align-items: center;
   justify-content: center;
   background: ${(props) => `url(${props.src})`};
-  background-size: contain;
+  background-size: cover;
+  margin-right: 1rem;
+  background-repeat: no-repeat;
+  transform: scale(120%);
+`;
+
+const Icon = styled.div`
+  display: flex;
+  min-width: 50px;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+  background: ${(props) => `url(${props.src})`};
+  background-size: cover;
   margin-right: 1rem;
   background-repeat: no-repeat;
 `;
@@ -193,6 +247,7 @@ const InnerContainer = styled.div`
 const MainContainer = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
   justify-content: center;
   overflow: hidden;
   padding: 1rem 2rem;
@@ -200,6 +255,6 @@ const MainContainer = styled.div`
   flex-direction: column;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   background: linear-gradient(0deg, #17181a 0%, #1f2022 90%);
-  margin-bottom: 10rem;
+  margin-bottom: 1rem;
   position: relative;
 `;

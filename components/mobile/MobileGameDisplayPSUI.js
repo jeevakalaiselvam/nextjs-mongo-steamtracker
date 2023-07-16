@@ -66,16 +66,20 @@ export default function MobileGameDisplayPSUI({ game }) {
   }, [target, targetStart, targetEnd]);
 
   return (
-    <Container>
-      <Image
-        alt=""
-        src={image}
-        onClick={() => {
-          router.push(`/mobile/games/${_id}`);
-        }}
-      />
+    <Container
+      onClick={() => {
+        router.push(`/mobile/games/${_id}`);
+      }}
+    >
+      <Image alt="" src={image} />
       <Content>
-        <Name>{game?.name}</Name>
+        <Name
+          onClick={() => {
+            router.push(`/mobile/games/${_id}`);
+          }}
+        >
+          {game?.name}
+        </Name>
         <TrophyAndCompletion>
           <TrophiesContainer>
             <Trophies>

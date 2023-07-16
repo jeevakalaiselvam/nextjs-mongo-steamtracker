@@ -1,4 +1,5 @@
 import {
+  BRONZE,
   COLLECTIBLE,
   COPPER,
   EASY,
@@ -325,4 +326,116 @@ export const findRarestAchievementForGame = (achievements) => {
     })?.[0];
 
   return rarestAchievement;
+};
+
+export const getXPForTrophyType = (type) => {
+  switch (type) {
+    case PLATINUM:
+      return 300;
+    case GOLD:
+      return 90;
+    case SILVER:
+      return 30;
+    case COPPER:
+      return 15;
+    default:
+      return 0;
+  }
+};
+
+export const calculateLevelForGame = (games) => {
+  let currentLevel = 0,
+    xpToNext = 0,
+    xpToNextPercentageComplete = 0,
+    totalTrophies = 0,
+    totalPlatinum = 0,
+    totalBronze = 0,
+    totalSilver = 0,
+    totalGold = 0;
+  let totalXP = 0;
+
+  if (games?.length) {
+    games?.forEach((game) => {
+      if (game?.achievements) {
+        game?.achievements?.forEach((achievement) => {
+          if (achievement.achieved) {
+            totalXP += getXPForTrophyType(achievement?.type ?? COPPER);
+            totalTrophies++;
+            if (achievement?.type == PLATINUM) {
+              totalPlatinum++;
+            }
+            if (achievement?.type == GOLD) {
+              totalGold++;
+            }
+            if (achievement?.type == SILVER) {
+              totalSilver++;
+            }
+            if (achievement?.type == BRONZE) {
+              totalBronze++;
+            }
+          }
+        });
+      }
+    });
+  }
+
+  return {
+    currentLevel,
+    xpToNext,
+    xpToNextPercentageComplete,
+    totalXP,
+    totalTrophies,
+    totalPlatinum,
+    totalBronze,
+    totalSilver,
+    totalGold,
+  };
+};
+
+// Levels 1-99: 60 points (4 bronzes) per level-up
+// Levels 100-199: 90 points (6 bronzes) per level-up
+// Levels 200-299: 450 points (30 bronzes) per level-up
+// Levels 300-399: 900 points (60 bronzes) per level-up
+// Levels 400-499: 1,350 points (90 bronzes) per level-up
+// Levels 500-599: 1,800 points (120 bronzes) per level-up
+// Levels 600-699: 2,250 points (150 bronzes) per level-up
+// Levels 700-799: 2,700 points (180 bronzes) per level-up
+// Levels 800-899: 3,150 points (210 bronzes) per level-up
+// Levels 900-999: 3,600 points (240 bronzes) per level-up
+
+export const calculateLevelFromXP = (totalXP) => {
+  let currentLevel = 0;
+  let remainingXP = totalXP;
+  let lastLevel = 0;
+  let toNext = 0;
+
+  let L0_100 = 60;
+  let L100_200 = 60;
+
+  while (remainingXP >= L0_100) {
+    if (currentLevel >= 0 && currentLevel < 100) {
+      currentLevel++;
+      remainingXP = remainingXP - L0_100;
+      lastLevel = "0-100";
+    } else {
+      toNext = (remainingXP / L0_100) * 100;
+      break;
+    }
+  }
+
+  while (remainingXP >= L100_200) {
+    if (currentLevel >= 99 && currentLevel < 200) {
+      currentLevel++;
+      remainingXP = remainingXP - L100_200;
+      lastLevel = "100-200";
+    } else {
+      toNext = (remainingXP / L100_200) * 100;
+      break;
+    }
+  }
+
+  return {
+    currentLevel,
+    toNext,
+  };
 };

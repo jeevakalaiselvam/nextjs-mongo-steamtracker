@@ -22,7 +22,7 @@ const Text = styled.div`
 export default function CirclePercentage({ percentage }) {
   return (
     <Container>
-      <div style={{ width: 75, height: 75, fontWeight: 100 }}>
+      <div style={{ width: 75, height: 75 }}>
         <CircularProgressbar
           strokeWidth={3}
           value={percentage}

@@ -15,6 +15,7 @@ export const PLATINUM = "PLATINUM";
 export const GOLD = "GOLD";
 export const SILVER = "SILVER";
 export const COPPER = "COPPER";
+export const BRONZE = "COPPER";
 
 export const PLAYSTATION = "PLAYSTATION";
 export const XBOX = "XBOX";
