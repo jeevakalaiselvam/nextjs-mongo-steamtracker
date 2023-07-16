@@ -5,6 +5,8 @@ import styled from "styled-components";
 import {
   ICON_CHECK,
   ICON_CROSS,
+  ICON_DELETE,
+  ICON_EDIT,
   ICON_TROPHY,
   IMAGE_BRONZE,
   IMAGE_LOCKED,
@@ -14,6 +16,7 @@ import {
   getTrophyImage,
 } from "../../helper/iconHelper";
 import {
+  COLOR_BUTTON_PRIMARY,
   COLOR_DANGER,
   COLOR_SILVER,
   COLOR_SUCCESS,
@@ -29,11 +32,14 @@ import moment from "moment";
 import Draggable, { DraggableCore } from "react-draggable";
 import { BeatLoader, MoonLoader, PulseLoader } from "react-spinners";
 import { getLoader } from "../../helper/constantHelper";
+import Button from "./Button";
 
 export default function AchievementDisplayPSUI({
-  game,
   achievement,
-  setLeftSidebarOpen,
+  setEditModeActive,
+  updateAchievementToEdit,
+  useTitleForClick,
+  game,
 }) {
   console.log("JEEVA", game);
   const {
@@ -52,6 +58,20 @@ export default function AchievementDisplayPSUI({
   const dispatch = useDispatch();
 
   const [marking, setMarking] = useState(false);
+  const [mouseEnter, setMouseEnter] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+
+  const confirmDelete = () => {
+    dispatch(actionForceRefreshAchievement(false));
+    dispatch(actionForceRefreshProfile(false));
+    axios
+      .delete(`/api/deleteAchievement?gameId=${gameId}&achievementId=${id}`)
+      .then((response) => {
+        dispatch(actionForceRefreshAchievement(true));
+        dispatch(actionForceRefreshProfile(true));
+        router.push(`/games/${gameId}`);
+      });
+  };
 
   const completeAchievement = (shouldCompleteOrNot) => {
     setMarking(true);
@@ -72,6 +92,47 @@ export default function AchievementDisplayPSUI({
 
   return (
     <MainContainer>
+      {showConfirm && (
+        <Confirm>
+          <Info>Are you Sure ?</Info>
+          <Yes>
+            <Button
+              title="YES"
+              onClick={() => {
+                confirmDelete();
+                setShowConfirm(false);
+              }}
+            />
+          </Yes>
+          <No>
+            <Button
+              title="NO"
+              onClick={() => {
+                setShowConfirm(false);
+              }}
+            />
+          </No>
+        </Confirm>
+      )}
+
+      <Delete
+        show={mouseEnter}
+        onClick={() => {
+          setShowConfirm(true);
+        }}
+      >
+        {getIcon(ICON_DELETE)}
+      </Delete>
+
+      <Edit
+        show={mouseEnter}
+        onClick={() => {
+          setEditModeActive(true);
+          updateAchievementToEdit(achievement);
+        }}
+      >
+        {getIcon(ICON_EDIT)}
+      </Edit>
       <InnerContainer>
         <IconContainer>
           {achieved && (
@@ -99,13 +160,24 @@ export default function AchievementDisplayPSUI({
           <Title>{name}</Title>
           <Desc>{description}</Desc>
           <Others>
-            <TrophyType>{getTrophyImage(type, "25px")}</TrophyType>
+            <TrophyType onClick={() => setMouseEnter(!mouseEnter)}>
+              {getTrophyImage(type, "25px")}
+            </TrophyType>
             {achieved && (
               <CompletedTime>
                 {moment(unlockTime).format("DD/MM/YYYY HH:MM")}
               </CompletedTime>
             )}
-            {achieved && <UnlockIcon>{getIcon(ICON_TROPHY)}</UnlockIcon>}
+            {achieved && (
+              <UnlockIcon
+                onClick={() => {
+                  setEditModeActive(true);
+                  updateAchievementToEdit(achievement);
+                }}
+              >
+                {getIcon(ICON_TROPHY)}
+              </UnlockIcon>
+            )}
           </Others>
         </Content>
       </InnerContainer>
@@ -116,6 +188,74 @@ export default function AchievementDisplayPSUI({
     </MainContainer>
   );
 }
+
+const Confirm = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+`;
+
+const Info = styled.div`
+  display: flex;
+  margin-right: 2rem;
+  align-items: center;
+  justify-content: center;
+`;
+const Yes = styled.div`
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+`;
+const No = styled.div`
+  padding: 0.5rem;
+`;
+
+const Delete = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: ${(props) => (props.show ? "0px" : "-100px")};
+  padding: 0.5rem 0.5rem;
+  font-size: 1rem;
+  background: rgba(0, 0, 0, 0.25);
+  opacity: 0.5;
+  overflow: hidden;
+  font-size: 1.25rem;
+  transition: 0.25s all;
+  &:hover {
+    background: ${(props) => COLOR_DANGER};
+    opacity: 1;
+  }
+`;
+
+const Edit = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: ${(props) => (props.show ? "25px" : "-100px")};
+  padding: 0.5rem 0.5rem;
+  font-size: 1rem;
+  background: rgba(0, 0, 0, 0.25);
+  opacity: 0.5;
+  overflow: hidden;
+  font-size: 1.25rem;
+  transition: 0.25s all;
+  &:hover {
+    background: ${(props) => COLOR_BUTTON_PRIMARY};
+    opacity: 1;
+  }
+`;
 
 const Atom = styled.div`
   display: flex;
@@ -259,4 +399,5 @@ const MainContainer = styled.div`
   background: linear-gradient(0deg, #17181a 0%, #1f2022 90%);
   margin-bottom: 2rem;
   position: relative;
+  overflow: hidden;
 `;

@@ -67,6 +67,17 @@ export default function CreateNewAchievement({
   const router = useRouter();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (!loading) {
+      setName(achievementToEdit?.name ?? "");
+      setImage(achievementToEdit?.image ?? "");
+      setDescription(achievementToEdit?.description ?? "");
+      setPercentage(achievementToEdit?.percentage ?? "");
+      setCategories(achievementToEdit?.categories ?? [STORY]);
+      setType(achievementToEdit?.type ?? COPPER);
+    }
+  }, [loading]);
+
   const updateAchievement = () => {
     dispatch(actionForceRefreshAchievement(false));
     setLoading(true);

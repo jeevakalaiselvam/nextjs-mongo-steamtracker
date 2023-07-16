@@ -160,6 +160,7 @@ const CreateModal = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   background-color: #121315;
+  border-radius: 4px;
 `;
 
 const NoGames = styled.div`
