@@ -183,6 +183,7 @@ const LockedIcon = styled.div`
   min-width: 50px;
   min-height: 50px;
   align-items: center;
+  border-radius: 8px;
   justify-content: center;
   background: ${(props) => `url(${props.src})`};
   background-size: cover;
@@ -195,6 +196,7 @@ const Icon = styled.div`
   display: flex;
   min-width: 50px;
   min-height: 50px;
+  border-radius: 8px;
   align-items: center;
   justify-content: center;
   background: ${(props) => `url(${props.src})`};
@@ -253,7 +255,7 @@ const MainContainer = styled.div`
   padding: 1rem 2rem;
   border-radius: 8px;
   flex-direction: column;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
   background: linear-gradient(0deg, #17181a 0%, #1f2022 90%);
   margin-bottom: 1rem;
   position: relative;
