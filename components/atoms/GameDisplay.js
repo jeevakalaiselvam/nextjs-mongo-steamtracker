@@ -35,6 +35,8 @@ import {
   ICON_XBOX,
   getIcon,
   getIconForPlatform,
+  getImage,
+  IMAGE_PLATINUM,
 } from "../../helper/iconHelper";
 import {
   BLIZZARD,
@@ -315,7 +317,6 @@ export default function GameDisplay({ game }) {
               `${daysDifference} days - ${hoursDifference} hours - ${minutesDifference} minutes`}
           </Before>
         )}
-        {isPlatinumCompleted && <Before>PLATINUM</Before>}
         <Name
           onClick={() => {
             router.push(`/games/${_id}`);
@@ -353,7 +354,9 @@ export default function GameDisplay({ game }) {
           </Count>
         </TrophyCount>
         {isPlatinumCompleted && (
-          <PlatinumCompletion>{getIcon(ICON_TROPHY)}</PlatinumCompletion>
+          <PlatinumCompletion>
+            {getImage(IMAGE_PLATINUM, "40px")}
+          </PlatinumCompletion>
         )}
       </Overlay>
     </Container>
@@ -400,10 +403,9 @@ const DaysTargetContainer = styled.div`
 const PlatinumCompletion = styled.div`
   display: flex;
   position: absolute;
-  top: 45%;
-  font-size: 5rem;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  right: 1rem;
+  top: 1rem;
+  font-size: 2rem;
   align-items: center;
   justify-content: center;
   color: ${COLOR_PLATINUM};

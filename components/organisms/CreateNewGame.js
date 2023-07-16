@@ -213,7 +213,8 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 380px;
+  width: 90%;
+  transform: translateX(10px);
   height: 150px;
   background-repeat: no-repeat;
   background-size: contain;

@@ -18,6 +18,8 @@ import {
   calculateAllTrophyCountForGames,
   getTrophyCount,
 } from "../../../helper/gameHelper";
+import MobileAchievementDisplayPSUI from "../../../components/mobile/MobileAchievementDisplayPSUI";
+import AchievementDisplayPSUI from "../../../components/atoms/AchievementDisplayPSUI";
 
 export default function GamesPage() {
   const [achievementsLoading, setAchievementsLoading] = useState(false);
@@ -128,7 +130,7 @@ export default function GamesPage() {
                   .sort((ach1, ach2) => ach2.percentage - ach1.percentage)
                   .map((achievement, index) => {
                     return (
-                      <AchievementDisplay
+                      <AchievementDisplayPSUI
                         game={game}
                         achievement={achievement}
                         key={achievement._id}

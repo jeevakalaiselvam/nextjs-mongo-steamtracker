@@ -410,14 +410,23 @@ export const calculateLevelFromXP = (totalXP) => {
   let toNext = 0;
 
   let L0_100 = 60;
-  let L100_200 = 60;
+  let L100_200 = 90;
+  let L200_300 = 450;
+  let L300_400 = 900;
 
   while (remainingXP >= L0_100) {
     if (currentLevel >= 0 && currentLevel < 100) {
       currentLevel++;
       remainingXP = remainingXP - L0_100;
+      console.log(
+        "JEEVA REMAINING XP 0-100 LEVEL UP",
+        remainingXP,
+        currentLevel
+      );
       lastLevel = "0-100";
+      toNext = (remainingXP / L0_100) * 100;
     } else {
+      console.log("JEEVA REMAINING XP 0-100 END", remainingXP, currentLevel);
       toNext = (remainingXP / L0_100) * 100;
       break;
     }
@@ -427,15 +436,46 @@ export const calculateLevelFromXP = (totalXP) => {
     if (currentLevel >= 99 && currentLevel < 200) {
       currentLevel++;
       remainingXP = remainingXP - L100_200;
+      console.log(
+        "JEEVA REMAINING XP 100-200 LEVEL UP",
+        remainingXP,
+        currentLevel
+      );
       lastLevel = "100-200";
-    } else {
       toNext = (remainingXP / L100_200) * 100;
+    } else {
+      console.log("JEEVA REMAINING XP 100-200 END", remainingXP, currentLevel);
+      toNext = (remainingXP / L100_200) * 100;
+      break;
+    }
+  }
+
+  while (remainingXP >= L200_300) {
+    if (currentLevel >= 199 && currentLevel < 300) {
+      currentLevel++;
+      remainingXP = remainingXP - L200_300;
+      lastLevel = "200-300";
+    } else {
+      console.log("JEEVA REMAINING XP 3", remainingXP);
+      toNext = (remainingXP / L200_300) * 100;
+      break;
+    }
+  }
+
+  while (remainingXP >= L300_400) {
+    if (currentLevel >= 299 && currentLevel < 400) {
+      currentLevel++;
+      remainingXP = remainingXP - L20L300_4000_300;
+      lastLevel = "300-400";
+    } else {
+      console.log("JEEVA REMAINING XP 4", remainingXP);
+      toNext = (remainingXP / L300_400) * 100;
       break;
     }
   }
 
   return {
     currentLevel,
-    toNext,
+    toNext: Math.floor(toNext),
   };
 };

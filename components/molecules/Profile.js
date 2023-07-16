@@ -29,7 +29,7 @@ export default function Profile() {
 
   return (
     <Container>
-      <Icon url="https://avatars.cloudflare.steamstatic.com/3984d41a867b9b4eca056cdfcd1134bd591d9100_full.jpg"></Icon>
+      <Icon url="https://i.pinimg.com/736x/1b/4f/be/1b4fbe252793720e0c88cc2b65bcb8c1.jpg"></Icon>
       <Info>
         <Title>NotRealLogan</Title>
         <Level>

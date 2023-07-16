@@ -17,6 +17,8 @@ import {
 import Button from "../../components/atoms/Button";
 import { ALL, getLoader } from "../../helper/constantHelper";
 import GamesMenu from "../../components/atoms/GamesMenu";
+import MobileGameDisplayPSUI from "../../components/mobile/MobileGameDisplayPSUI";
+import GameDisplayPSUI from "../../components/atoms/GameDisplayPSUI";
 
 export default function GamesPage() {
   const [gamesLoading, setGamesLoading] = useState(false);
@@ -72,6 +74,7 @@ export default function GamesPage() {
             </NoGames>
           )}
           <GamesList>
+            {createNewGameModal && <CreateNewGame />}
             {!gamesLoading &&
               games.length != 0 &&
               games
@@ -84,9 +87,8 @@ export default function GamesPage() {
                   }
                 })
                 .map((game, index) => {
-                  return <GameDisplay game={game} key={game._id} />;
+                  return <GameDisplayPSUI game={game} key={game._id} />;
                 })}
-            {createNewGameModal && <CreateNewGame />}
           </GamesList>
         </MainContainer>
       </Overlay>
@@ -137,7 +139,6 @@ const SidebarContainer = styled.div`
 const MainContainer = styled.div`
   flex: 1;
   min-height: 100vh;
-  padding: 1rem 1rem 1rem 1rem;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -149,6 +150,8 @@ const GamesList = styled.div`
   padding: 1rem 1rem 1rem 1rem;
   display: flex;
   flex-wrap: wrap;
+  max-height: 98vh;
+  overflow: scroll;
   align-items: flex-start;
   justify-content: center;
 `;
