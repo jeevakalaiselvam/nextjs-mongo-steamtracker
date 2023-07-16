@@ -218,6 +218,7 @@ const Container = styled.div`
   align-content: center;
   justify-content: flex-start;
   width: 90%;
+  transform: translateX(-5px);
   padding: 0.25rem 1rem;
 `;
 
@@ -226,7 +227,7 @@ const Image = styled.div`
   align-content: center;
   justify-content: center;
   flex-direction: column;
-  border-radius: 1rem;
+  border-radius: 4px;
   width: 30%;
   height: 50px;
   background: ${(props) => `url(${props.src})`};
