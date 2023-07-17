@@ -292,7 +292,7 @@ export default function CreateNewAchievement({
           </CategorySelection>
         </Input>
       </MainContainer>
-      {false && (
+      {true && (
         <SaveContainer>
           <Button
             margin={"0 1rem 0 0"}

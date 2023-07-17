@@ -150,7 +150,7 @@ export default function GamesPage() {
 
 const CreateModal = styled.div`
   width: 800px;
-  height: 260px;
+  height: 290px;
   position: absolute;
   left: 50%;
   z-index: 99999999999;
