@@ -140,7 +140,23 @@ export default function CreateNewAchievement({
 
   return (
     <Container image={image}>
-      <Header>{isEditMode ? "Edit Achievement" : "Add Achievement"}</Header>
+      <Header>
+        {isEditMode ? "Edit Achievement" : "Add Achievement"}
+        <SaveNearTitle>
+          <Button
+            margin={"0 1rem 0 0"}
+            width={"auto"}
+            title={"SAVE"}
+            onClick={() => {
+              if (isEditMode) {
+                updateAchievement();
+              } else {
+                saveAchievement();
+              }
+            }}
+          />
+        </SaveNearTitle>
+      </Header>
       <MainContainer>
         <Input>
           <Label>Name:</Label>
@@ -299,6 +315,7 @@ const Header = styled.div`
   justify-content: flex-start;
   margin-left: 1.8rem;
   padding: 1rem;
+  position: relative;
 `;
 
 const CategorySelection = styled.div`
@@ -349,6 +366,7 @@ const MainContainer = styled.div`
   flex-direction: column;
   padding: 0.5rem 1rem;
   width: 100%;
+  position: relative;
 `;
 
 const SaveContainer = styled.div`
@@ -378,6 +396,15 @@ const Label = styled.div`
   width: 80px;
   justify-content: flex-start;
   opacity: 0.5;
+`;
+
+const SaveNearTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 1rem;
+  left: 12rem;
 `;
 
 const Input = styled.div`
