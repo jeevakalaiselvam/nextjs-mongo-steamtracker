@@ -312,6 +312,5 @@ const SubTitle = styled.div`
   justify-content: flex-start;
   font-size: 1rem;
   opacity: 0.5;
-  opacity: 1;
   margin-top: 0.5rem;
 `;
