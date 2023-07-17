@@ -35,7 +35,6 @@ export default function MobileAchievementDisplayPSUI({
   achievement,
   setLeftSidebarOpen,
 }) {
-  console.log("JEEVA", game);
   const {
     image,
     id,

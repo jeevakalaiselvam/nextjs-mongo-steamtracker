@@ -73,7 +73,7 @@ JSON.stringify(
         .map((i) => i.innerHTML)
         .map((item) => item?.split("<br>")[1].split("\n\t")[0]?.replaceAll('\"',''))[index],
       percentage: $x(
-        "//div[contains(@class,'section-holder')]//table//tbody//tr//td//span[@class='typo-top']"
+        "//div[contains(@class,'section-holder')]//table[@class='zebra']//tbody//tr//td//span[@class='typo-top']"
       ).map((i) => i.innerHTML)[index],
       type: $x("//table[@class='zebra']//tr//td[5]//center/img").map(
         (i) => i.alt

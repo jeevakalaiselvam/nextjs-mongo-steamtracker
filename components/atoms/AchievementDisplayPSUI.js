@@ -41,7 +41,6 @@ export default function AchievementDisplayPSUI({
   useTitleForClick,
   game,
 }) {
-  console.log("JEEVA", game);
   const {
     image,
     id,

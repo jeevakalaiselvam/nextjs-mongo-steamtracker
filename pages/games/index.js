@@ -49,7 +49,6 @@ export default function GamesPage() {
       axios.get("/api/games").then((response) => {
         setGames(response.data.games);
         setGamesLoading(false);
-        console.log("JEEVA - ALL GAMES", { games });
       });
       dispatch(actionForceRefreshGames(false));
     }
