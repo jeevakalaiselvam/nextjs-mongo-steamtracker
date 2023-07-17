@@ -52,7 +52,11 @@ import {
 } from "../../helper/constantHelper";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { actionForceRefreshGames } from "../../store/actions/steam.actions";
+import {
+  actionForceRefreshAchievement,
+  actionForceRefreshGames,
+  actionForceRefreshProfile,
+} from "../../store/actions/steam.actions";
 
 export default function MobileGameDisplayPSUI({ game }) {
   const { image, _id, name, platform, target, targetStart, targetEnd } = game;
@@ -117,6 +121,8 @@ export default function MobileGameDisplayPSUI({ game }) {
   const [updatedHidden, setUpdatedHidden] = useState(game?.hidden ?? false);
   const [updatedTarget, setUpdatedTarget] = useState(target ?? 7);
   const [loading, setLoading] = useState(false);
+  const [confirmClickMarkAll, setConfirmClickMarkAll] = useState(0);
+  const [confirmClickUnmarkAll, setConfirmClickUnmarkAll] = useState(0);
 
   const confirmDelete = () => {
     axios.delete(`/api/deleteGame?id=${_id}`).then((response) => {
@@ -145,6 +151,49 @@ export default function MobileGameDisplayPSUI({ game }) {
         dispatch(actionForceRefreshGames(true));
         router.push("/games");
       });
+  };
+
+  useEffect(() => {
+    if (confirmClickMarkAll >= 3) {
+      const gameId = game?._id;
+      dispatch(actionForceRefreshGames(false));
+      dispatch(actionForceRefreshProfile(false));
+      axios
+        .get(`/api/markAllAchievements?gameId=${gameId}`)
+        .then((response) => {
+          dispatch(actionForceRefreshGames(true));
+          dispatch(actionForceRefreshProfile(true));
+          setConfirmClickMarkAll(0);
+        });
+    }
+  }, [confirmClickMarkAll, game, dispatch, router]);
+
+  useEffect(() => {
+    if (confirmClickUnmarkAll >= 3) {
+      const gameId = game?._id;
+      dispatch(actionForceRefreshGames(false));
+      dispatch(actionForceRefreshProfile(false));
+      axios
+        .get(`/api/unmarkAllAchievements?gameId=${gameId}`)
+        .then((response) => {
+          dispatch(actionForceRefreshGames(true));
+          dispatch(actionForceRefreshProfile(true));
+          setConfirmClickUnmarkAll(0);
+        });
+    }
+  }, [confirmClickUnmarkAll, game, dispatch, router]);
+
+  const markAllAchievements = () => {
+    if (confirmClickMarkAll >= 3) {
+    } else {
+      setConfirmClickMarkAll((count) => count + 1);
+    }
+  };
+  const unmarkAllAchievements = () => {
+    if (confirmClickUnmarkAll >= 3) {
+    } else {
+      setConfirmClickUnmarkAll((count) => count + 1);
+    }
   };
 
   return (
@@ -361,7 +410,13 @@ export default function MobileGameDisplayPSUI({ game }) {
           <TrophiesContainer>
             <Trophies>
               <Trophy>
-                <Icon>{getImage(IMAGE_PLATINUM, "30px")}</Icon>
+                <Icon
+                  onClick={() => {
+                    markAllAchievements();
+                  }}
+                >
+                  {getImage(IMAGE_PLATINUM, "30px")}
+                </Icon>
                 <Count>{platinumCompleted}</Count>
               </Trophy>
               <Trophy>
@@ -373,7 +428,13 @@ export default function MobileGameDisplayPSUI({ game }) {
                 <Count>{silverCompleted}</Count>
               </Trophy>
               <Trophy>
-                <Icon>{getImage(IMAGE_BRONZE, "30px")}</Icon>
+                <Icon
+                  onClick={() => {
+                    unmarkAllAchievements();
+                  }}
+                >
+                  {getImage(IMAGE_BRONZE, "30px")}
+                </Icon>
                 <Count>{bronzeCompleted}</Count>
               </Trophy>
             </Trophies>
@@ -410,6 +471,7 @@ const CompletionLine = styled.div`
   justify-content: flex-start;
   width: ${(props) => props.width ?? "0%"};
   background-color: #fefefe;
+  opacity: 0.8;
   height: 2px;
   border-radius: 4px;
 `;
@@ -497,6 +559,7 @@ const Container = styled.div`
   width: 90%;
   padding: 0.5rem 1rem;
   position: relative;
+  margin-bottom: 2rem;
   overflow: hidden;
 `;
 

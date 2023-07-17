@@ -163,7 +163,8 @@ export default function AchievementDisplayPSUI({
           <Desc>
             {description
               ?.replace("(Campaign only).", "")
-              ?.replace("&nbsp;", " ")}
+              ?.replace("&nbsp;", " ")
+              ?.replace("&amp;", " & ")}
           </Desc>
           <Others>
             <TrophyType onClick={() => setMouseEnter(!mouseEnter)}>

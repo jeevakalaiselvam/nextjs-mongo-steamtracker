@@ -85,6 +85,8 @@ const GamesContainer = styled.div`
   justify-content: flex-start;
   min-width: 100vw;
   min-height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
 `;
 
 const Header = styled.div`
@@ -104,7 +106,8 @@ const Content = styled.div`
   min-height: 91vh;
   max-height: 91vh;
   justify-content: flex-start;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 `;
 
 const OptionContainer = styled.div`
