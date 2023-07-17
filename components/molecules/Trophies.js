@@ -183,8 +183,7 @@ const Trophy = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 0.5rem 1rem;
-  margin-right: 0rem;
+  padding: 0.5rem 0.25rem;
 `;
 
 const Icon = styled.div`

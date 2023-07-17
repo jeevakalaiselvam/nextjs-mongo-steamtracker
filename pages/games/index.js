@@ -168,7 +168,7 @@ const Overlay = styled.div`
 `;
 
 const SidebarContainer = styled.div`
-  min-width: 200px;
+  min-width: 250px;
   min-height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
