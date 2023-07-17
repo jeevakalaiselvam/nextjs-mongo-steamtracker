@@ -200,6 +200,7 @@ const SidebarContainer = styled.div`
   display: flex;
   align-items: center;
   min-height: 100vh;
+  max-height: 100vh;
   justify-content: flex-start;
   flex-direction: column;
   z-index: 101;
