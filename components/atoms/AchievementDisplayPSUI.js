@@ -160,7 +160,11 @@ export default function AchievementDisplayPSUI({
         </IconContainer>
         <Content>
           <Title>{name}</Title>
-          <Desc>{description?.replace("(Campaign only)", "")}</Desc>
+          <Desc>
+            {description
+              ?.replace("(Campaign only).", "")
+              ?.replace("&nbsp;", " ")}
+          </Desc>
           <Others>
             <TrophyType onClick={() => setMouseEnter(!mouseEnter)}>
               {getTrophyImage(type, "25px")}
