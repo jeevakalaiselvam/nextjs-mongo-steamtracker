@@ -62,7 +62,7 @@ const Image = styled.div`
   align-items: center;
   justify-content: center;
   width: 100px;
-  margin-right: 0.5rem;
+  margin-right: 1.5rem;
   height: 40px;
   background: ${(props) => `url(${props.src})`};
   background-repeat: no-repeat;
@@ -82,7 +82,7 @@ const ProfileImage = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: -15px;
+  top: -30px;
   z-index: 1000;
   left: 25px;
 `;
