@@ -47,7 +47,6 @@ export default function AchievementDisplayPSUI({
     id,
     name,
     description,
-    gameId,
     type,
     percentage,
     categories,
@@ -65,11 +64,11 @@ export default function AchievementDisplayPSUI({
     dispatch(actionForceRefreshAchievement(false));
     dispatch(actionForceRefreshProfile(false));
     axios
-      .delete(`/api/deleteAchievement?gameId=${gameId}&achievementId=${id}`)
+      .delete(`/api/deleteAchievement?gameId=${game?._id}&achievementId=${id}`)
       .then((response) => {
         dispatch(actionForceRefreshAchievement(true));
         dispatch(actionForceRefreshProfile(true));
-        router.push(`/games/${gameId}`);
+        router.push(`/games/${game?._id}`);
       });
   };
 
@@ -78,15 +77,18 @@ export default function AchievementDisplayPSUI({
     dispatch(actionForceRefreshAchievement(false));
     dispatch(actionForceRefreshProfile(false));
     axios
-      .post(`/api/completeAchievement?gameId=${gameId}&achievementId=${id}`, {
-        achieved: shouldCompleteOrNot,
-        unlockTime: shouldCompleteOrNot ? moment.now() : "",
-      })
+      .post(
+        `/api/completeAchievement?gameId=${game?._id}&achievementId=${id}`,
+        {
+          achieved: shouldCompleteOrNot,
+          unlockTime: shouldCompleteOrNot ? moment.now() : "",
+        }
+      )
       .then((response) => {
         setMarking(false);
         dispatch(actionForceRefreshAchievement(true));
         dispatch(actionForceRefreshProfile(true));
-        router.push(`/games/${gameId}`);
+        router.push(`/games/${game?._id}`);
       });
   };
 
@@ -158,7 +160,7 @@ export default function AchievementDisplayPSUI({
         </IconContainer>
         <Content>
           <Title>{name}</Title>
-          <Desc>{description}</Desc>
+          <Desc>{description?.replace("(Campaign only)", "")}</Desc>
           <Others>
             <TrophyType onClick={() => setMouseEnter(!mouseEnter)}>
               {getTrophyImage(type, "25px")}

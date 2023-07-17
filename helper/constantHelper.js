@@ -11,11 +11,11 @@ export const HARD = "HARD";
 export const SIDEQUEST = "SIDE QUEST";
 
 export const ALL = "ALL";
-export const PLATINUM = "PLATINUM";
-export const GOLD = "GOLD";
-export const SILVER = "SILVER";
-export const COPPER = "COPPER";
-export const BRONZE = "COPPER";
+export const PLATINUM = "Platinum";
+export const GOLD = "Gold";
+export const SILVER = "Silver";
+export const COPPER = "Bronze";
+export const BRONZE = "Bronze";
 
 export const PLAYSTATION = "PLAYSTATION";
 export const XBOX = "XBOX";

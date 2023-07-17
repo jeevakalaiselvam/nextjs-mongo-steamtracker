@@ -127,7 +127,11 @@ export default function GamesPage() {
                       return true;
                     }
                   })
-                  .sort((ach1, ach2) => ach2.percentage - ach1.percentage)
+                  .sort(
+                    (ach1, ach2) =>
+                      Number(ach2.percentage?.replace("%", "")) -
+                      Number(ach1.percentage?.replace("%", ""))
+                  )
                   .map((achievement, index) => {
                     return (
                       <AchievementDisplayPSUI

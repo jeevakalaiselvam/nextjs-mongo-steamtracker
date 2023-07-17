@@ -49,6 +49,7 @@ export default function GamesPage() {
       axios.get("/api/games").then((response) => {
         setGames(response.data.games);
         setGamesLoading(false);
+        console.log("JEEVA - ALL GAMES", { games });
       });
       dispatch(actionForceRefreshGames(false));
     }
@@ -193,6 +194,7 @@ const GamesList = styled.div`
   display: flex;
   flex-wrap: wrap;
   max-height: 98vh;
+  width: 100%;
   overflow: scroll;
   align-items: flex-start;
   justify-content: center;

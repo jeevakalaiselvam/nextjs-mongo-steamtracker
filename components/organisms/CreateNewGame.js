@@ -49,6 +49,7 @@ export default function CreateNewGame() {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [platform, setPlatform] = useState("");
+  const [uploadJSON, setUploadJSON] = useState("[]");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ export default function CreateNewGame() {
     setLoading(true);
     axios
       .post("/api/createGame", {
-        game: { name, image },
+        game: { name, image, achievements: JSON.parse(uploadJSON) },
       })
       .then((response) => {
         setLoading(false);
@@ -83,6 +84,14 @@ export default function CreateNewGame() {
             type="text"
             value={image}
             onChange={(e) => setImage(e.target.value)}
+          />
+        </Input>
+        <Input>
+          <Label>JSON:</Label>
+          <input
+            type="text"
+            value={uploadJSON}
+            onChange={(e) => setUploadJSON(e.target.value)}
           />
         </Input>
         <Input>
@@ -215,7 +224,7 @@ const Container = styled.div`
   justify-content: center;
   width: 90%;
   transform: translateX(10px);
-  height: 150px;
+  height: 200px;
   background-repeat: no-repeat;
   background-size: contain;
   margin: 1rem;
@@ -229,7 +238,7 @@ const Overlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background: rgba(0, 0, 0, 0.5);
+  background-color: #222222;
   font-size: 1rem;
   width: 100%;
   height: 100%;

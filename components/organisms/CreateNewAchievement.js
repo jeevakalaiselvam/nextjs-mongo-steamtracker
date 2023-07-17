@@ -401,7 +401,7 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   font-size: 1.3rem;
-  background-color: #121315;
+  background-color: #222222;
 `;
 
 const Label = styled.div`

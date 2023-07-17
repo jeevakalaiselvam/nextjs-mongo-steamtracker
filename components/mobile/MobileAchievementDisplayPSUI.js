@@ -41,7 +41,6 @@ export default function MobileAchievementDisplayPSUI({
     id,
     name,
     description,
-    gameId,
     type,
     percentage,
     categories,
@@ -58,15 +57,18 @@ export default function MobileAchievementDisplayPSUI({
     dispatch(actionForceRefreshAchievement(false));
     dispatch(actionForceRefreshProfile(false));
     axios
-      .post(`/api/completeAchievement?gameId=${gameId}&achievementId=${id}`, {
-        achieved: shouldCompleteOrNot,
-        unlockTime: shouldCompleteOrNot ? moment.now() : "",
-      })
+      .post(
+        `/api/completeAchievement?gameId=${game?._id}&achievementId=${id}`,
+        {
+          achieved: shouldCompleteOrNot,
+          unlockTime: shouldCompleteOrNot ? moment.now() : "",
+        }
+      )
       .then((response) => {
         setMarking(false);
         dispatch(actionForceRefreshAchievement(true));
         dispatch(actionForceRefreshProfile(true));
-        router.push(`/mobile/games/${gameId}`);
+        router.push(`/mobile/games/${game?._id}`);
       });
   };
 
