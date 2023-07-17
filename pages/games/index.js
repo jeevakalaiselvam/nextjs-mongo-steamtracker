@@ -19,6 +19,7 @@ import { ALL, getLoader } from "../../helper/constantHelper";
 import GamesMenu from "../../components/atoms/GamesMenu";
 import MobileGameDisplayPSUI from "../../components/mobile/MobileGameDisplayPSUI";
 import GameDisplayPSUI from "../../components/atoms/GameDisplayPSUI";
+import { getUnCompletedGames } from "../../helper/gameHelper";
 
 export default function GamesPage() {
   const [gamesLoading, setGamesLoading] = useState(false);
@@ -57,6 +58,12 @@ export default function GamesPage() {
     return (game2?.lastPlayed ?? 0) - (game1?.lastPlayed ?? 0);
   })[0];
 
+  let notCompleted = getUnCompletedGames(
+    games?.filter((game) => game.name !== latestPlayedGame.name)
+  );
+
+  let unCompletedNames = notCompleted?.map((unCompleted) => unCompleted?.name);
+
   let gamesSortedByName = games
     ?.sort((game1, game2) => {
       if (game1.name < game2.name) {
@@ -67,9 +74,17 @@ export default function GamesPage() {
       }
       return 0;
     })
-    .filter((game) => game.name !== latestPlayedGame?.name);
+    .filter(
+      (game) =>
+        game.name !== latestPlayedGame?.name &&
+        !unCompletedNames?.includes(game?.name)
+    );
 
-  let gamesListToShow = [latestPlayedGame, ...gamesSortedByName];
+  let gamesListToShow = [
+    latestPlayedGame,
+    ...notCompleted,
+    ...gamesSortedByName,
+  ];
 
   return (
     <Container image={HEADER_IMAGE(themeId ?? "130130")}>

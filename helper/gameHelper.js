@@ -522,3 +522,20 @@ export const calculateLevelFromXP = (totalXP) => {
     xpForNext: xpForNext,
   };
 };
+
+export const getUnCompletedGames = (games) => {
+  let uncompletedGames = [];
+  games?.forEach((game) => {
+    let gameCompleted = true;
+    game?.achievements?.forEach((achievement) => {
+      if (!achievement.achieved) {
+        gameCompleted = false;
+      }
+    });
+    if (!gameCompleted) {
+      uncompletedGames.push(game);
+    }
+  });
+
+  return uncompletedGames;
+};

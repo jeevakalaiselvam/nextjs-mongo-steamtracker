@@ -8,6 +8,7 @@ import {
   calculateAllTrophyCountForGames,
   calculateLevelForGame,
   calculateLevelFromXP,
+  getUnCompletedGames,
 } from "../../../helper/gameHelper";
 import MobileGameDisplay from "../../../components/mobile/MobileGameDisplay";
 import {
@@ -200,6 +201,12 @@ export default function Games() {
     return (game2?.lastPlayed ?? 0) - (game1?.lastPlayed ?? 0);
   })[0];
 
+  let notCompleted = getUnCompletedGames(
+    games?.filter((game) => game.name !== latestPlayedGame.name)
+  );
+
+  let unCompletedNames = notCompleted?.map((unCompleted) => unCompleted?.name);
+
   let gamesSortedByName = games
     ?.sort((game1, game2) => {
       if (game1.name < game2.name) {
@@ -210,9 +217,17 @@ export default function Games() {
       }
       return 0;
     })
-    .filter((game) => game.name !== latestPlayedGame?.name);
+    .filter(
+      (game) =>
+        game.name !== latestPlayedGame?.name &&
+        !unCompletedNames?.includes(game?.name)
+    );
 
-  let gamesListToShow = [latestPlayedGame, ...gamesSortedByName];
+  let gamesListToShow = [
+    latestPlayedGame,
+    ...notCompleted,
+    ...gamesSortedByName,
+  ];
 
   return (
     <Container image={HEADER_IMAGE(themeId ?? "130130")}>
