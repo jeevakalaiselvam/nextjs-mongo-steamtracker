@@ -307,6 +307,7 @@ const Top = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  transform: translateX(-6px);
   justify-content: center;
 `;
 
@@ -364,6 +365,8 @@ const GamesHeader = styled.div`
   align-items: center;
   padding: 1rem;
   width: 100%;
+  transform: translateX(-7px);
   margin-left: 4rem;
+  margin-bottom: 2rem;
   justify-content: flex-start;
 `;

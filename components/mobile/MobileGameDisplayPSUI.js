@@ -107,7 +107,7 @@ export default function MobileGameDisplayPSUI({ game }) {
           </TrophiesContainer>
           {completion < 100 && <Completion>{completion} %</Completion>}
           {completion == 100 && (
-            <Platinum>{getImage(IMAGE_PLATINUM, "55px")}</Platinum>
+            <Platinum>{getImage(IMAGE_PLATINUM, "50px")}</Platinum>
           )}
         </TrophyAndCompletion>
         <CompletionOuter>
@@ -231,9 +231,9 @@ const Image = styled.div`
   align-content: center;
   justify-content: center;
   flex-direction: column;
-  border-radius: 4px;
+  border-radius: 2px;
   width: 30%;
-  height: 50px;
+  height: 40px;
   background: ${(props) => `url(${props.src})`};
   background-size: cover;
   background-repeat: no-repeat;

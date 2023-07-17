@@ -171,117 +171,119 @@ export default function GameMenu({ mobile, game }) {
           }}
         />
       </Link>
-      <SubTitle>Platforms</SubTitle>
-      <>
-        <Link>
-          <Button
-            height={height}
-            icon={getIcon(ICON_GAMES)}
-            fontSize={fontSize}
-            title="Show All"
-            active={gamesFilter == ALL}
-            onClick={() => {
-              dispatch(actionGamesFilter(ALL));
-            }}
-          />
-        </Link>
-        <Link>
-          <Button
-            height={height}
-            icon={getIcon(ICON_STEAM)}
-            fontSize={fontSize}
-            title="Steam"
-            active={gamesFilter == STEAM}
-            onClick={() => {
-              dispatch(actionGamesFilter(STEAM));
-            }}
-          />
-        </Link>
-        <Link>
-          <Button
-            height={height}
-            icon={getIcon(ICON_PLAYSTATION)}
-            fontSize={fontSize}
-            title="Playstation"
-            active={gamesFilter == PLAYSTATION}
-            onClick={() => {
-              dispatch(actionGamesFilter(PLAYSTATION));
-            }}
-          />
-        </Link>
-        <Link>
-          <Button
-            height={height}
-            icon={getIcon(ICON_XBOX)}
-            fontSize={fontSize}
-            title="Xbox"
-            active={gamesFilter == XBOX}
-            onClick={() => {
-              dispatch(actionGamesFilter(XBOX));
-            }}
-          />
-        </Link>
-        <Link>
-          <Button
-            height={height}
-            icon={getIcon(ICON_UPLAY)}
-            fontSize={fontSize}
-            title="Uplay"
-            active={gamesFilter == UPLAY}
-            onClick={() => {
-              dispatch(actionGamesFilter(UPLAY));
-            }}
-          />
-        </Link>
-        <Link>
-          <Button
-            height={height}
-            icon={getIcon(ICON_GOG)}
-            fontSize={fontSize}
-            title="Gog"
-            active={gamesFilter == GOG}
-            onClick={() => {
-              dispatch(actionGamesFilter(GOG));
-            }}
-          />
-        </Link>
-        <Link>
-          <Button
-            height={height}
-            icon={getIcon(ICON_ORIGIN)}
-            fontSize={fontSize}
-            title="Origin"
-            active={gamesFilter == ORIGIN}
-            onClick={() => {
-              dispatch(actionGamesFilter(ORIGIN));
-            }}
-          />
-        </Link>
-        <Link>
-          <Button
-            height={height}
-            icon={getIcon(ICON_EPIC)}
-            fontSize={fontSize}
-            title="Epic Games"
-            active={gamesFilter == EPIC}
-            onClick={() => {
-              dispatch(actionGamesFilter(EPIC));
-            }}
-          />
-        </Link>
-        <Link>
-          <Button
-            height={height}
-            icon={getIcon(ICON_BLIZZARD)}
-            fontSize={fontSize}
-            title="Blizzard"
-            active={gamesFilter == BLIZZARD}
-            onClick={() => {
-              dispatch(actionGamesFilter(BLIZZARD));
-            }}
-          />
-        </Link>
-      </>
+      {false && <SubTitle>Platforms</SubTitle>}
+      {false && (
+        <>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_GAMES)}
+              fontSize={fontSize}
+              title="Show All"
+              active={gamesFilter == ALL}
+              onClick={() => {
+                dispatch(actionGamesFilter(ALL));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_STEAM)}
+              fontSize={fontSize}
+              title="Steam"
+              active={gamesFilter == STEAM}
+              onClick={() => {
+                dispatch(actionGamesFilter(STEAM));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_PLAYSTATION)}
+              fontSize={fontSize}
+              title="Playstation"
+              active={gamesFilter == PLAYSTATION}
+              onClick={() => {
+                dispatch(actionGamesFilter(PLAYSTATION));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_XBOX)}
+              fontSize={fontSize}
+              title="Xbox"
+              active={gamesFilter == XBOX}
+              onClick={() => {
+                dispatch(actionGamesFilter(XBOX));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_UPLAY)}
+              fontSize={fontSize}
+              title="Uplay"
+              active={gamesFilter == UPLAY}
+              onClick={() => {
+                dispatch(actionGamesFilter(UPLAY));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_GOG)}
+              fontSize={fontSize}
+              title="Gog"
+              active={gamesFilter == GOG}
+              onClick={() => {
+                dispatch(actionGamesFilter(GOG));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_ORIGIN)}
+              fontSize={fontSize}
+              title="Origin"
+              active={gamesFilter == ORIGIN}
+              onClick={() => {
+                dispatch(actionGamesFilter(ORIGIN));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_EPIC)}
+              fontSize={fontSize}
+              title="Epic Games"
+              active={gamesFilter == EPIC}
+              onClick={() => {
+                dispatch(actionGamesFilter(EPIC));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_BLIZZARD)}
+              fontSize={fontSize}
+              title="Blizzard"
+              active={gamesFilter == BLIZZARD}
+              onClick={() => {
+                dispatch(actionGamesFilter(BLIZZARD));
+              }}
+            />
+          </Link>
+        </>
+      )}
     </Container>
   );
 }

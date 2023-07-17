@@ -1,12 +1,33 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { COLOR_PLATINUM, getColorForPlatform } from "../../helper/colorHelper";
 import {
+  COLOR_BLIZZARD,
+  COLOR_BUTTON_PRIMARY,
+  COLOR_EPIC,
+  COLOR_GOG,
+  COLOR_GREY,
+  COLOR_ORIGIN,
+  COLOR_PLATINUM,
+  COLOR_PLAYSTATION,
+  COLOR_STEAM,
+  COLOR_UPLAY,
+  COLOR_XBOX,
+  getColorForPlatform,
+} from "../../helper/colorHelper";
+import {
+  ICON_BLIZZARD,
   ICON_DELETE,
   ICON_EDIT,
+  ICON_EPIC,
+  ICON_GOG,
+  ICON_ORIGIN,
+  ICON_PLAYSTATION,
   ICON_RIGHT,
+  ICON_STEAM,
   ICON_TROPHY,
+  ICON_UPLAY,
+  ICON_XBOX,
   IMAGE_BRONZE,
   IMAGE_GOLD,
   IMAGE_PLATINUM,
@@ -19,10 +40,24 @@ import moment from "moment";
 import CirclePercentage from "../atoms/CirclePercentage";
 import { getAllStatsForGame } from "../../helper/gameHelper";
 import Button from "./Button";
+import {
+  BLIZZARD,
+  EPIC,
+  GOG,
+  ORIGIN,
+  PLAYSTATION,
+  STEAM,
+  UPLAY,
+  XBOX,
+} from "../../helper/constantHelper";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { actionForceRefreshGames } from "../../store/actions/steam.actions";
 
 export default function MobileGameDisplayPSUI({ game }) {
   const { image, _id, name, platform, target, targetStart, targetEnd } = game;
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const isPlatinumCompleted =
     game?.achievements &&
@@ -113,11 +148,7 @@ export default function MobileGameDisplayPSUI({ game }) {
   };
 
   return (
-    <Container
-      onClick={() => {
-        router.push(`/games/${_id}`);
-      }}
-    >
+    <Container>
       {editModeActive && (
         <EditMode>
           <EditContainer image={image}>
@@ -291,19 +322,27 @@ export default function MobileGameDisplayPSUI({ game }) {
           </No>
         </Confirm>
       )}
-      <Image alt="" src={image}>
+      <Image
+        alt=""
+        src={image}
+        onClick={() => {
+          router.push(`/games/${_id}`);
+        }}
+      >
         <Edit
           show={mouseEnter}
-          onClick={() => {
+          onClick={(e) => {
             setEditModeActive(true);
+            e.stopPropagation();
           }}
         >
           {getIcon(ICON_EDIT)}
         </Edit>
         <Delete
           show={mouseEnter}
-          onClick={() => {
+          onClick={(e) => {
             setShowConfirm(true);
+            e.stopPropagation();
           }}
         >
           {getIcon(ICON_DELETE)}
@@ -432,7 +471,7 @@ const Trophy = styled.div`
 const Count = styled.div`
   display: flex;
   align-items: center;
-  font-size: 1rem;
+  font-size: 1.25rem;
   opacity: 0.5;
   justify-content: center;
 `;
@@ -456,7 +495,7 @@ const Container = styled.div`
   align-content: center;
   justify-content: flex-start;
   width: 90%;
-  padding: 0.25rem 1rem;
+  padding: 0.5rem 1rem;
   position: relative;
   overflow: hidden;
 `;
@@ -595,7 +634,6 @@ const Confirm = styled.div`
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
 `;
 
 const Info = styled.div`
@@ -634,7 +672,6 @@ const Edit = styled.div`
   justify-content: center;
   transition: 0.25s all;
   background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
 
   &:hover {
     color: #2298f8;
@@ -651,7 +688,6 @@ const Delete = styled.div`
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
   transition: 0.25s all;
   &:hover {
     color: #ec4134;
@@ -673,12 +709,13 @@ const EditMode = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
+  border-radius: 4px;
   height: 100%;
   z-index: 100;
+  background-color: #121315;
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(10px);
 `;
 
 const EditContainer = styled.div`
@@ -723,7 +760,6 @@ const EditOverlay = styled.div`
   width: 100%;
   height: 100%;
   justify-content: flex-start;
-  background: rgba(0, 0, 0, 0.5);
   position: relative;
   flex-direction: column;
   font-size: 1rem;

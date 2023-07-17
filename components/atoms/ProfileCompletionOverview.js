@@ -57,7 +57,6 @@ const TrophiesOverview = styled.div`
   width: 100%;
   padding: 1rem 1rem;
   align-items: center;
-  transform: translateX(-2px);
   justify-content: center;
 `;
 
