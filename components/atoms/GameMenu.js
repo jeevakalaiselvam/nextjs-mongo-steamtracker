@@ -252,117 +252,119 @@ export default function GameMenu({ mobile, game }) {
           }}
         />
       </Link>
-      <SubTitle>Filter</SubTitle>
-      <>
-        <Link>
-          <Button
-            height={height}
-            icon={getIcon(ICON_CATEGORY)}
-            fontSize={fontSize}
-            title={`ALL - ${all}`}
-            active={achievementFilterCategory == ALL}
-            onClick={() => {
-              dispatch(actionAchievementFilterCategory(ALL));
-            }}
-          />
-        </Link>
-        <Link>
-          <Button
-            height={height}
-            icon={getIcon(ICON_CATEGORY)}
-            fontSize={fontSize}
-            title={`EASY - ${easy}`}
-            active={achievementFilterCategory == EASY}
-            onClick={() => {
-              dispatch(actionAchievementFilterCategory(EASY));
-            }}
-          />
-        </Link>
-        <Link>
-          <Button
-            height={height}
-            icon={getIcon(ICON_CATEGORY)}
-            fontSize={fontSize}
-            title={`SIDE QUEST - ${side}`}
-            active={achievementFilterCategory == SIDEQUEST}
-            onClick={() => {
-              dispatch(actionAchievementFilterCategory(SIDEQUEST));
-            }}
-          />
-        </Link>
-        <Link>
-          <Button
-            height={height}
-            icon={getIcon(ICON_CATEGORY)}
-            fontSize={fontSize}
-            title={`MISSABLE - ${missable}`}
-            active={achievementFilterCategory == MISSABLE}
-            onClick={() => {
-              dispatch(actionAchievementFilterCategory(MISSABLE));
-            }}
-          />
-        </Link>
-        <Link>
-          <Button
-            height={height}
-            icon={getIcon(ICON_CATEGORY)}
-            fontSize={fontSize}
-            title={`COLLECTIBLE - ${collectible}`}
-            active={achievementFilterCategory == COLLECTIBLE}
-            onClick={() => {
-              dispatch(actionAchievementFilterCategory(COLLECTIBLE));
-            }}
-          />
-        </Link>
-        <Link>
-          <Button
-            height={height}
-            icon={getIcon(ICON_CATEGORY)}
-            fontSize={fontSize}
-            title={`GRIND - ${grind}`}
-            active={achievementFilterCategory == GRIND}
-            onClick={() => {
-              dispatch(actionAchievementFilterCategory(GRIND));
-            }}
-          />
-        </Link>
-        <Link>
-          <Button
-            height={height}
-            icon={getIcon(ICON_CATEGORY)}
-            fontSize={fontSize}
-            title={`HARD - ${hard}`}
-            active={achievementFilterCategory == HARD}
-            onClick={() => {
-              dispatch(actionAchievementFilterCategory(HARD));
-            }}
-          />
-        </Link>
-        <Link>
-          <Button
-            height={height}
-            icon={getIcon(ICON_CATEGORY)}
-            fontSize={fontSize}
-            title={`REPLAY - ${replay}`}
-            active={achievementFilterCategory == REPLAY}
-            onClick={() => {
-              dispatch(actionAchievementFilterCategory(REPLAY));
-            }}
-          />
-        </Link>
-        <Link>
-          <Button
-            height={height}
-            icon={getIcon(ICON_CATEGORY)}
-            fontSize={fontSize}
-            title={`ONLINE - ${online}`}
-            active={achievementFilterCategory == ONLINE}
-            onClick={() => {
-              dispatch(actionAchievementFilterCategory(ONLINE));
-            }}
-          />
-        </Link>
-      </>
+      {false && <SubTitle>Filter</SubTitle>}
+      {false && (
+        <>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_CATEGORY)}
+              fontSize={fontSize}
+              title={`ALL - ${all}`}
+              active={achievementFilterCategory == ALL}
+              onClick={() => {
+                dispatch(actionAchievementFilterCategory(ALL));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_CATEGORY)}
+              fontSize={fontSize}
+              title={`EASY - ${easy}`}
+              active={achievementFilterCategory == EASY}
+              onClick={() => {
+                dispatch(actionAchievementFilterCategory(EASY));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_CATEGORY)}
+              fontSize={fontSize}
+              title={`SIDE QUEST - ${side}`}
+              active={achievementFilterCategory == SIDEQUEST}
+              onClick={() => {
+                dispatch(actionAchievementFilterCategory(SIDEQUEST));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_CATEGORY)}
+              fontSize={fontSize}
+              title={`MISSABLE - ${missable}`}
+              active={achievementFilterCategory == MISSABLE}
+              onClick={() => {
+                dispatch(actionAchievementFilterCategory(MISSABLE));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_CATEGORY)}
+              fontSize={fontSize}
+              title={`COLLECTIBLE - ${collectible}`}
+              active={achievementFilterCategory == COLLECTIBLE}
+              onClick={() => {
+                dispatch(actionAchievementFilterCategory(COLLECTIBLE));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_CATEGORY)}
+              fontSize={fontSize}
+              title={`GRIND - ${grind}`}
+              active={achievementFilterCategory == GRIND}
+              onClick={() => {
+                dispatch(actionAchievementFilterCategory(GRIND));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_CATEGORY)}
+              fontSize={fontSize}
+              title={`HARD - ${hard}`}
+              active={achievementFilterCategory == HARD}
+              onClick={() => {
+                dispatch(actionAchievementFilterCategory(HARD));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_CATEGORY)}
+              fontSize={fontSize}
+              title={`REPLAY - ${replay}`}
+              active={achievementFilterCategory == REPLAY}
+              onClick={() => {
+                dispatch(actionAchievementFilterCategory(REPLAY));
+              }}
+            />
+          </Link>
+          <Link>
+            <Button
+              height={height}
+              icon={getIcon(ICON_CATEGORY)}
+              fontSize={fontSize}
+              title={`ONLINE - ${online}`}
+              active={achievementFilterCategory == ONLINE}
+              onClick={() => {
+                dispatch(actionAchievementFilterCategory(ONLINE));
+              }}
+            />
+          </Link>
+        </>
+      )}
     </Container>
   );
 }
