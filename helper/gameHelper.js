@@ -408,6 +408,7 @@ export const calculateLevelFromXP = (totalXP) => {
   let remainingXP = totalXP;
   let lastLevel = 0;
   let toNext = 0;
+  let xpForNext = 0;
 
   let L0_100 = 60;
   let L100_200 = 90;
@@ -426,9 +427,11 @@ export const calculateLevelFromXP = (totalXP) => {
       );
       lastLevel = "0-100";
       toNext = (remainingXP / L0_100) * 100;
+      xpForNext = L0_100 - remainingXP;
     } else {
       console.log("JEEVA REMAINING XP 0-100 END", remainingXP, currentLevel);
       toNext = (remainingXP / L0_100) * 100;
+      xpForNext = L0_100 - remainingXP;
       break;
     }
   }
@@ -444,9 +447,11 @@ export const calculateLevelFromXP = (totalXP) => {
       );
       lastLevel = "100-200";
       toNext = (remainingXP / L100_200) * 100;
+      xpForNext = L100_200 - remainingXP;
     } else {
       console.log("JEEVA REMAINING XP 100-200 END", remainingXP, currentLevel);
       toNext = (remainingXP / L100_200) * 100;
+      xpForNext = L100_200 - remainingXP;
       break;
     }
   }
@@ -462,9 +467,11 @@ export const calculateLevelFromXP = (totalXP) => {
       );
       lastLevel = "200-300";
       toNext = (remainingXP / L200_300) * 100;
+      xpForNext = L200_300 - remainingXP;
     } else {
       console.log("JEEVA REMAINING XP 200-300 END", remainingXP, currentLevel);
       toNext = (remainingXP / L200_300) * 100;
+      xpForNext = L200_300 - remainingXP;
       break;
     }
   }
@@ -480,9 +487,11 @@ export const calculateLevelFromXP = (totalXP) => {
       );
       lastLevel = "300-400";
       toNext = (remainingXP / L300_400) * 100;
+      xpForNext = L300_400 - remainingXP;
     } else {
       console.log("JEEVA REMAINING XP 300-400 END", remainingXP, currentLevel);
       toNext = (remainingXP / L300_400) * 100;
+      xpForNext = L300_400 - remainingXP;
       break;
     }
   }
@@ -498,9 +507,11 @@ export const calculateLevelFromXP = (totalXP) => {
       );
       lastLevel = "399-500";
       toNext = (remainingXP / L400_500) * 100;
+      xpForNext = L400_500 - remainingXP;
     } else {
       console.log("JEEVA REMAINING XP 399-500 END", remainingXP, currentLevel);
       toNext = (remainingXP / L400_500) * 100;
+      xpForNext = L400_500 - remainingXP;
       break;
     }
   }
@@ -508,5 +519,6 @@ export const calculateLevelFromXP = (totalXP) => {
   return {
     currentLevel,
     toNext: Math.floor(toNext),
+    xpForNext: xpForNext,
   };
 };

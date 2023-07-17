@@ -346,7 +346,9 @@ const Total = styled.div`
 
 const GamesOverview = styled.div`
   display: flex;
-  width: 100%;
+  width: 90%;
+  padding: 1rem;
+  background-color: #1d1d1f;
   align-items: center;
   flex-direction: column;
   justify-content: center;
@@ -367,6 +369,7 @@ const GamesHeader = styled.div`
   width: 100%;
   transform: translateX(-7px);
   margin-left: 4rem;
-  margin-bottom: 2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   justify-content: flex-start;
 `;

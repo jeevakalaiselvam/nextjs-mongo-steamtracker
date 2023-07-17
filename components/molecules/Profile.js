@@ -10,6 +10,7 @@ import { MoonLoader } from "react-spinners";
 import Loading from "../atoms/Loading";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import CirclePercentage from "../atoms/CirclePercentage";
 
 export default function Profile() {
   const [games, setGames] = useState([]);
@@ -39,10 +40,15 @@ export default function Profile() {
     totalGold,
   } = calculateLevelForGame(games);
 
-  const { currentLevel, toNext } = calculateLevelFromXP(totalXP);
+  const { currentLevel, toNext, xpForNext } = calculateLevelFromXP(totalXP);
 
   return (
     <Container>
+      {currentLevel != -1 && (
+        <ToNext>
+          <CirclePercentage percentage={toNext} size={48} textSize={"27px"} />
+        </ToNext>
+      )}
       <Icon url="https://i.pinimg.com/736x/1b/4f/be/1b4fbe252793720e0c88cc2b65bcb8c1.jpg"></Icon>
       <Info>
         <Title>NotRealLogan</Title>
@@ -51,7 +57,6 @@ export default function Profile() {
           {currentLevel != -1 && (
             <Data color={COLOR_GOLD}>Level {currentLevel}</Data>
           )}
-          {currentLevel != -1 && <ToNext>{toNext} more..</ToNext>}
         </Level>
       </Info>
     </Container>
@@ -66,6 +71,7 @@ const Container = styled.div`
   background-color: #121315;
   padding: 0.5rem;
   height: 80px;
+  position: relative;
 `;
 
 const Icon = styled.div`
@@ -94,6 +100,7 @@ const Title = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
+  padding-top: 1rem;
   justify-content: flex-start;
   margin-left: 1rem;
   flex: 1;
@@ -102,7 +109,9 @@ const Title = styled.div`
 const Data = styled.div`
   display: flex;
   align-items: center;
+  flex: 1;
   opacity: 0.5;
+  font-size: 1.3rem;
   justify-content: flex-start;
 `;
 
@@ -111,6 +120,9 @@ const ToNext = styled.div`
   align-items: center;
   justify-content: flex-start;
   opacity: 0.3;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
   margin-top: 0.25rem;
   margin-left: 0.25rem;
   font-size: 1.2rem;

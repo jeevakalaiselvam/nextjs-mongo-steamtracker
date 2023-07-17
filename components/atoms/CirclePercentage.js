@@ -19,10 +19,10 @@ const Text = styled.div`
   color: #fefefe;
 `;
 
-export default function CirclePercentage({ percentage }) {
+export default function CirclePercentage({ percentage, size, textSize }) {
   return (
     <Container>
-      <div style={{ width: 75, height: 75 }}>
+      <div style={{ width: size ?? 75, height: size ?? 75 }}>
         <CircularProgressbar
           strokeWidth={3}
           value={percentage}
@@ -31,6 +31,7 @@ export default function CirclePercentage({ percentage }) {
             textColor: "#FEFEFE",
             trailColor: "#454545",
             pathColor: `rgba(255, 255, 255, ${1})`,
+            textSize: textSize ?? "20px",
           })}
         />
       </div>
