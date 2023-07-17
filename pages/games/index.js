@@ -53,6 +53,24 @@ export default function GamesPage() {
     }
   }, [forceRefreshGames, dispatch]);
 
+  let latestPlayedGame = games?.sort((game1, game2) => {
+    return (game2?.lastPlayed ?? 0) - (game1?.lastPlayed ?? 0);
+  })[0];
+
+  let gamesSortedByName = games
+    ?.sort((game1, game2) => {
+      if (game1.name < game2.name) {
+        return -1;
+      }
+      if (game1.name > game2.name) {
+        return 1;
+      }
+      return 0;
+    })
+    .filter((game) => game.name !== latestPlayedGame?.name);
+
+  let gamesListToShow = [latestPlayedGame, ...gamesSortedByName];
+
   return (
     <Container image={HEADER_IMAGE(themeId ?? "130130")}>
       <Overlay>
@@ -77,7 +95,7 @@ export default function GamesPage() {
             {createNewGameModal && <CreateNewGame />}
             {!gamesLoading &&
               games.length != 0 &&
-              games
+              gamesListToShow
                 .filter((game) => {
                   if (
                     (game?.platform == gamesFilter || gamesFilter == ALL) &&
@@ -85,9 +103,6 @@ export default function GamesPage() {
                   ) {
                     return true;
                   }
-                })
-                .sort((game1, game2) => {
-                  return (game2?.lastUpdated ?? 0) - (game1?.lastUpdated ?? 0);
                 })
                 .map((game, index) => {
                   return <GameDisplayPSUI game={game} key={game._id} />;

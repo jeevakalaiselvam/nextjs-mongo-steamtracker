@@ -196,6 +196,24 @@ export default function Games() {
 
   const { currentLevel, toNext } = calculateLevelFromXP(totalXP);
 
+  let latestPlayedGame = games?.sort((game1, game2) => {
+    return (game2?.lastPlayed ?? 0) - (game1?.lastPlayed ?? 0);
+  })[0];
+
+  let gamesSortedByName = games
+    ?.sort((game1, game2) => {
+      if (game1.name < game2.name) {
+        return -1;
+      }
+      if (game1.name > game2.name) {
+        return 1;
+      }
+      return 0;
+    })
+    .filter((game) => game.name !== latestPlayedGame?.name);
+
+  let gamesListToShow = [latestPlayedGame, ...gamesSortedByName];
+
   return (
     <Container image={HEADER_IMAGE(themeId ?? "130130")}>
       <Overlay>
@@ -232,21 +250,21 @@ export default function Games() {
               </GamesOverview>
               <GamesHeader>Games Played</GamesHeader>
               <GamesList>
-                {games
-                  .filter((game) => {
-                    if (
-                      (game?.platform == gamesFilter || gamesFilter == ALL) &&
-                      (showHiddenGames ? true : true)
-                    ) {
-                      return true;
-                    }
-                  })
-                  .sort((game1, game2) => {
-                    return (game2?.lastPlayed ?? 0) - (game1?.lastPlayed ?? 0);
-                  })
-                  .map((game) => {
-                    return <MobileGameDisplayPSUI game={game} key={game._id} />;
-                  })}
+                {gamesListToShow?.length &&
+                  gamesListToShow
+                    .filter((game) => {
+                      if (
+                        (game?.platform == gamesFilter || gamesFilter == ALL) &&
+                        (showHiddenGames ? true : true)
+                      ) {
+                        return true;
+                      }
+                    })
+                    .map((game) => {
+                      return (
+                        <MobileGameDisplayPSUI game={game} key={game._id} />
+                      );
+                    })}
               </GamesList>
             </Content>
           </GamesContainer>
