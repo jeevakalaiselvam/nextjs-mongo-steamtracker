@@ -223,11 +223,10 @@ export default function Games() {
         !unCompletedNames?.includes(game?.name)
     );
 
-  let gamesListToShow = [
-    latestPlayedGame,
-    ...notCompleted,
-    ...gamesSortedByName,
-  ];
+  let gamesListToShow = [];
+  if (latestPlayedGame) {
+    gamesListToShow = [latestPlayedGame, ...notCompleted, ...gamesSortedByName];
+  }
 
   return (
     <Container image={HEADER_IMAGE(themeId ?? "130130")}>
