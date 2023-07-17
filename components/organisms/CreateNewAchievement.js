@@ -156,6 +156,20 @@ export default function CreateNewAchievement({
             }}
           />
         </SaveNearTitle>
+        <CloseNearTitle>
+          <Button
+            width={"auto"}
+            title={"CLOSE"}
+            onClick={() => {
+              if (isEditMode) {
+                setEditModeActive(false);
+              } else {
+                dispatch(actionShowCreateNewAchievement(false));
+                dispatch(actionKeepAddingAchievements(false));
+              }
+            }}
+          />
+        </CloseNearTitle>
       </Header>
       <MainContainer>
         <Input>
@@ -278,32 +292,34 @@ export default function CreateNewAchievement({
           </CategorySelection>
         </Input>
       </MainContainer>
-      <SaveContainer>
-        <Button
-          margin={"0 1rem 0 0"}
-          width={"auto"}
-          title={"SAVE"}
-          onClick={() => {
-            if (isEditMode) {
-              updateAchievement();
-            } else {
-              saveAchievement();
-            }
-          }}
-        />
-        <Button
-          width={"auto"}
-          title={"CLOSE"}
-          onClick={() => {
-            if (isEditMode) {
-              setEditModeActive(false);
-            } else {
-              dispatch(actionShowCreateNewAchievement(false));
-              dispatch(actionKeepAddingAchievements(false));
-            }
-          }}
-        />
-      </SaveContainer>
+      {false && (
+        <SaveContainer>
+          <Button
+            margin={"0 1rem 0 0"}
+            width={"auto"}
+            title={"SAVE"}
+            onClick={() => {
+              if (isEditMode) {
+                updateAchievement();
+              } else {
+                saveAchievement();
+              }
+            }}
+          />
+          <Button
+            width={"auto"}
+            title={"CLOSE"}
+            onClick={() => {
+              if (isEditMode) {
+                setEditModeActive(false);
+              } else {
+                dispatch(actionShowCreateNewAchievement(false));
+                dispatch(actionKeepAddingAchievements(false));
+              }
+            }}
+          />
+        </SaveContainer>
+      )}
     </Container>
   );
 }
@@ -405,6 +421,15 @@ const SaveNearTitle = styled.div`
   position: absolute;
   top: 1rem;
   left: 12rem;
+`;
+
+const CloseNearTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 2rem;
+  top: 1rem;
 `;
 
 const Input = styled.div`
