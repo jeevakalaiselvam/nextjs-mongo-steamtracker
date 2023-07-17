@@ -505,9 +505,8 @@ const Image = styled.div`
   align-content: center;
   justify-content: center;
   flex-direction: column;
-  border-radius: 1rem;
+  border-radius: 4px;
   width: 30%;
-  height: 100px;
   background: ${(props) => `url(${props.src})`};
   background-size: cover;
   background-repeat: no-repeat;

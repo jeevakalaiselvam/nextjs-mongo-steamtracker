@@ -19,7 +19,13 @@ const Text = styled.div`
   color: #fefefe;
 `;
 
-export default function CirclePercentage({ percentage, size, textSize }) {
+export default function CirclePercentage({
+  percentage,
+  size,
+  textSize,
+  trailColor,
+  pathColor,
+}) {
   return (
     <Container>
       <div style={{ width: size ?? 75, height: size ?? 75 }}>
@@ -29,8 +35,8 @@ export default function CirclePercentage({ percentage, size, textSize }) {
           text={`${percentage}%`}
           styles={buildStyles({
             textColor: "#FEFEFE",
-            trailColor: "#454545",
-            pathColor: `rgba(255, 255, 255, ${1})`,
+            trailColor: trailColor ?? "#454545",
+            pathColor: pathColor ?? `rgba(255, 255, 255, ${1})`,
             textSize: textSize ?? "20px",
           })}
         />

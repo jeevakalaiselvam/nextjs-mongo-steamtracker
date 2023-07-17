@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { COLOR_GOLD, COLOR_GREY, COLOR_SILVER } from "../../helper/colorHelper";
+import {
+  COLOR_BUTTON_PRIMARY,
+  COLOR_GOLD,
+  COLOR_GREY,
+  COLOR_SILVER,
+  COLOR_SUCCESS,
+} from "../../helper/colorHelper";
 import {
   calculateLevel,
   calculateLevelForGame,
@@ -46,7 +52,13 @@ export default function Profile() {
     <Container>
       {currentLevel != -1 && (
         <ToNext>
-          <CirclePercentage percentage={toNext} size={48} textSize={"27px"} />
+          <CirclePercentage
+            percentage={toNext}
+            size={50}
+            textSize={"25px"}
+            pathColor={COLOR_BUTTON_PRIMARY}
+            trailColor={COLOR_GREY}
+          />
         </ToNext>
       )}
       <Icon url="https://i.pinimg.com/736x/1b/4f/be/1b4fbe252793720e0c88cc2b65bcb8c1.jpg"></Icon>
@@ -100,10 +112,9 @@ const Title = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  padding-top: 1rem;
+  padding-bottom: 0.5rem;
   justify-content: flex-start;
   margin-left: 1rem;
-  flex: 1;
 `;
 
 const Data = styled.div`
@@ -119,7 +130,6 @@ const ToNext = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  opacity: 0.3;
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -135,6 +145,5 @@ const Level = styled.div`
   justify-content: flex-start;
   flex-direction: column;
   margin-left: 1rem;
-  flex: 2;
   font-size: 1.5rem;
 `;
