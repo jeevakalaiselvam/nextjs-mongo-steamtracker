@@ -97,7 +97,17 @@ export default function MobileAchievementDisplayPSUI({
           )}
         </IconContainer>
         <Content>
-          <Title>{name}</Title>
+          <Title
+            onClick={() => {
+              if (window !== "undefined") {
+                const searchQuery = `${name} achievement ${game?.name} `;
+                window.open(`https://www.google.com/search?q=${searchQuery}`);
+                // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+              }
+            }}
+          >
+            {name}
+          </Title>
           <Desc>{description}</Desc>
           <Others>
             <TrophyType>{getTrophyImage(type, "25px")}</TrophyType>
@@ -227,7 +237,7 @@ const Desc = styled.div`
   display: flex;
   font-weight: 100;
   opacity: 0.6;
-  font-size: 1.2rem;
+  font-size: 1.22rem;
   align-items: center;
   justify-content: center;
 `;
@@ -255,8 +265,8 @@ const MainContainer = styled.div`
   padding: 1rem 2rem;
   border-radius: 8px;
   flex-direction: column;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8);
   background: linear-gradient(0deg, #17181a 0%, #1f2022 90%);
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   position: relative;
 `;

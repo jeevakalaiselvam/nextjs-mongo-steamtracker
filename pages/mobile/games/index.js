@@ -49,115 +49,6 @@ import PSUIHeader from "../../../components/atoms/PSUIHeader";
 import ProfileCompletionOverview from "../../../components/atoms/ProfileCompletionOverview";
 import CirclePercentage from "../../../components/atoms/CirclePercentage";
 
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 100vw;
-  color: #fefefe;
-  min-height: 100vh;
-  background-color: #121315;
-`;
-
-const Overlay = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 100vw;
-  min-height: 100vh;
-  backdrop-filter: blur(50px);
-  overflow: hidden;
-  background-color: #121315;
-`;
-
-const LoadingContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 100vw;
-  min-height: 100vh;
-`;
-
-const GamesContainer = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: flex-start;
-  min-width: 100vw;
-  min-height: 100vh;
-  max-width: 100vw;
-  max-height: 100vh;
-`;
-
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 9vh;
-  background-color: #1c1d1f;
-  justify-content: center;
-`;
-
-const Content = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-  min-height: 91vh;
-  max-height: 91vh;
-  justify-content: flex-start;
-  overflow-y: scroll;
-  overflow-x: hidden;
-`;
-
-const OptionContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 8vh;
-  right: 0;
-  width: 30vw;
-  right: ${(props) => (!props.open ? "-30vw" : "0vw")};
-  padding: 0.5rem;
-  backdrop-filter: blur(20px);
-  transition: 0.5s all;
-`;
-
-const LeftSidebarContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 8vh;
-  transition: 0.5s all;
-  left: ${(props) => (props.open ? "0" : "-60vw")};
-  width: 60vw;
-  z-index: 100;
-  min-height: 92vh;
-  max-height: 92vh;
-  background: ${(props) => `url(${props.image})`};
-  background-repeat: no-repeat;
-  background-size: cover;
-`;
-
-const SidebarOverlay = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0.5rem;
-  flex-direction: column;
-  width: 100%;
-  transition: 0.5s all;
-  width: 60vw;
-  z-index: 100;
-  min-height: 92vh;
-  max-height: 92vh;
-  padding: 0.5rem;
-  backdrop-filter: blur(20px);
-  background-color: rgba(0, 0, 0, 0.2);
-`;
-
 export default function Games() {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -302,6 +193,114 @@ export default function Games() {
   );
 }
 
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100vw;
+  color: #fefefe;
+  min-height: 100vh;
+  background-color: #121315;
+`;
+
+const Overlay = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100vw;
+  min-height: 100vh;
+  backdrop-filter: blur(50px);
+  overflow: hidden;
+`;
+
+const LoadingContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100vw;
+  min-height: 100vh;
+`;
+
+const GamesContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-width: 100vw;
+  min-height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
+`;
+
+const Header = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 9vh;
+  background-color: #1c1d1f;
+  justify-content: center;
+`;
+
+const Content = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  min-height: 91vh;
+  max-height: 91vh;
+  justify-content: flex-start;
+  overflow-y: scroll;
+  overflow-x: hidden;
+`;
+
+const OptionContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 8vh;
+  right: 0;
+  width: 30vw;
+  right: ${(props) => (!props.open ? "-30vw" : "0vw")};
+  padding: 0.5rem;
+  backdrop-filter: blur(20px);
+  transition: 0.5s all;
+`;
+
+const LeftSidebarContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 8vh;
+  transition: 0.5s all;
+  left: ${(props) => (props.open ? "0" : "-60vw")};
+  width: 60vw;
+  z-index: 100;
+  min-height: 92vh;
+  max-height: 92vh;
+  background: ${(props) => `url(${props.image})`};
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
+
+const SidebarOverlay = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.5rem;
+  flex-direction: column;
+  width: 100%;
+  transition: 0.5s all;
+  width: 60vw;
+  z-index: 100;
+  min-height: 92vh;
+  max-height: 92vh;
+  padding: 0.5rem;
+  backdrop-filter: blur(20px);
+  background-color: rgba(0, 0, 0, 0.2);
+`;
+
 const LevelIcon = styled.div`
   display: flex;
   align-items: center;
@@ -316,6 +315,7 @@ const LevelIcon = styled.div`
 const LevelData = styled.div`
   display: flex;
   align-items: center;
+  font-weight: 100;
   margin-top: 1rem;
   opacity: 0.5;
   justify-content: center;
@@ -325,6 +325,7 @@ const TotalNumber = styled.div`
   display: flex;
   align-items: center;
   font-weight: 100;
+  transform: translateY(-5px);
   font-size: 2rem;
   margin-top: 1rem;
   justify-content: center;
@@ -334,6 +335,7 @@ const TotalText = styled.div`
   display: flex;
   align-items: center;
   margin-top: 1rem;
+  font-weight: 100;
   opacity: 0.5;
   justify-content: center;
 `;
@@ -367,6 +369,7 @@ const ToNext = styled.div`
   flex: 1;
   align-items: center;
   justify-content: center;
+  opacity: 0.75;
   transform: translate(5px, 10px);
 `;
 
@@ -376,13 +379,14 @@ const Total = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  transform: translate(-5px, 10px);
+  transform: translate(-3px, 15px);
 `;
 
 const GamesOverview = styled.div`
   display: flex;
-  width: 90%;
-  padding: 1rem;
+  width: 92%;
+  border-radius: 4px;
+  padding: 0.5rem;
   background-color: #1d1d1f;
   align-items: center;
   flex-direction: column;
@@ -403,7 +407,7 @@ const GamesHeader = styled.div`
   padding: 1rem;
   width: 100%;
   transform: translateX(-7px);
-  margin-left: 4rem;
+  margin-left: 2rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   justify-content: flex-start;

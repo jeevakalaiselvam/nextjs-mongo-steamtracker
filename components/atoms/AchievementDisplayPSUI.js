@@ -158,7 +158,17 @@ export default function AchievementDisplayPSUI({
           )}
         </IconContainer>
         <Content>
-          <Title>{name}</Title>
+          <Title
+            onClick={() => {
+              if (window !== "undefined") {
+                const searchQuery = `${name} achievement ${game?.name} `;
+                window.open(`https://www.google.com/search?q=${searchQuery}`);
+                // window.open(`https://www.youtube.com/results?search_query=${searchQuery}`);
+              }
+            }}
+          >
+            {name}
+          </Title>
           <Desc>
             {description
               ?.replace("(Campaign only).", "")

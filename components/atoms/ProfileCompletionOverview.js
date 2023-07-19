@@ -71,6 +71,7 @@ const Trophy = styled.div`
 const Count = styled.div`
   display: flex;
   align-items: center;
+  opacity: 0.5;
   justify-content: center;
 `;
 

@@ -305,7 +305,7 @@ const Section = styled.div`
 
 const GameOverview = styled.div`
   display: flex;
-  width: 90%;
+  width: 94%;
   align-items: center;
   justify-content: center;
 `;

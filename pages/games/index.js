@@ -41,6 +41,18 @@ export default function GamesPage() {
   }
 
   useEffect(() => {
+    if (games?.length > 0) {
+      if (window.localStorage && document) {
+        let updatedGameId = localStorage.getItem("UPDATED_GAME_ID", "");
+        let itemToScroll = document.getElementById(updatedGameId);
+        if (itemToScroll) {
+          itemToScroll.scrollIntoView();
+        }
+      }
+    }
+  }, [games]);
+
+  useEffect(() => {
     if (detectmob()) {
       top.location.href = "/mobile/games";
     } else {
@@ -120,7 +132,9 @@ export default function GamesPage() {
                   }
                 })
                 .map((game, index) => {
-                  return <GameDisplayPSUI game={game} key={game._id} />;
+                  return (
+                    <GameDisplayPSUI game={game} key={game._id} id={game._id} />
+                  );
                 })}
           </GamesList>
         </MainContainer>

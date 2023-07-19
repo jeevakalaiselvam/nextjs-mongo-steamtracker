@@ -128,6 +128,7 @@ const CompletionOuter = styled.div`
   height: 2px;
   transform: translateY(-7px);
   border-radius: 4px;
+  opacity: 0.9;
 `;
 
 const CompletionLine = styled.div`
@@ -224,6 +225,7 @@ const Container = styled.div`
   width: 90%;
   transform: translateX(-5px);
   padding: 0.25rem 1rem;
+  margin-bottom: 1rem;
 `;
 
 const Image = styled.div`

@@ -447,6 +447,7 @@ const Input = styled.div`
     background-color: #222222;
     outline: none;
     border: none;
+    cursor: text;
     font-size: 1.25rem;
     cursor: text;
   }

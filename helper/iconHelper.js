@@ -16,6 +16,7 @@ import {
   HiEyeOff,
   HiCheckCircle,
   HiOutlineChevronRight,
+  HiShoppingCart,
 } from "react-icons/hi";
 import { IoSettingsSharp, IoNotifications } from "react-icons/io5";
 import { HiTrophy } from "react-icons/hi2";
@@ -65,6 +66,7 @@ export const ICON_CATEGORY = "ICON_CATEGORY";
 export const ICON_RIGHT = "ICON_RIGHT";
 export const ICON_NOTIFICATION = "ICON_NOTIFICATION";
 export const ICON_COG = "ICON_COG";
+export const ICON_SHOP = "ICON_SHOP";
 
 export const IMAGE_PLATINUM = "IMAGE_PLATINUM";
 export const IMAGE_GOLD = "IMAGE_GOLD";
@@ -118,6 +120,8 @@ export const getImageURL = (key, size) => {
 
 export const getIcon = (key) => {
   switch (key) {
+    case ICON_SHOP:
+      return <HiShoppingCart />;
     case ICON_CLOSE:
       return <HiXCircle />;
     case ICON_COG:

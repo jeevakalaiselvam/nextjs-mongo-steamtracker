@@ -56,7 +56,7 @@ export default function Profile() {
             percentage={toNext}
             size={50}
             textSize={"25px"}
-            pathColor={COLOR_BUTTON_PRIMARY}
+            pathColor={COLOR_SILVER}
             trailColor={COLOR_GREY}
           />
         </ToNext>

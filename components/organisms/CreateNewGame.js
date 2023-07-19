@@ -270,6 +270,7 @@ const Input = styled.div`
     background: rgba(0, 0, 0, 0.5);
     outline: none;
     border: none;
+    cursor: text;
     font-size: 1.25rem;
   }
 `;

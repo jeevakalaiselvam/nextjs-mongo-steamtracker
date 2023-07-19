@@ -11,6 +11,7 @@ import {
   COLOR_PLATINUM,
   COLOR_PLAYSTATION,
   COLOR_STEAM,
+  COLOR_SUCCESS,
   COLOR_UPLAY,
   COLOR_XBOX,
   getColorForPlatform,
@@ -24,6 +25,7 @@ import {
   ICON_ORIGIN,
   ICON_PLAYSTATION,
   ICON_RIGHT,
+  ICON_SHOP,
   ICON_STEAM,
   ICON_TROPHY,
   ICON_UPLAY,
@@ -47,6 +49,7 @@ import {
   ORIGIN,
   PLAYSTATION,
   STEAM,
+  TO_BUY,
   UPLAY,
   XBOX,
 } from "../../helper/constantHelper";
@@ -58,7 +61,7 @@ import {
   actionForceRefreshProfile,
 } from "../../store/actions/steam.actions";
 
-export default function MobileGameDisplayPSUI({ game }) {
+export default function MobileGameDisplayPSUI({ game, id }) {
   const { image, _id, name, platform, target, targetStart, targetEnd } = game;
   const router = useRouter();
   const dispatch = useDispatch();
@@ -123,6 +126,7 @@ export default function MobileGameDisplayPSUI({ game }) {
   const [loading, setLoading] = useState(false);
   const [confirmClickMarkAll, setConfirmClickMarkAll] = useState(0);
   const [confirmClickUnmarkAll, setConfirmClickUnmarkAll] = useState(0);
+  const [platformIconHovered, setPlatformIconHovered] = useState(false);
 
   const confirmDelete = () => {
     axios.delete(`/api/deleteGame?id=${_id}`).then((response) => {
@@ -148,6 +152,9 @@ export default function MobileGameDisplayPSUI({ game }) {
       .then((response) => {
         setLoading(false);
         setEditModeActive(false);
+        if (window.localStorage) {
+          localStorage.setItem("UPDATED_GAME_ID", id);
+        }
         dispatch(actionForceRefreshGames(true));
         router.push("/games");
       });
@@ -197,7 +204,7 @@ export default function MobileGameDisplayPSUI({ game }) {
   };
 
   return (
-    <Container>
+    <Container id={id}>
       {editModeActive && (
         <EditMode>
           <EditContainer image={image}>
@@ -296,6 +303,17 @@ export default function MobileGameDisplayPSUI({ game }) {
                   >
                     {getIcon(ICON_ORIGIN)}
                   </Platform>
+                  <Platform
+                    fontSize={"1.5rem"}
+                    hoverColor={COLOR_SUCCESS}
+                    color={
+                      updatedPlatform == TO_BUY ? COLOR_SUCCESS : COLOR_GREY
+                    }
+                    selected={updatedPlatform == TO_BUY}
+                    onClick={() => setUpdatedPlatform("")}
+                  >
+                    {getIcon(ICON_SHOP)}
+                  </Platform>
                 </PlatformSelection>
               </Input>
               <Input>
@@ -378,6 +396,21 @@ export default function MobileGameDisplayPSUI({ game }) {
           router.push(`/games/${_id}`);
         }}
       >
+        {false && (
+          <PlatformIconOuter
+            color={platform ? getColorForPlatform(platform) : COLOR_SUCCESS}
+            onMouseEnter={() => {
+              setPlatformIconHovered(true);
+            }}
+            onMouseLeave={() => {
+              setPlatformIconHovered(false);
+            }}
+          >
+            {platform
+              ? getIcon(getIconForPlatform(platform))
+              : getIcon(ICON_SHOP)}
+          </PlatformIconOuter>
+        )}
         <Edit
           show={mouseEnter}
           onClick={(e) => {
@@ -559,7 +592,7 @@ const Container = styled.div`
   width: 90%;
   padding: 0.5rem 1rem;
   position: relative;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   overflow: hidden;
 `;
 
@@ -738,6 +771,19 @@ const Edit = styled.div`
   &:hover {
     color: #2298f8;
   }
+`;
+
+const PlatformIconOuter = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.75);
+  color: ${(props) => props.color};
 `;
 
 const Delete = styled.div`

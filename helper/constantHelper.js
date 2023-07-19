@@ -1,4 +1,4 @@
-import { MoonLoader } from "react-spinners";
+import { ClipLoader, MoonLoader, PulseLoader } from "react-spinners";
 
 export const STORY = "STORY";
 export const GRIND = "GRIND";
@@ -26,9 +26,10 @@ export const EPIC = "EPIC";
 export const BLIZZARD = "BLIZZARD";
 export const MICROSOFT = "MICROSOFT";
 export const ORIGIN = "ORIGIN";
+export const TO_BUY = "TO_BUY";
 
 export const getLoader = () => {
-  return <MoonLoader color="#FEFEFE" />;
+  return <ClipLoader color="#FEFEFE" />;
 };
 
 export const themeIds = [
