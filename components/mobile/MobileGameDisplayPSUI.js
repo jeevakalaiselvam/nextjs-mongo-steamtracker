@@ -225,7 +225,6 @@ const Container = styled.div`
   width: 90%;
   transform: translateX(-5px);
   padding: 0.25rem 1rem;
-  margin-bottom: 1rem;
 `;
 
 const Image = styled.div`
