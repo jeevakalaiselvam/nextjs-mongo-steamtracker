@@ -170,22 +170,9 @@ export default function Game() {
   const { toggle } = steam;
 
   useEffect(() => {
-    setLoading(true);
     axios.get("/api/games").then((response) => {
       setGames(response.data.games);
-      setLoading(false);
     });
-  }, []);
-
-  useEffect(() => {
-    let updatedGames = games.map((oldGame) => {
-      if (oldGame._id == game._id) {
-        return game;
-      } else {
-        return oldGame;
-      }
-    });
-    setGames(updatedGames);
   }, [forceRefreshProfile]);
 
   const dispatch = useDispatch();
@@ -205,7 +192,12 @@ export default function Game() {
           dispatch(actionForceRefreshAchievement(false));
         });
     }
-  }, [router.query.gameId, forceRefreshAchievement, dispatch]);
+  }, [
+    router.query.gameId,
+    forceRefreshAchievement,
+    dispatch,
+    forceRefreshProfile,
+  ]);
 
   const optionToggle = (toggle) => {
     setOptionOpen(toggle);

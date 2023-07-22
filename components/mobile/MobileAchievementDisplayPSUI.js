@@ -53,7 +53,6 @@ export default function MobileAchievementDisplayPSUI({
   const dispatch = useDispatch();
 
   const [marking, setMarking] = useState(false);
-  const [longPress, setLongPress] = useState(false);
 
   const completeAchievement = (shouldCompleteOrNot) => {
     setMarking(true);
@@ -71,7 +70,6 @@ export default function MobileAchievementDisplayPSUI({
         setMarking(false);
         dispatch(actionForceRefreshAchievement(true));
         dispatch(actionForceRefreshProfile(true));
-        router.push(`/mobile/games/${game?._id}`);
       });
   };
 
