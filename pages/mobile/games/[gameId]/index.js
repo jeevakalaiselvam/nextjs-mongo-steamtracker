@@ -80,7 +80,7 @@ const Header = styled.div`
   align-items: center;
   width: 100%;
   height: 9vh;
-  background-color: #121315;
+  background-color: #0e0e0f;
   justify-content: center;
 `;
 
@@ -162,7 +162,7 @@ export default function Game() {
       setGames(response.data.games);
       setLoading(false);
     });
-  }, []);
+  }, [forceRefreshProfile]);
 
   const dispatch = useDispatch();
 
@@ -172,6 +172,7 @@ export default function Game() {
   const { settings } = steam;
   const {
     forceRefreshAchievement,
+    forceRefreshProfile,
     themeId,
     achievementSearch,
     achievementFilter,
@@ -211,7 +212,7 @@ export default function Game() {
         {!loading && (
           <GamesContainer>
             <Header>
-              <PSUIHeader />
+              <PSUIHeader games={games} />
             </Header>
             <Content>
               <GameOverview>

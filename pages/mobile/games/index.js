@@ -58,8 +58,13 @@ export default function Games() {
 
   const steam = useSelector((state) => state.steam);
   const { settings } = steam;
-  const { forceRefreshAchievement, themeId, gamesFilter, showHiddenGames } =
-    settings;
+  const {
+    forceRefreshAchievement,
+    themeId,
+    gamesFilter,
+    showHiddenGames,
+    forceRefreshProfile,
+  } = settings;
   const { toggle } = steam;
 
   useEffect(() => {
@@ -68,7 +73,7 @@ export default function Games() {
       setGames(response.data.games);
       setLoading(false);
     });
-  }, []);
+  }, [forceRefreshProfile]);
 
   const optionToggle = (toggle) => {
     setOptionOpen(toggle);
@@ -129,7 +134,7 @@ export default function Games() {
         {!loading && (
           <GamesContainer>
             <Header>
-              <PSUIHeader />
+              <PSUIHeader games={games} />
             </Header>
             <Content>
               <GamesHeader>Profile Overview</GamesHeader>
@@ -226,7 +231,7 @@ const Header = styled.div`
   align-items: center;
   width: 100%;
   height: 9vh;
-  background-color: #1c1d1f;
+  background-color: #1e1e1f;
   justify-content: center;
 `;
 

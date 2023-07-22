@@ -106,28 +106,7 @@ export default function GamesPage() {
               {!achievementsLoading &&
                 achievements.length != 0 &&
                 achievements
-                  ?.filter((achievement) => {
-                    if (
-                      (achievement?.name
-                        ?.toLowerCase()
-                        .trim()
-                        ?.includes(achievementSearch) ||
-                        achievement?.description
-                          ?.toLowerCase()
-                          .trim()
-                          ?.includes(achievementSearch)) &&
-                      (achievement.type == achievementFilter ||
-                        achievementFilter == ALL) &&
-                      ((achievementFilterCategory ?? ALL) == ALL
-                        ? true
-                        : achievement?.categories?.includes(
-                            achievementFilterCategory ?? ALL
-                          ))
-                    ) {
-                      return true;
-                    }
-                  })
-                  .sort(
+                  ?.sort(
                     (ach1, ach2) =>
                       Number(ach2.percentage?.replace("%", "")) -
                       Number(ach1.percentage?.replace("%", ""))

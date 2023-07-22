@@ -4,9 +4,19 @@ import {
   ICON_COG,
   ICON_NOTIFICATION,
   ICON_STEAM,
+  IMAGE_BRONZE,
+  IMAGE_GOLD,
+  IMAGE_PLATINUM,
+  IMAGE_SILVER,
   getIcon,
+  getImage,
 } from "../../helper/iconHelper";
 import { useRouter } from "next/router";
+import {
+  calculateLevelForGame,
+  calculateLevelFromXP,
+} from "../../helper/gameHelper";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   display: flex;
@@ -16,8 +26,19 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-export default function PSUIHeader() {
+export default function PSUIHeader({ games }) {
   const router = useRouter();
+
+  const {
+    totalXP,
+    totalTrophies,
+    totalPlatinum,
+    totalBronze,
+    totalSilver,
+    totalGold,
+  } = calculateLevelForGame(games);
+
+  const { currentLevel, toNext, xpForNext } = calculateLevelFromXP(totalXP);
 
   return (
     <Container
@@ -32,18 +53,52 @@ export default function PSUIHeader() {
             src="https://i.pinimg.com/736x/1b/4f/be/1b4fbe252793720e0c88cc2b65bcb8c1.jpg"
           ></Image>
           <Name>
-            <Handle>NotRealLogan</Handle>
-            <Sub>Jeeva Kalaiselvam</Sub>
+            <Handle>Level {currentLevel}</Handle>
+            <Sub></Sub>
           </Name>
         </ProfileImage>
       </Profile>
       <Buttons>
-        <Icon>{getIcon(ICON_NOTIFICATION)}</Icon>
-        <Icon>{getIcon(ICON_COG)}</Icon>
+        <Trophy>
+          <IconTrophy>{getImage(IMAGE_PLATINUM, "20px")}</IconTrophy>
+          <CountTrophy>{totalPlatinum}</CountTrophy>
+        </Trophy>
+        <Trophy>
+          <IconTrophy>{getImage(IMAGE_GOLD, "20px")}</IconTrophy>
+          <CountTrophy>{totalGold}</CountTrophy>
+        </Trophy>
+        <Trophy>
+          <IconTrophy>{getImage(IMAGE_SILVER, "20px")}</IconTrophy>
+          <CountTrophy>{totalSilver}</CountTrophy>
+        </Trophy>
+        <Trophy>
+          <IconTrophy>{getImage(IMAGE_BRONZE, "20px")}</IconTrophy>
+          <CountTrophy>{totalBronze}</CountTrophy>
+        </Trophy>
       </Buttons>
     </Container>
   );
 }
+
+const Trophy = styled.div`
+  display: flex;
+  margin-right: 1rem;
+  align-items: center;
+  justify-content: center;
+`;
+
+const IconTrophy = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const CountTrophy = styled.div`
+  display: flex;
+  font-weight: 100;
+  align-items: center;
+  justify-content: center;
+`;
 
 const Image = styled.div`
   display: flex;
@@ -70,9 +125,9 @@ const Sub = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  opacity: 0.5;
+  transform: translateX(-5px);
   font-weight: 100;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 
 const Name = styled.div`
@@ -85,24 +140,24 @@ const Name = styled.div`
 const ProfileImage = styled.div`
   display: flex;
   align-items: center;
-  margin-left: -8rem;
   width: 100%;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 
 const Profile = styled.div`
   display: flex;
   flex: 2;
+  padding-left: 1rem;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 
 const Buttons = styled.div`
   display: flex;
   flex: 1;
-  margin-right: -3rem;
+  padding-right: 1rem;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 `;
 
 const Icon = styled.div`

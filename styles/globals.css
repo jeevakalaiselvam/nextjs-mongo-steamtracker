@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap");
 @import url("https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap");
 @font-face {
   font-family: "DINPro";
   src: url("../assets/font/dinpror.ttf");
@@ -8,28 +9,38 @@
 }
 
 @font-face {
-  font-family: "Playstation";
+  font-family: "PT Sans";
   src: url("../assets/font/Playstation.ttf");
   font-weight: 400;
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Grotesk";
+  src: url("../assets/font/Grotesk.otf");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Textbook";
+  src: url("../assets/font/Textbook.ttf");
+  font-weight: 400;
+  font-style: normal;
+}
+
 html,
-body {
+body,
+select,
+options {
   padding: 0;
   margin: 0;
-  font-family: "PT Sans", sans-serif;
+  font-family: "Grotesk", sans-serif;
   font-weight: 700;
   background-color: #000;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
-}
-
-select,
-options {
-  font-family: "PT Sans", sans-serif;
-  font-weight: 700;
 }
 
 a {
