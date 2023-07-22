@@ -22,13 +22,6 @@
   font-style: normal;
 }
 
-@font-face {
-  font-family: "Textbook";
-  src: url("../assets/font/Textbook.ttf");
-  font-weight: 400;
-  font-style: normal;
-}
-
 html,
 body,
 select,
