@@ -11,8 +11,19 @@ import {
 } from "../../helper/iconHelper";
 
 export default function GameCompleteOverview({ game }) {
-  const { total, completed, notCompleted, platinum, bronze, silver, gold } =
-    getAllStatsForGame(game);
+  const {
+    total,
+    completed,
+    notCompleted,
+    platinum,
+    bronze,
+    silver,
+    gold,
+    platinumLeft,
+    goldLeft,
+    silverLeft,
+    bronzeLeft,
+  } = getAllStatsForGame(game);
 
   return (
     <Overview>
@@ -38,19 +49,19 @@ export default function GameCompleteOverview({ game }) {
       <TrophiesOverview>
         <Trophy>
           <Icon>{getImage(IMAGE_PLATINUM)}</Icon>
-          <Count>{platinum}</Count>
+          <Count>{platinumLeft}</Count>
         </Trophy>
         <Trophy>
           <Icon>{getImage(IMAGE_GOLD)}</Icon>
-          <Count>{gold}</Count>
+          <Count>{goldLeft}</Count>
         </Trophy>
         <Trophy>
           <Icon>{getImage(IMAGE_SILVER)}</Icon>
-          <Count>{silver}</Count>
+          <Count>{silverLeft}</Count>
         </Trophy>
         <Trophy>
           <Icon>{getImage(IMAGE_BRONZE)}</Icon>
-          <Count>{bronze}</Count>
+          <Count>{bronzeLeft}</Count>
         </Trophy>
       </TrophiesOverview>
     </Overview>
