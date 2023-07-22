@@ -3,21 +3,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap");
 @font-face {
   font-family: "DINPro";
-  src: url("../assets/font/dinpror.ttf");
+  src: url("/assets/font/dinpror.ttf");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "PT Sans";
-  src: url("../assets/font/Playstation.ttf");
+  src: url("/assets/font/Playstation.ttf");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Grotesk";
-  src: url("../assets/font/Grotesk.otf");
+  src: url("/assets/font/Grotesk.otf");
   font-weight: 400;
   font-style: normal;
 }
