@@ -170,8 +170,14 @@ export default function Game() {
   const { toggle } = steam;
 
   useEffect(() => {
+    if (games?.length == 0) {
+      setLoading(true);
+    }
     axios.get("/api/games").then((response) => {
       setGames(response.data.games);
+      if (games?.length == 0) {
+        setLoading(false);
+      }
     });
   }, [forceRefreshProfile]);
 
