@@ -1,3 +1,4 @@
+import { addAchievementToPinnedOrRemove } from "../../helper/gameHelper";
 import {
   ACHIEVEMENT_FILTER,
   ACHIEVEMENT_FILTER_CATEGORY,
@@ -8,6 +9,7 @@ import {
   FORCE_REFRESH_PROFILE,
   GAMES_FILTER,
   KEEP_ADDING_ACHIEVEMENT,
+  PIN_ACHIEVEMENTS,
   SHOW_ACHIEVEMENT_DELETE_SELECTION,
   SHOW_CREATE_BULK_ACHIEVEMENTS,
   SHOW_CREATE_NEW_ACHIEVEMENT,
@@ -35,6 +37,7 @@ const INITIAL_STATE = {
     showHiddenGames: false,
     gamesFilter: "",
     forceRefreshProfile: false,
+    pinnedAchievements: {},
   },
 };
 
@@ -42,6 +45,18 @@ const reducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case PIN_ACHIEVEMENTS:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          pinnedAchievements: addAchievementToPinnedOrRemove(
+            payload.game,
+            payload.achievementId,
+            state?.settings?.pinnedAchievements ?? {}
+          ),
+        },
+      };
     case ACHIEVEMENT_FILTER_CATEGORY:
       return {
         ...state,

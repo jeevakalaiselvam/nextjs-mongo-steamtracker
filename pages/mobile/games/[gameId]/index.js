@@ -156,18 +156,6 @@ export default function Game() {
   const [leftSidebarOpen, setLeftSidebarOpen] = useState(false);
   const [games, setGames] = useState([]);
 
-  useEffect(() => {
-    setLoading(true);
-    axios.get("/api/games").then((response) => {
-      setGames(response.data.games);
-      setLoading(false);
-    });
-  }, [forceRefreshProfile]);
-
-  const dispatch = useDispatch();
-
-  const trophies = getTrophyCount(game?.achievements ?? []);
-
   const steam = useSelector((state) => state.steam);
   const { settings } = steam;
   const {
@@ -177,8 +165,32 @@ export default function Game() {
     achievementSearch,
     achievementFilter,
     achievementFilterCategory,
+    pinnedAchievements,
   } = settings;
   const { toggle } = steam;
+
+  useEffect(() => {
+    setLoading(true);
+    axios.get("/api/games").then((response) => {
+      setGames(response.data.games);
+      setLoading(false);
+    });
+  }, []);
+
+  useEffect(() => {
+    let updatedGames = games.map((oldGame) => {
+      if (oldGame._id == game._id) {
+        return game;
+      } else {
+        return oldGame;
+      }
+    });
+    setGames(updatedGames);
+  }, [forceRefreshProfile, games, game]);
+
+  const dispatch = useDispatch();
+
+  const trophies = getTrophyCount(game?.achievements ?? []);
 
   useEffect(() => {
     if (router.query.gameId) {
@@ -204,10 +216,28 @@ export default function Game() {
   };
 
   let rarestAchievement = findRarestAchievementForGame(game?.achievements);
+  let pinnedAchievementIds = (pinnedAchievements ?? {})?.[game?._id] ?? [];
+  let pinnedAchievementsForGame = game?.achievements?.filter((ach) =>
+    pinnedAchievementIds?.includes(ach?.id)
+  );
+
+  let unPinnedAchievementsForGame = game?.achievements?.filter(
+    (ach) => !pinnedAchievementIds?.includes(ach?.id)
+  );
+
+  const [showLongPressOptions, setShowLongPresOptions] = useState(false);
+  const achievementLongPressed = (game, id) => {
+    pinOrUnpinAchievement(game, id);
+  };
 
   return (
     <Container image={HEADER_IMAGE(themeId ?? "130130")}>
       <Overlay>
+        {showLongPressOptions && (
+          <LongPressOptions>
+            <OptionItem>Pin Achievement</OptionItem>
+          </LongPressOptions>
+        )}
         {loading && <LoadingContainer>{getLoader()}</LoadingContainer>}
         {!loading && (
           <GamesContainer>
@@ -218,6 +248,29 @@ export default function Game() {
               <GameOverview>
                 <GameCompleteOverview game={game} />
               </GameOverview>
+              {pinnedAchievementsForGame?.length > 0 && (
+                <Section>
+                  <SectionHeader>Pinned Trophies</SectionHeader>
+                  <SectionContent>
+                    {(pinnedAchievementsForGame ?? [])
+                      ?.sort(
+                        (ach1, ach2) =>
+                          Number(ach2.percentage?.replace("%", "")) -
+                          Number(ach1.percentage?.replace("%", ""))
+                      )
+                      ?.map((ach) => {
+                        return (
+                          <MobileAchievementDisplayPSUI
+                            game={game}
+                            key={ach.name}
+                            achievement={ach}
+                            achievementLongPressed={achievementLongPressed}
+                          />
+                        );
+                      })}
+                  </SectionContent>
+                </Section>
+              )}
               {rarestAchievement && (
                 <Section>
                   <SectionHeader>Rarest Trophy Earned</SectionHeader>
@@ -234,7 +287,7 @@ export default function Game() {
               <Section>
                 <SectionHeader>All Trophies</SectionHeader>
                 <SectionContent>
-                  {game?.achievements
+                  {unPinnedAchievementsForGame
                     ?.sort(
                       (ach1, ach2) =>
                         Number(ach2.percentage?.replace("%", "")) -
@@ -246,6 +299,7 @@ export default function Game() {
                           game={game}
                           key={ach.name}
                           achievement={ach}
+                          achievementLongPressed={achievementLongPressed}
                         />
                       );
                     })}
@@ -275,6 +329,29 @@ const Atom = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const OptionItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const LongPressOptions = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #fefefe;
+  top: 50%;
+  width: 80%;
+  left: 50%;
+  padding: 1rem;
+  z-index: 9099999999;
+  background-color: #010101;
+  transform: translate(-50%, -50%);
 `;
 
 const SectionHeader = styled.div`

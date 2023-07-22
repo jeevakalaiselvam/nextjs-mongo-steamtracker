@@ -9,6 +9,7 @@ import {
   FORCE_REFRESH_PROFILE,
   GAMES_FILTER,
   KEEP_ADDING_ACHIEVEMENT,
+  PIN_ACHIEVEMENTS,
   SHOW_ACHIEVEMENT_DELETE_SELECTION,
   SHOW_CREATE_BULK_ACHIEVEMENTS,
   SHOW_CREATE_NEW_ACHIEVEMENT,
@@ -119,6 +120,13 @@ export const actionForceRefreshAchievement = (toggle) => {
   return {
     type: FORCE_REFRESH_ACHIEVEMENT,
     payload: toggle,
+  };
+};
+
+export const actionPinAchievement = (game, achievementId) => {
+  return {
+    type: PIN_ACHIEVEMENTS,
+    payload: { game, achievementId },
   };
 };
 

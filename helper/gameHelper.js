@@ -509,3 +509,29 @@ export const getUnCompletedGames = (games) => {
 
   return uncompletedGames;
 };
+
+export const addAchievementToPinnedOrRemove = (
+  game,
+  achievementId,
+  oldPinnedAchievements
+) => {
+  let newPinnedAchievements = {};
+
+  if (oldPinnedAchievements?.[game?._id]?.includes(achievementId)) {
+    newPinnedAchievements = {
+      ...oldPinnedAchievements,
+      [game?._id]: (oldPinnedAchievements?.[game?._id] ?? [])?.filter((id) => {
+        return id != achievementId;
+      }),
+    };
+  } else {
+    newPinnedAchievements = {
+      ...oldPinnedAchievements,
+      [game?._id]: [
+        ...(oldPinnedAchievements?.[game?._id] ?? []),
+        achievementId,
+      ],
+    };
+  }
+  return newPinnedAchievements;
+};

@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { useLongPress } from "use-long-press";
 import {
   ICON_CHECK,
   ICON_CROSS,
@@ -23,6 +24,7 @@ import { useSwipeable } from "react-swipeable";
 import {
   actionForceRefreshAchievement,
   actionForceRefreshProfile,
+  actionPinAchievement,
 } from "../../store/actions/steam.actions";
 import axios from "axios";
 import moment from "moment";
@@ -34,6 +36,7 @@ export default function MobileAchievementDisplayPSUI({
   game,
   achievement,
   setLeftSidebarOpen,
+  achievementLongPressed,
 }) {
   const {
     image,
@@ -50,6 +53,7 @@ export default function MobileAchievementDisplayPSUI({
   const dispatch = useDispatch();
 
   const [marking, setMarking] = useState(false);
+  const [longPress, setLongPress] = useState(false);
 
   const completeAchievement = (shouldCompleteOrNot) => {
     setMarking(true);
@@ -71,8 +75,14 @@ export default function MobileAchievementDisplayPSUI({
       });
   };
 
+  const whenUserLongPress = useLongPress(() => {
+    if (!achieved) {
+      dispatch(actionPinAchievement(game, id));
+    }
+  });
+
   return (
-    <MainContainer>
+    <MainContainer {...whenUserLongPress()}>
       <InnerContainer>
         <IconContainer>
           {achieved && (
