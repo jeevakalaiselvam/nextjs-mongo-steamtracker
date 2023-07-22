@@ -159,20 +159,9 @@ export default function Games() {
               <GamesHeader>Games Played</GamesHeader>
               <GamesList>
                 {gamesListToShow?.length &&
-                  gamesListToShow
-                    .filter((game) => {
-                      if (
-                        (game?.platform == gamesFilter || gamesFilter == ALL) &&
-                        (showHiddenGames ? true : true)
-                      ) {
-                        return true;
-                      }
-                    })
-                    .map((game) => {
-                      return (
-                        <MobileGameDisplayPSUI game={game} key={game._id} />
-                      );
-                    })}
+                  gamesListToShow.map((game) => {
+                    return <MobileGameDisplayPSUI game={game} key={game._id} />;
+                  })}
               </GamesList>
             </Content>
           </GamesContainer>

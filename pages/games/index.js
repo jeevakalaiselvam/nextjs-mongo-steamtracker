@@ -92,11 +92,10 @@ export default function GamesPage() {
         !unCompletedNames?.includes(game?.name)
     );
 
-  let gamesListToShow = [
-    latestPlayedGame,
-    ...notCompleted,
-    ...gamesSortedByName,
-  ];
+  let gamesListToShow = [];
+  if (latestPlayedGame) {
+    gamesListToShow = [latestPlayedGame, ...notCompleted, ...gamesSortedByName];
+  }
 
   return (
     <Container image={HEADER_IMAGE(themeId ?? "130130")}>
@@ -120,22 +119,14 @@ export default function GamesPage() {
           )}
           <GamesList>
             {createNewGameModal && <CreateNewGame />}
+            {console.log("JEEVA - ALL GAMES", { gamesListToShow })}
             {!gamesLoading &&
-              games.length != 0 &&
-              gamesListToShow
-                .filter((game) => {
-                  if (
-                    (game?.platform == gamesFilter || gamesFilter == ALL) &&
-                    (showHiddenGames ? true : !game.hidden)
-                  ) {
-                    return true;
-                  }
-                })
-                .map((game, index) => {
-                  return (
-                    <GameDisplayPSUI game={game} key={game._id} id={game._id} />
-                  );
-                })}
+              gamesListToShow.length != 0 &&
+              gamesListToShow.map((game, index) => {
+                return (
+                  <GameDisplayPSUI game={game} key={game._id} id={game._id} />
+                );
+              })}
           </GamesList>
         </MainContainer>
       </Overlay>
