@@ -186,7 +186,7 @@ export default function Game() {
       }
     });
     setGames(updatedGames);
-  }, [forceRefreshProfile, games, game]);
+  }, [forceRefreshProfile]);
 
   const dispatch = useDispatch();
 

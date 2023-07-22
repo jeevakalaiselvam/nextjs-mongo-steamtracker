@@ -54,7 +54,7 @@ export default function PSUIHeader({ games }) {
           ></Image>
           <Name>
             <Handle>Level {currentLevel}</Handle>
-            <Sub></Sub>
+            <Sub>{toNext} %</Sub>
           </Name>
         </ProfileImage>
       </Profile>
@@ -125,8 +125,10 @@ const Sub = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  transform: translateX(-5px);
+  margin-left: 0.25rem;
+  opacity: 0.5;
   font-weight: 100;
+  font-size: 1.2rem;
   justify-content: flex-start;
 `;
 
