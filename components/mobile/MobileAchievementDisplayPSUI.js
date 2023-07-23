@@ -234,7 +234,7 @@ const Content = styled.div`
 
 const Title = styled.div`
   display: flex;
-  font-weight: 100;
+  font-weight: 500;
   font-size: 1.5rem;
   align-items: center;
   opacity: 0.7;
@@ -243,7 +243,7 @@ const Title = styled.div`
 
 const Desc = styled.div`
   display: flex;
-  font-weight: 100;
+  font-weight: 400;
   opacity: 0.7;
   font-size: 1.25rem;
   align-items: center;

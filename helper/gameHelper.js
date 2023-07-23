@@ -343,6 +343,50 @@ export const getXPForTrophyType = (type) => {
   }
 };
 
+export const calculateLevelForGameSingle = (game) => {
+  let currentLevel = 0,
+    xpToNext = 0,
+    xpToNextPercentageComplete = 0,
+    totalTrophies = 0,
+    totalPlatinum = 0,
+    totalBronze = 0,
+    totalSilver = 0,
+    totalGold = 0;
+  let totalXP = 0;
+
+  if (game?.achievements) {
+    game?.achievements?.forEach((achievement) => {
+      if (!achievement.achieved) {
+        totalXP += getXPForTrophyType(achievement?.type ?? COPPER);
+        totalTrophies++;
+        if (achievement?.type == PLATINUM) {
+          totalPlatinum++;
+        }
+        if (achievement?.type == GOLD) {
+          totalGold++;
+        }
+        if (achievement?.type == SILVER) {
+          totalSilver++;
+        }
+        if (achievement?.type == BRONZE) {
+          totalBronze++;
+        }
+      }
+    });
+  }
+  return {
+    currentLevel,
+    xpToNext,
+    xpToNextPercentageComplete,
+    totalXP,
+    totalTrophies,
+    totalPlatinum,
+    totalBronze,
+    totalSilver,
+    totalGold,
+  };
+};
+
 export const calculateLevelForGame = (games) => {
   let currentLevel = 0,
     xpToNext = 0,

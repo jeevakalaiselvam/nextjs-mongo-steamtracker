@@ -38,6 +38,7 @@ import {
 import CirclePercentage from "../../../../components/atoms/CirclePercentage";
 import GameCompleteOverview from "../../../../components/atoms/GameCompleteOverview";
 import PSUIHeader from "../../../../components/atoms/PSUIHeader";
+import PSUIHeaderForGame from "../../../../components/atoms/PSUIHeaderForGame";
 
 const Container = styled.div`
   display: flex;
@@ -286,7 +287,7 @@ export default function Game() {
         {!loading && (
           <GamesContainer>
             <Header>
-              <PSUIHeader games={games} />
+              <PSUIHeaderForGame game={game} games={games} />
             </Header>
             <Content>
               <GameOverview>

@@ -14,6 +14,7 @@ import {
 import { useRouter } from "next/router";
 import {
   calculateLevelForGame,
+  calculateLevelForGameSingle,
   calculateLevelFromXP,
 } from "../../helper/gameHelper";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,18 +28,14 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-export default function PSUIHeader({ games }) {
+export default function PSUIHeaderForGame({ game, games }) {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const {
-    totalXP,
-    totalTrophies,
-    totalPlatinum,
-    totalBronze,
-    totalSilver,
-    totalGold,
-  } = calculateLevelForGame(games);
+  const { totalPlatinum, totalBronze, totalSilver, totalGold } =
+    calculateLevelForGameSingle(game);
+
+  const { totalXP } = calculateLevelForGame(games);
 
   const { currentLevel, toNext, xpForNext } = calculateLevelFromXP(totalXP);
 
@@ -128,9 +125,9 @@ const Handle = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  font-size: 1.5rem;
   font-weight: 400;
   opacity: 1;
+  font-size: 1.5rem;
   justify-content: flex-start;
 `;
 
@@ -141,7 +138,7 @@ const Sub = styled.div`
   margin-left: 0.25rem;
   opacity: 0.5;
   font-weight: 400;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   justify-content: flex-start;
 `;
 
