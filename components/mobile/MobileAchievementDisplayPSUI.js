@@ -215,7 +215,7 @@ const Icon = styled.div`
   display: flex;
   min-width: 50px;
   min-height: 50px;
-  border-radius: 8px;
+  border-radius: 4px;
   align-items: center;
   justify-content: center;
   background: ${(props) => `url(${props.src})`};

@@ -9,6 +9,7 @@ import {
   FORCE_REFRESH_PROFILE,
   GAMES_FILTER,
   KEEP_ADDING_ACHIEVEMENT,
+  LEVEL_CHANGE,
   PIN_ACHIEVEMENTS,
   SHOW_ACHIEVEMENT_DELETE_SELECTION,
   SHOW_CREATE_BULK_ACHIEVEMENTS,
@@ -17,6 +18,13 @@ import {
   SHOW_CREATE_NEW_GAME,
   SHOW_HIDDEN_GAMES,
 } from "../types/steam.types";
+
+export const actionLevelChange = (showModal) => {
+  return {
+    type: LEVEL_CHANGE,
+    payload: showModal,
+  };
+};
 
 export const actionForceRefreshProfile = (shouldRefresh) => {
   return {

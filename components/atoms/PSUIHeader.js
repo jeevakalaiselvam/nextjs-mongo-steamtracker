@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import {
   ICON_COG,
@@ -16,7 +16,8 @@ import {
   calculateLevelForGame,
   calculateLevelFromXP,
 } from "../../helper/gameHelper";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { actionLevelChange } from "../../store/actions/steam.actions";
 
 const Container = styled.div`
   display: flex;
@@ -28,6 +29,7 @@ const Container = styled.div`
 
 export default function PSUIHeader({ games }) {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const {
     totalXP,
@@ -39,6 +41,15 @@ export default function PSUIHeader({ games }) {
   } = calculateLevelForGame(games);
 
   const { currentLevel, toNext, xpForNext } = calculateLevelFromXP(totalXP);
+
+  useEffect(() => {
+    if (window) {
+      let oldLevel = localStorage.getItem("CURRENT_LEVEL") ?? "0";
+      if (currentLevel > oldLevel) {
+        dispatch(actionLevelChange(true));
+      }
+    }
+  }, [currentLevel]);
 
   return (
     <Container

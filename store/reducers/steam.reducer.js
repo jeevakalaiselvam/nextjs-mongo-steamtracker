@@ -9,6 +9,7 @@ import {
   FORCE_REFRESH_PROFILE,
   GAMES_FILTER,
   KEEP_ADDING_ACHIEVEMENT,
+  LEVEL_CHANGE,
   PIN_ACHIEVEMENTS,
   SHOW_ACHIEVEMENT_DELETE_SELECTION,
   SHOW_CREATE_BULK_ACHIEVEMENTS,
@@ -26,6 +27,7 @@ const INITIAL_STATE = {
     createNewBulkAchievementModal: false,
     deleteAchievementSelection: false,
     keepAddingAchievements: false,
+    showLevelUpModal: false,
   },
   settings: {
     forceRefreshGames: false,
@@ -45,6 +47,14 @@ const reducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case LEVEL_CHANGE:
+      return {
+        ...state,
+        toggle: {
+          ...state.toggle,
+          showLevelUpModal: payload,
+        },
+      };
     case PIN_ACHIEVEMENTS:
       return {
         ...state,

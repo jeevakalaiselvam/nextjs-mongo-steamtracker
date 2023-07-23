@@ -5,6 +5,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import { BACKGROUND_IMAGE, HEADER_IMAGE } from "../../../../helper/urlHelper";
 import {
+  calculateLevelForGame,
+  calculateLevelFromXP,
   findRarestAchievementForGame,
   getAllStatsForGame,
   getTrophyCount,
@@ -17,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   actionAchievementSearch,
   actionForceRefreshAchievement,
+  actionLevelChange,
 } from "../../../../store/actions/steam.actions";
 import SearchInput from "../../../../components/atoms/SearchInput";
 import Button from "../../../../components/atoms/Button";
@@ -168,6 +171,7 @@ export default function Game() {
     pinnedAchievements,
   } = settings;
   const { toggle } = steam;
+  const { showLevelUpModal } = toggle;
 
   useEffect(() => {
     if (games?.length == 0) {
@@ -223,18 +227,40 @@ export default function Game() {
     (ach) => !pinnedAchievementIds?.includes(ach?.id)
   );
 
+  const {
+    totalXP,
+    totalTrophies,
+    totalPlatinum,
+    totalBronze,
+    totalSilver,
+    totalGold,
+  } = calculateLevelForGame(games);
+
+  const { currentLevel, toNext, xpForNext } = calculateLevelFromXP(totalXP);
+
   const [showLongPressOptions, setShowLongPresOptions] = useState(false);
   const achievementLongPressed = (game, id) => {
     pinOrUnpinAchievement(game, id);
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (window) {
+        localStorage.setItem("CURRENT_LEVEL", currentLevel);
+      }
+      dispatch(actionLevelChange(false));
+    }, 3000);
+  }, [showLevelUpModal, currentLevel]);
+
   return (
     <Container image={HEADER_IMAGE(themeId ?? "130130")}>
       <Overlay>
-        {showLongPressOptions && (
-          <LongPressOptions>
-            <OptionItem>Pin Achievement</OptionItem>
-          </LongPressOptions>
+        {showLevelUpModal && (
+          <LevelUpModal>
+            <LevelCircle>
+              <CirclePercentage percentage={currentLevel} />
+            </LevelCircle>
+          </LevelUpModal>
         )}
         {loading && <LoadingContainer>{getLoader()}</LoadingContainer>}
         {!loading && (
@@ -335,7 +361,7 @@ const OptionItem = styled.div`
   justify-content: center;
 `;
 
-const LongPressOptions = styled.div`
+const LevelUpModal = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -350,6 +376,12 @@ const LongPressOptions = styled.div`
   z-index: 9099999999;
   background-color: #010101;
   transform: translate(-50%, -50%);
+`;
+
+const LevelCircle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const SectionHeader = styled.div`
