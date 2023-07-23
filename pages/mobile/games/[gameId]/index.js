@@ -252,6 +252,7 @@ export default function Game() {
     setTimeout(() => {
       if (window) {
         localStorage.setItem("CURRENT_LEVEL", currentLevel);
+        dispatch(actionLevelChange(false));
       }
     }, 3000);
   }, [showLevelUpModal, currentLevel]);
