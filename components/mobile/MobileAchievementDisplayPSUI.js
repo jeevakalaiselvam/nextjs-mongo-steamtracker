@@ -80,7 +80,7 @@ export default function MobileAchievementDisplayPSUI({
   });
 
   return (
-    <MainContainer {...whenUserLongPress()}>
+    <MainContainer {...whenUserLongPress()} achieved={achieved}>
       <InnerContainer>
         <IconContainer>
           {achieved && (

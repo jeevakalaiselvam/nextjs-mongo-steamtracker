@@ -243,22 +243,41 @@ export default function Game() {
     pinOrUnpinAchievement(game, id);
   };
 
+  const [showLevelPercentage, setShowLevelPercentage] = useState(0);
+  const [showLevel, setShowLevel] = useState("");
+
   useEffect(() => {
+    setShowLevelPercentage(0);
+    setShowLevel(currentLevel - 1);
     setTimeout(() => {
       if (window) {
         localStorage.setItem("CURRENT_LEVEL", currentLevel);
       }
-      dispatch(actionLevelChange(false));
     }, 3000);
   }, [showLevelUpModal, currentLevel]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowLevelPercentage(100);
+      setShowLevel(currentLevel);
+    }, 500);
+  }, [currentLevel]);
 
   return (
     <Container image={HEADER_IMAGE(themeId ?? "130130")}>
       <Overlay>
         {showLevelUpModal && (
-          <LevelUpModal>
+          <LevelUpModal
+            onClick={() => {
+              dispatch(actionLevelChange(false));
+            }}
+          >
+            <LevelUpText>LEVEL UP</LevelUpText>
             <LevelCircle>
-              <CirclePercentage percentage={currentLevel} />
+              <CirclePercentage
+                percentage={showLevelPercentage}
+                textCustom={`${showLevel}`}
+              />
             </LevelCircle>
           </LevelUpModal>
         )}
@@ -366,6 +385,7 @@ const LevelUpModal = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
+  flex-direction: column;
   top: 0;
   left: 0;
   color: #fefefe;
@@ -374,12 +394,21 @@ const LevelUpModal = styled.div`
   left: 50%;
   padding: 1rem;
   z-index: 9099999999;
-  background-color: #010101;
+  background-color: #1e1e1f;
   transform: translate(-50%, -50%);
+`;
+
+const LevelUpText = styled.div`
+  display: flex;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+  justify-content: center;
 `;
 
 const LevelCircle = styled.div`
   display: flex;
+  margin-bottom: 1rem;
   align-items: center;
   justify-content: center;
 `;

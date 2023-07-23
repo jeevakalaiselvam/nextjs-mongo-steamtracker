@@ -25,6 +25,7 @@ export default function CirclePercentage({
   textSize,
   trailColor,
   pathColor,
+  textCustom,
 }) {
   return (
     <Container>
@@ -32,7 +33,7 @@ export default function CirclePercentage({
         <CircularProgressbar
           strokeWidth={3}
           value={percentage}
-          text={`${percentage}%`}
+          text={`${textCustom ? textCustom : percentage + "%"}`}
           styles={buildStyles({
             textColor: "#FEFEFE",
             trailColor: trailColor ?? "#454545",
