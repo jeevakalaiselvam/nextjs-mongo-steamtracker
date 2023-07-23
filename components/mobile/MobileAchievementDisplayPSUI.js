@@ -74,7 +74,7 @@ export default function MobileAchievementDisplayPSUI({
   };
 
   const whenUserLongPress = useLongPress(() => {
-    if (!achieved) {
+    if (true) {
       dispatch(actionPinAchievement(game, id));
     }
   });
