@@ -138,7 +138,7 @@ const Sub = styled.div`
   margin-left: 0.25rem;
   opacity: 0.5;
   font-weight: 400;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   justify-content: flex-start;
 `;
 

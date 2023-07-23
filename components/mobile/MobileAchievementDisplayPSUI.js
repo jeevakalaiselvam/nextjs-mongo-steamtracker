@@ -173,7 +173,7 @@ const CompletedTime = styled.div`
   font-size: 1.1rem;
   justify-content: flex-end;
   margin-right: 1rem;
-  opacity: 0.5;
+  opacity: 0.2;
 `;
 
 const IconContainer = styled.div`
@@ -244,7 +244,7 @@ const Title = styled.div`
 const Desc = styled.div`
   display: flex;
   font-weight: 400;
-  opacity: 0.7;
+  opacity: 0.4;
   font-size: 1.25rem;
   align-items: center;
   justify-content: center;
