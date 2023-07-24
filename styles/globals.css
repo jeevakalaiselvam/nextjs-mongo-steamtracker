@@ -27,7 +27,7 @@ select,
 options {
   padding: 0;
   margin: 0;
-  font-family: "Prox", sans-serif;
+  font-family: "Grotesk", sans-serif;
   font-weight: 700;
   background-color: #000;
   -webkit-user-select: none; /* Safari */
