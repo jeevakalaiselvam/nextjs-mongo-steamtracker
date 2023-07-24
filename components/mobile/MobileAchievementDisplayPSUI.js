@@ -170,7 +170,7 @@ const CompletedTime = styled.div`
   display: flex;
   align-items: center;
   margin-top: 1rem;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   justify-content: flex-end;
   margin-right: 1rem;
   opacity: 0.2;
@@ -235,7 +235,7 @@ const Content = styled.div`
 const Title = styled.div`
   display: flex;
   font-weight: 500;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   align-items: center;
   opacity: 0.7;
   justify-content: center;
@@ -245,7 +245,7 @@ const Desc = styled.div`
   display: flex;
   font-weight: 400;
   opacity: 0.4;
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   align-items: center;
   justify-content: center;
 `;
