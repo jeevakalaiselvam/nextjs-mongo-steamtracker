@@ -395,8 +395,9 @@ const LevelUpModal = styled.div`
   width: 80%;
   left: 50%;
   padding: 1rem;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
   z-index: 9099999999;
-  background-color: #1e1e1f;
+  background-color: #121213;
   transform: translate(-50%, -50%);
 `;
 
