@@ -322,7 +322,7 @@ export const findRarestAchievementForGame = (achievements) => {
   rarestAchievement = achievements
     ?.filter((achievement) => achievement.achieved)
     ?.sort((ach1, ach2) => {
-      return ach2?.percentage - ach1?.percentage;
+      return +ach2?.percentage - +ach1?.percentage;
     })?.[0];
 
   return rarestAchievement;
@@ -434,6 +434,23 @@ export const calculateLevelForGame = (games) => {
     totalSilver,
     totalGold,
   };
+};
+
+export const getPointsForTrophy = (type) => {
+  switch (type) {
+    case PLATINUM:
+      return 100;
+    case GOLD:
+      return 75;
+    case SILVER:
+      return 30;
+    case COPPER:
+      return 10;
+    case BRONZE:
+      return 10;
+    default:
+      return 10;
+  }
 };
 
 // Levels 1-99: 60 points (4 bronzes) per level-up

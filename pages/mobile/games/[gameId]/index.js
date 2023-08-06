@@ -298,6 +298,7 @@ export default function Game() {
                   <SectionHeader>Pinned Trophies</SectionHeader>
                   <SectionContent>
                     {(pinnedAchievementsForGame ?? [])
+                      ?.filter((ach) => !ach.achieved)
                       ?.sort(
                         (ach1, ach2) =>
                           Number(ach2.percentage?.replace("%", "")) -

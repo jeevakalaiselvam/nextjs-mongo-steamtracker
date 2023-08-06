@@ -33,6 +33,7 @@ import Draggable, { DraggableCore } from "react-draggable";
 import { BeatLoader, MoonLoader, PulseLoader } from "react-spinners";
 import { getLoader } from "../../helper/constantHelper";
 import Button from "./Button";
+import { getPointsForTrophy } from "../../helper/gameHelper";
 
 export default function AchievementDisplayPSUI({
   achievement,
@@ -177,7 +178,7 @@ export default function AchievementDisplayPSUI({
           </Desc>
           <Others>
             <TrophyType onClick={() => setMouseEnter(!mouseEnter)}>
-              {getTrophyImage(type, "25px")}
+              <TrophyInner>{getPointsForTrophy(type)} XP</TrophyInner>
             </TrophyType>
             {achieved && (
               <CompletedTime>
@@ -296,6 +297,15 @@ const TrophyType = styled.div`
   margin-top: 1rem;
 `;
 
+const TrophyInner = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  font-size: 1rem;
+`;
+
 const UnlockIcon = styled.div`
   display: flex;
   align-items: center;
@@ -359,6 +369,7 @@ const Icon = styled.div`
   background-size: cover;
   margin-right: 1rem;
   background-repeat: no-repeat;
+  background-position: center center;
 `;
 
 const Content = styled.div`

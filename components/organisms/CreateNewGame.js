@@ -36,10 +36,14 @@ import {
 } from "../../helper/iconHelper";
 import {
   BLIZZARD,
+  BRONZE,
   EPIC,
   GOG,
+  GOLD,
   ORIGIN,
+  PLATINUM,
   PLAYSTATION,
+  SILVER,
   STEAM,
   UPLAY,
   XBOX,
@@ -54,11 +58,33 @@ export default function CreateNewGame() {
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const getTypeFromPoints = (points) => {
+    if (points >= 0 && points <= 10) {
+      return BRONZE;
+    }
+    if (points > 10 && points <= 30) {
+      return SILVER;
+    }
+    if (points > 30 && points <= 80) {
+      return GOLD;
+    }
+    if (points > 80 && points <= 100) {
+      return PLATINUM;
+    }
+  };
+
   const saveGame = () => {
     setLoading(true);
+    let jsonToUpload = JSON.parse(uploadJSON);
+    if (jsonToUpload?.[0]?.points) {
+      jsonToUpload = jsonToUpload.map((ach) => ({
+        ...ach,
+        type: getTypeFromPoints(ach?.points ?? 0),
+      }));
+    }
     axios
       .post("/api/createGame", {
-        game: { name, image, achievements: JSON.parse(uploadJSON) },
+        game: { name, image, achievements: jsonToUpload },
       })
       .then((response) => {
         setLoading(false);
