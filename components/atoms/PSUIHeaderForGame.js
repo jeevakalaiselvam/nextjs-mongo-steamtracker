@@ -19,6 +19,7 @@ import {
 } from "../../helper/gameHelper";
 import { useDispatch, useSelector } from "react-redux";
 import { actionLevelChange } from "../../store/actions/steam.actions";
+import CirclePercentage from "./CirclePercentage";
 
 const Container = styled.div`
   display: flex;
@@ -28,7 +29,13 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-export default function PSUIHeaderForGame({ game, games }) {
+export default function PSUIHeaderForGame({
+  game,
+  games,
+  showLevelUpModal,
+  percentage,
+  textCustom,
+}) {
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -60,33 +67,67 @@ export default function PSUIHeaderForGame({ game, games }) {
             alt=""
             src="https://i.pinimg.com/736x/1b/4f/be/1b4fbe252793720e0c88cc2b65bcb8c1.jpg"
           ></Image>
-          <Name>
-            <Handle>Level {currentLevel}</Handle>
-            <Sub>{toNext} %</Sub>
-          </Name>
+          {!showLevelUpModal && (
+            <Name>
+              <Handle>Level {currentLevel}</Handle>
+              <Sub>{toNext} %</Sub>
+            </Name>
+          )}
+          {showLevelUpModal && (
+            <NameLevelUp>
+              <Handle>Level {currentLevel}</Handle>
+              <Sub>{toNext} %</Sub>
+            </NameLevelUp>
+          )}
         </ProfileImage>
       </Profile>
-      <Buttons>
-        <Trophy>
-          <IconTrophy>{getImage(IMAGE_PLATINUM, "20px")}</IconTrophy>
-          <CountTrophy>{totalPlatinum}</CountTrophy>
-        </Trophy>
-        <Trophy>
-          <IconTrophy>{getImage(IMAGE_GOLD, "20px")}</IconTrophy>
-          <CountTrophy>{totalGold}</CountTrophy>
-        </Trophy>
-        <Trophy>
-          <IconTrophy>{getImage(IMAGE_SILVER, "20px")}</IconTrophy>
-          <CountTrophy>{totalSilver}</CountTrophy>
-        </Trophy>
-        <Trophy>
-          <IconTrophy>{getImage(IMAGE_BRONZE, "20px")}</IconTrophy>
-          <CountTrophy>{totalBronze}</CountTrophy>
-        </Trophy>
-      </Buttons>
+      {true && (
+        <Buttons>
+          <Trophy>
+            <IconTrophy>{getImage(IMAGE_PLATINUM, "20px")}</IconTrophy>
+            <CountTrophy>{totalPlatinum}</CountTrophy>
+          </Trophy>
+          <Trophy>
+            <IconTrophy>{getImage(IMAGE_GOLD, "20px")}</IconTrophy>
+            <CountTrophy>{totalGold}</CountTrophy>
+          </Trophy>
+          <Trophy>
+            <IconTrophy>{getImage(IMAGE_SILVER, "20px")}</IconTrophy>
+            <CountTrophy>{totalSilver}</CountTrophy>
+          </Trophy>
+          <Trophy>
+            <IconTrophy>{getImage(IMAGE_BRONZE, "20px")}</IconTrophy>
+            <CountTrophy>{totalBronze}</CountTrophy>
+          </Trophy>
+        </Buttons>
+      )}
     </Container>
   );
 }
+
+const LevelUpModal = styled.div`
+  display: flex;
+  flex: 2;
+  padding-right: 1rem;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: red;
+`;
+
+const LevelUpText = styled.div`
+  display: flex;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+  justify-content: center;
+`;
+
+const LevelCircle = styled.div`
+  display: flex;
+  margin-bottom: 1rem;
+  align-items: center;
+  justify-content: center;
+`;
 
 const Trophy = styled.div`
   display: flex;
@@ -147,6 +188,33 @@ const Name = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
+`;
+
+const NameLevelUp = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  animation-name: moveUp;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: 1;
+  animation-direction: alternate;
+
+  @keyframes moveUp {
+    from {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+    50% {
+      transform: translateY(-100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+  }
 `;
 
 const ProfileImage = styled.div`

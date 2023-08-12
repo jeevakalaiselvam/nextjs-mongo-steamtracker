@@ -255,7 +255,7 @@ export default function Game() {
         localStorage.setItem("CURRENT_LEVEL", currentLevel);
         dispatch(actionLevelChange(false));
       }
-    }, 3000);
+    }, 2000);
   }, [showLevelUpModal, currentLevel]);
 
   useEffect(() => {
@@ -287,7 +287,13 @@ export default function Game() {
         {!loading && (
           <GamesContainer>
             <Header>
-              <PSUIHeaderForGame game={game} games={games} />
+              <PSUIHeaderForGame
+                game={game}
+                games={games}
+                showLevelUpModal={showLevelUpModal}
+                percentage={showLevelPercentage}
+                textCustom={`${showLevel}`}
+              />
             </Header>
             <Content>
               <GameOverview>
