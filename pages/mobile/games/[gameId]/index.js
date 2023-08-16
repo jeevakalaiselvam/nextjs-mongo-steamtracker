@@ -398,7 +398,7 @@ const LevelUpModal = styled.div`
   top: 0;
   left: 0;
   color: #fefefe;
-  top: 10%;
+  top: 20%;
   width: 80%;
   left: 50%;
   padding: 1rem;
